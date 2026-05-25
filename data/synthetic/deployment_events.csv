@@ -1,0 +1,5 @@
+timestamp,service,version,environment,status,change_type,incident_flag,incident_type
+2025-02-06 10:00:00,catalog-api,2025.02.06.1,production,success,feature_release,False,normal
+2025-03-18 09:00:00,checkout-api,2025.03.18.1,production,failed,dependency_upgrade,True,failed_deployment
+2025-03-20 23:30:00,checkout-api,2025.03.20.2,production,rollback_success,rollback,True,failed_deployment
+2025-04-29 11:00:00,recommendations-api,2025.04.29.1,production,success,model_refresh,False,normal
