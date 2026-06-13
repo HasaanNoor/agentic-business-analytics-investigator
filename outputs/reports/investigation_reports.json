@@ -1,0 +1,1737 @@
+{
+  "method": "Deterministic anomaly grouping and root-cause rules",
+  "incident_window_days": 3,
+  "incident_count": 22,
+  "incidents": [
+    {
+      "incident_id": "INC-001",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-01-11",
+      "incident_end_date": "2025-01-13",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [
+        "support_ticket_spike"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "support_ticket_count",
+          "anomaly_types": [
+            "support_ticket_spike"
+          ],
+          "event_count": 1,
+          "minimum": 207.0,
+          "maximum": 245.0,
+          "average": 226.3333,
+          "largest_absolute_percent_change": 0.1249
+        },
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 29037.88,
+          "maximum": 44616.21,
+          "average": 37991.8067,
+          "largest_absolute_percent_change": 0.308
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop",
+        "support_ticket_spike"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-01-11 to 2025-01-13."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-01-11",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 245.0,
+          "severity": "low",
+          "reason": "support_ticket_count value 245.0000 is above its rolling baseline (z=2.09, pct_change=12.49%)."
+        },
+        {
+          "date": "2025-01-13",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 29037.88,
+          "severity": "low",
+          "reason": "net_revenue value 29037.8800 is below its rolling baseline (z=-2.04, pct_change=-30.80%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-002",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-01-18",
+      "incident_end_date": "2025-01-18",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0625,
+          "maximum": 0.0625,
+          "average": 0.0625,
+          "largest_absolute_percent_change": 0.1424
+        }
+      ],
+      "possible_contributing_factors": [
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-01-18 to 2025-01-18."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-01-18",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0625,
+          "severity": "low",
+          "reason": "shipping_delay_rate value 0.0625 is above its rolling baseline (z=2.02, pct_change=14.24%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-003",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-01-28",
+      "incident_end_date": "2025-01-29",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [
+        "latency_spike",
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 30984.02,
+          "maximum": 39783.46,
+          "average": 35383.74,
+          "largest_absolute_percent_change": 0.2685
+        },
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0586,
+          "maximum": 0.0668,
+          "average": 0.0627,
+          "largest_absolute_percent_change": 0.2236
+        },
+        {
+          "metric": "avg_api_latency_ms",
+          "anomaly_types": [
+            "latency_spike"
+          ],
+          "event_count": 1,
+          "minimum": 203.34,
+          "maximum": 217.04,
+          "average": 210.19,
+          "largest_absolute_percent_change": 0.0561
+        }
+      ],
+      "possible_contributing_factors": [
+        "latency_spike",
+        "revenue_drop",
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "3 anomaly event(s) across 3 anomaly type(s) were grouped within 2025-01-28 to 2025-01-29."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-01-28",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 30984.02,
+          "severity": "low",
+          "reason": "net_revenue value 30984.0200 is below its rolling baseline (z=-1.74, pct_change=-26.85%)."
+        },
+        {
+          "date": "2025-01-28",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0668,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.0668 is above its rolling baseline (z=2.67, pct_change=22.36%)."
+        },
+        {
+          "date": "2025-01-29",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 217.04,
+          "severity": "medium",
+          "reason": "avg_api_latency_ms value 217.0400 is above its rolling baseline (z=3.31, pct_change=5.61%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-004",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-02-03",
+      "incident_end_date": "2025-02-06",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 3,
+          "minimum": 36129.82,
+          "maximum": 41125.49,
+          "average": 37628.2775,
+          "largest_absolute_percent_change": 0.1713
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "3 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-02-03 to 2025-02-06."
+      ],
+      "deployment_events": [
+        {
+          "timestamp": "2025-02-06 10:00:00",
+          "service": "catalog-api",
+          "version": "2025.02.06.1",
+          "status": "success",
+          "change_type": "feature_release",
+          "incident_type": "normal"
+        }
+      ],
+      "anomaly_events": [
+        {
+          "date": "2025-02-03",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 36129.82,
+          "severity": "low",
+          "reason": "net_revenue value 36129.8200 is below its rolling baseline (z=-1.06, pct_change=-17.13%)."
+        },
+        {
+          "date": "2025-02-04",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 36766.98,
+          "severity": "low",
+          "reason": "net_revenue value 36766.9800 is below its rolling baseline (z=-0.99, pct_change=-15.78%)."
+        },
+        {
+          "date": "2025-02-06",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 36490.82,
+          "severity": "low",
+          "reason": "net_revenue value 36490.8200 is below its rolling baseline (z=-1.05, pct_change=-16.51%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-005",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-02-10",
+      "incident_end_date": "2025-02-10",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34349.44,
+          "maximum": 34349.44,
+          "average": 34349.44,
+          "largest_absolute_percent_change": 0.1552
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-02-10 to 2025-02-10."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-02-10",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34349.44,
+          "severity": "low",
+          "reason": "net_revenue value 34349.4400 is below its rolling baseline (z=-1.28, pct_change=-15.52%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-006",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-02-16",
+      "incident_end_date": "2025-02-16",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0665,
+          "maximum": 0.0665,
+          "average": 0.0665,
+          "largest_absolute_percent_change": 0.252
+        }
+      ],
+      "possible_contributing_factors": [
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-02-16 to 2025-02-16."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-02-16",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0665,
+          "severity": "high",
+          "reason": "shipping_delay_rate value 0.0665 is above its rolling baseline (z=4.77, pct_change=25.20%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-007",
+      "title": "Latency Spike",
+      "incident_start_date": "2025-02-26",
+      "incident_end_date": "2025-02-27",
+      "main_anomaly_type": "latency_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34952.84,
+          "maximum": 40115.58,
+          "average": 37534.21,
+          "largest_absolute_percent_change": 0.1598
+        },
+        {
+          "metric": "avg_api_latency_ms",
+          "anomaly_types": [
+            "latency_spike"
+          ],
+          "event_count": 1,
+          "minimum": 207.7,
+          "maximum": 215.53,
+          "average": 211.615,
+          "largest_absolute_percent_change": 0.0376
+        }
+      ],
+      "possible_contributing_factors": [
+        "latency_spike",
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-02-26 to 2025-02-27."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-02-26",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34952.84,
+          "severity": "low",
+          "reason": "net_revenue value 34952.8400 is below its rolling baseline (z=-1.71, pct_change=-15.98%)."
+        },
+        {
+          "date": "2025-02-27",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 215.53,
+          "severity": "medium",
+          "reason": "avg_api_latency_ms value 215.5300 is above its rolling baseline (z=3.25, pct_change=3.76%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Inspect service latency by endpoint and dependency.",
+        "Confirm latency has returned to its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-008",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-03-03",
+      "incident_end_date": "2025-03-03",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 31591.65,
+          "maximum": 31591.65,
+          "average": 31591.65,
+          "largest_absolute_percent_change": 0.2442
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-03-03 to 2025-03-03."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-03-03",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 31591.65,
+          "severity": "low",
+          "reason": "net_revenue value 31591.6500 is below its rolling baseline (z=-2.01, pct_change=-24.42%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-009",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-03-10",
+      "incident_end_date": "2025-03-10",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34297.12,
+          "maximum": 34297.12,
+          "average": 34297.12,
+          "largest_absolute_percent_change": 0.1764
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-03-10 to 2025-03-10."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-03-10",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34297.12,
+          "severity": "low",
+          "reason": "net_revenue value 34297.1200 is below its rolling baseline (z=-1.30, pct_change=-17.64%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-010",
+      "title": "Deployment-related checkout incident",
+      "incident_start_date": "2025-03-17",
+      "incident_end_date": "2025-03-20",
+      "main_anomaly_type": "checkout_failure_spike",
+      "related_anomaly_types": [
+        "latency_spike",
+        "revenue_drop",
+        "support_ticket_spike"
+      ],
+      "likely_cause": "Likely deployment-related checkout incident",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 4,
+          "minimum": 24647.18,
+          "maximum": 34897.68,
+          "average": 29282.99,
+          "largest_absolute_percent_change": 0.4143
+        },
+        {
+          "metric": "checkout_failure_rate",
+          "anomaly_types": [
+            "checkout_failure_spike"
+          ],
+          "event_count": 3,
+          "minimum": 0.0183,
+          "maximum": 0.1182,
+          "average": 0.0877,
+          "largest_absolute_percent_change": 4.477
+        },
+        {
+          "metric": "avg_api_latency_ms",
+          "anomaly_types": [
+            "latency_spike"
+          ],
+          "event_count": 3,
+          "minimum": 208.4,
+          "maximum": 571.63,
+          "average": 465.1325,
+          "largest_absolute_percent_change": 1.4893
+        },
+        {
+          "metric": "support_ticket_count",
+          "anomaly_types": [
+            "support_ticket_spike"
+          ],
+          "event_count": 3,
+          "minimum": 194.0,
+          "maximum": 327.0,
+          "average": 288.25,
+          "largest_absolute_percent_change": 0.5636
+        },
+        {
+          "metric": "conversion_rate",
+          "anomaly_types": [],
+          "event_count": 0,
+          "minimum": 0.0306,
+          "maximum": 0.042,
+          "average": 0.0348,
+          "largest_absolute_percent_change": null
+        }
+      ],
+      "possible_contributing_factors": [
+        "Failed or rolled-back deployment affecting checkout-api",
+        "Elevated API latency",
+        "Elevated checkout failure rate"
+      ],
+      "supporting_evidence": [
+        "Latency and checkout failure anomalies occurred together from 2025-03-17 to 2025-03-20.",
+        "2 failed or rollback deployment event(s) occurred within the investigation window."
+      ],
+      "deployment_events": [
+        {
+          "timestamp": "2025-03-18 09:00:00",
+          "service": "checkout-api",
+          "version": "2025.03.18.1",
+          "status": "failed",
+          "change_type": "dependency_upgrade",
+          "incident_type": "failed_deployment"
+        },
+        {
+          "timestamp": "2025-03-20 23:30:00",
+          "service": "checkout-api",
+          "version": "2025.03.20.2",
+          "status": "rollback_success",
+          "change_type": "rollback",
+          "incident_type": "failed_deployment"
+        }
+      ],
+      "anomaly_events": [
+        {
+          "date": "2025-03-17",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34897.68,
+          "severity": "low",
+          "reason": "net_revenue value 34897.6800 is below its rolling baseline (z=-1.49, pct_change=-18.52%)."
+        },
+        {
+          "date": "2025-03-18",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.0971,
+          "severity": "high",
+          "reason": "checkout_failure_rate value 0.0971 is above its rolling baseline (z=75.61, pct_change=447.70%)."
+        },
+        {
+          "date": "2025-03-18",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 512.43,
+          "severity": "high",
+          "reason": "avg_api_latency_ms value 512.4300 is above its rolling baseline (z=67.25, pct_change=147.91%)."
+        },
+        {
+          "date": "2025-03-18",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 25232.12,
+          "severity": "medium",
+          "reason": "net_revenue value 25232.1200 is below its rolling baseline (z=-3.67, pct_change=-41.41%)."
+        },
+        {
+          "date": "2025-03-18",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 323.0,
+          "severity": "high",
+          "reason": "support_ticket_count value 323.0000 is above its rolling baseline (z=7.94, pct_change=56.36%)."
+        },
+        {
+          "date": "2025-03-19",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.1174,
+          "severity": "high",
+          "reason": "checkout_failure_rate value 0.1174 is above its rolling baseline (z=4.59, pct_change=402.32%)."
+        },
+        {
+          "date": "2025-03-19",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 568.07,
+          "severity": "high",
+          "reason": "avg_api_latency_ms value 568.0700 is above its rolling baseline (z=4.30, pct_change=148.93%)."
+        },
+        {
+          "date": "2025-03-19",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 24647.18,
+          "severity": "medium",
+          "reason": "net_revenue value 24647.1800 is below its rolling baseline (z=-2.62, pct_change=-41.43%)."
+        },
+        {
+          "date": "2025-03-19",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 309.0,
+          "severity": "medium",
+          "reason": "support_ticket_count value 309.0000 is above its rolling baseline (z=2.84, pct_change=43.01%)."
+        },
+        {
+          "date": "2025-03-20",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.1182,
+          "severity": "high",
+          "reason": "checkout_failure_rate value 0.1182 is above its rolling baseline (z=2.78, pct_change=286.45%)."
+        },
+        {
+          "date": "2025-03-20",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 571.63,
+          "severity": "high",
+          "reason": "avg_api_latency_ms value 571.6300 is above its rolling baseline (z=2.71, pct_change=125.08%)."
+        },
+        {
+          "date": "2025-03-20",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 32354.98,
+          "severity": "low",
+          "reason": "net_revenue value 32354.9800 is below its rolling baseline (z=-1.08, pct_change=-21.17%)."
+        },
+        {
+          "date": "2025-03-20",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 327.0,
+          "severity": "medium",
+          "reason": "support_ticket_count value 327.0000 is above its rolling baseline (z=2.63, pct_change=45.01%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review the failed checkout deployment, dependency changes, and rollback results.",
+        "Validate checkout success rate, API latency, and revenue after rollback.",
+        "Add deployment health gates for checkout latency and failure rate."
+      ]
+    },
+    {
+      "incident_id": "INC-011",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-03-24",
+      "incident_end_date": "2025-03-24",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34307.74,
+          "maximum": 34307.74,
+          "average": 34307.74,
+          "largest_absolute_percent_change": 0.176
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-03-24 to 2025-03-24."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-03-24",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34307.74,
+          "severity": "low",
+          "reason": "net_revenue value 34307.7400 is below its rolling baseline (z=-0.71, pct_change=-17.60%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-012",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-03-31",
+      "incident_end_date": "2025-04-02",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0455,
+          "maximum": 0.0637,
+          "average": 0.0531,
+          "largest_absolute_percent_change": 0.1958
+        },
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34539.62,
+          "maximum": 37954.57,
+          "average": 36803.73,
+          "largest_absolute_percent_change": 0.2078
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop",
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-03-31 to 2025-04-02."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-03-31",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0637,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.0637 is above its rolling baseline (z=2.86, pct_change=19.58%)."
+        },
+        {
+          "date": "2025-04-02",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34539.62,
+          "severity": "low",
+          "reason": "net_revenue value 34539.6200 is below its rolling baseline (z=-0.87, pct_change=-20.78%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-013",
+      "title": "Inventory shortage incident",
+      "incident_start_date": "2025-04-07",
+      "incident_end_date": "2025-04-20",
+      "main_anomaly_type": "inventory_shortage_period",
+      "related_anomaly_types": [
+        "checkout_failure_spike",
+        "revenue_drop"
+      ],
+      "likely_cause": "Likely inventory shortage incident",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 5,
+          "minimum": 33270.91,
+          "maximum": 58995.53,
+          "average": 41755.4057,
+          "largest_absolute_percent_change": 0.25
+        },
+        {
+          "metric": "stockout_units",
+          "anomaly_types": [
+            "inventory_shortage_period"
+          ],
+          "event_count": 11,
+          "minimum": 0.0,
+          "maximum": 101.0,
+          "average": 71.3571,
+          "largest_absolute_percent_change": 13.0
+        },
+        {
+          "metric": "checkout_failure_rate",
+          "anomaly_types": [
+            "checkout_failure_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0165,
+          "maximum": 0.02,
+          "average": 0.0184,
+          "largest_absolute_percent_change": 0.0972
+        },
+        {
+          "metric": "lost_sales_units",
+          "anomaly_types": [],
+          "event_count": 0,
+          "minimum": 0.0,
+          "maximum": 147.0,
+          "average": 89.8571,
+          "largest_absolute_percent_change": null
+        }
+      ],
+      "possible_contributing_factors": [
+        "Stockout units were reported",
+        "Lost sales occurred during the shortage",
+        "Net revenue dropped during the incident window"
+      ],
+      "supporting_evidence": [
+        "Inventory shortage and revenue drop anomalies overlapped from 2025-04-07 to 2025-04-20.",
+        "Lost sales units reached 147.00 during the incident."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-04-07",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 38278.6,
+          "severity": "low",
+          "reason": "net_revenue value 38278.6000 is below its rolling baseline (z=-0.90, pct_change=-16.08%)."
+        },
+        {
+          "date": "2025-04-08",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34425.44,
+          "severity": "low",
+          "reason": "net_revenue value 34425.4400 is below its rolling baseline (z=-1.47, pct_change=-25.00%)."
+        },
+        {
+          "date": "2025-04-10",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 84.0,
+          "severity": "low",
+          "reason": "stockout_units value 84.0000 is above its rolling baseline (z=0.00, pct_change=0.00%)."
+        },
+        {
+          "date": "2025-04-11",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 84.0,
+          "severity": "high",
+          "reason": "stockout_units value 84.0000 is above its rolling baseline (z=3.61, pct_change=1300.00%)."
+        },
+        {
+          "date": "2025-04-12",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 92.0,
+          "severity": "high",
+          "reason": "stockout_units value 92.0000 is above its rolling baseline (z=2.72, pct_change=666.67%)."
+        },
+        {
+          "date": "2025-04-13",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 96.0,
+          "severity": "high",
+          "reason": "stockout_units value 96.0000 is above its rolling baseline (z=2.17, pct_change=416.92%)."
+        },
+        {
+          "date": "2025-04-14",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 101.0,
+          "severity": "high",
+          "reason": "stockout_units value 101.0000 is above its rolling baseline (z=1.88, pct_change=297.19%)."
+        },
+        {
+          "date": "2025-04-14",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 33270.91,
+          "severity": "low",
+          "reason": "net_revenue value 33270.9100 is below its rolling baseline (z=-1.43, pct_change=-22.05%)."
+        },
+        {
+          "date": "2025-04-15",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 96.0,
+          "severity": "high",
+          "reason": "stockout_units value 96.0000 is above its rolling baseline (z=1.44, pct_change=194.09%)."
+        },
+        {
+          "date": "2025-04-15",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34009.61,
+          "severity": "low",
+          "reason": "net_revenue value 34009.6100 is below its rolling baseline (z=-1.21, pct_change=-19.69%)."
+        },
+        {
+          "date": "2025-04-16",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 87.0,
+          "severity": "high",
+          "reason": "stockout_units value 87.0000 is above its rolling baseline (z=1.04, pct_change=120.25%)."
+        },
+        {
+          "date": "2025-04-16",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34255.04,
+          "severity": "low",
+          "reason": "net_revenue value 34255.0400 is below its rolling baseline (z=-1.09, pct_change=-18.57%)."
+        },
+        {
+          "date": "2025-04-17",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.02,
+          "severity": "medium",
+          "reason": "checkout_failure_rate value 0.0200 is above its rolling baseline (z=2.63, pct_change=9.72%)."
+        },
+        {
+          "date": "2025-04-17",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 86.0,
+          "severity": "high",
+          "reason": "stockout_units value 86.0000 is above its rolling baseline (z=0.88, pct_change=88.12%)."
+        },
+        {
+          "date": "2025-04-18",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 100.0,
+          "severity": "high",
+          "reason": "stockout_units value 100.0000 is above its rolling baseline (z=1.07, pct_change=92.84%)."
+        },
+        {
+          "date": "2025-04-19",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 87.0,
+          "severity": "medium",
+          "reason": "stockout_units value 87.0000 is above its rolling baseline (z=0.63, pct_change=47.46%)."
+        },
+        {
+          "date": "2025-04-20",
+          "anomaly_type": "inventory_shortage_period",
+          "metric": "stockout_units",
+          "value": 86.0,
+          "severity": "low",
+          "reason": "stockout_units value 86.0000 is above its rolling baseline (z=0.50, pct_change=31.87%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Prioritize replenishment for stocked-out products.",
+        "Review demand forecasts, reorder points, and supplier lead times.",
+        "Track lost sales and net revenue until inventory availability recovers."
+      ]
+    },
+    {
+      "incident_id": "INC-014",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-04-24",
+      "incident_end_date": "2025-04-24",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0647,
+          "maximum": 0.0647,
+          "average": 0.0647,
+          "largest_absolute_percent_change": 0.1532
+        }
+      ],
+      "possible_contributing_factors": [
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-04-24 to 2025-04-24."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-04-24",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0647,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.0647 is above its rolling baseline (z=2.97, pct_change=15.32%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-015",
+      "title": "Logistics disruption incident",
+      "incident_start_date": "2025-05-05",
+      "incident_end_date": "2025-05-13",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [
+        "latency_spike",
+        "revenue_drop",
+        "support_ticket_spike"
+      ],
+      "likely_cause": "Likely logistics disruption incident",
+      "affected_kpis": [
+        {
+          "metric": "avg_api_latency_ms",
+          "anomaly_types": [
+            "latency_spike"
+          ],
+          "event_count": 1,
+          "minimum": 198.13,
+          "maximum": 215.35,
+          "average": 206.6178,
+          "largest_absolute_percent_change": 0.047
+        },
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 4,
+          "minimum": 32417.94,
+          "maximum": 62436.16,
+          "average": 44318.9144,
+          "largest_absolute_percent_change": 0.3133
+        },
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 8,
+          "minimum": 0.1104,
+          "maximum": 0.121,
+          "average": 0.1154,
+          "largest_absolute_percent_change": 1.0793
+        },
+        {
+          "metric": "support_ticket_count",
+          "anomaly_types": [
+            "support_ticket_spike"
+          ],
+          "event_count": 8,
+          "minimum": 319.0,
+          "maximum": 354.0,
+          "average": 337.5556,
+          "largest_absolute_percent_change": 0.5641
+        },
+        {
+          "metric": "delivery_complaints",
+          "anomaly_types": [],
+          "event_count": 0,
+          "minimum": 116.0,
+          "maximum": 136.0,
+          "average": 124.6667,
+          "largest_absolute_percent_change": null
+        }
+      ],
+      "possible_contributing_factors": [
+        "Shipping delay rate increased",
+        "Delivery complaints rose above the prior baseline"
+      ],
+      "supporting_evidence": [
+        "Shipping delay anomalies occurred from 2025-05-05 to 2025-05-13.",
+        "Delivery complaints reached 136.00 versus a prior average of 25.00."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-05-05",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 215.35,
+          "severity": "medium",
+          "reason": "avg_api_latency_ms value 215.3500 is above its rolling baseline (z=3.25, pct_change=4.70%)."
+        },
+        {
+          "date": "2025-05-05",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 33857.51,
+          "severity": "low",
+          "reason": "net_revenue value 33857.5100 is below its rolling baseline (z=-1.98, pct_change=-27.42%)."
+        },
+        {
+          "date": "2025-05-05",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1169,
+          "severity": "high",
+          "reason": "shipping_delay_rate value 0.1169 is above its rolling baseline (z=12.20, pct_change=107.93%)."
+        },
+        {
+          "date": "2025-05-05",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 319.0,
+          "severity": "high",
+          "reason": "support_ticket_count value 319.0000 is above its rolling baseline (z=7.25, pct_change=49.31%)."
+        },
+        {
+          "date": "2025-05-06",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 37384.49,
+          "severity": "low",
+          "reason": "net_revenue value 37384.4900 is below its rolling baseline (z=-1.19, pct_change=-18.69%)."
+        },
+        {
+          "date": "2025-05-06",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1126,
+          "severity": "high",
+          "reason": "shipping_delay_rate value 0.1126 is above its rolling baseline (z=3.18, pct_change=86.67%)."
+        },
+        {
+          "date": "2025-05-06",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 344.0,
+          "severity": "high",
+          "reason": "support_ticket_count value 344.0000 is above its rolling baseline (z=4.04, pct_change=56.41%)."
+        },
+        {
+          "date": "2025-05-07",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.121,
+          "severity": "high",
+          "reason": "shipping_delay_rate value 0.1210 is above its rolling baseline (z=2.68, pct_change=88.56%)."
+        },
+        {
+          "date": "2025-05-07",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 320.0,
+          "severity": "medium",
+          "reason": "support_ticket_count value 320.0000 is above its rolling baseline (z=2.06, pct_change=39.74%)."
+        },
+        {
+          "date": "2025-05-08",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1104,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.1104 is above its rolling baseline (z=1.63, pct_change=60.37%)."
+        },
+        {
+          "date": "2025-05-08",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 348.0,
+          "severity": "medium",
+          "reason": "support_ticket_count value 348.0000 is above its rolling baseline (z=2.26, pct_change=48.31%)."
+        },
+        {
+          "date": "2025-05-09",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1166,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.1166 is above its rolling baseline (z=1.61, pct_change=61.70%)."
+        },
+        {
+          "date": "2025-05-09",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 319.0,
+          "severity": "low",
+          "reason": "support_ticket_count value 319.0000 is above its rolling baseline (z=1.30, pct_change=30.24%)."
+        },
+        {
+          "date": "2025-05-10",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1177,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.1177 is above its rolling baseline (z=1.40, pct_change=54.74%)."
+        },
+        {
+          "date": "2025-05-10",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 354.0,
+          "severity": "medium",
+          "reason": "support_ticket_count value 354.0000 is above its rolling baseline (z=1.71, pct_change=40.32%)."
+        },
+        {
+          "date": "2025-05-11",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1172,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.1172 is above its rolling baseline (z=1.19, pct_change=45.71%)."
+        },
+        {
+          "date": "2025-05-11",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 341.0,
+          "severity": "low",
+          "reason": "support_ticket_count value 341.0000 is above its rolling baseline (z=1.23, pct_change=29.90%)."
+        },
+        {
+          "date": "2025-05-12",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 36975.02,
+          "severity": "low",
+          "reason": "net_revenue value 36975.0200 is below its rolling baseline (z=-1.24, pct_change=-21.80%)."
+        },
+        {
+          "date": "2025-05-12",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.1149,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.1149 is above its rolling baseline (z=0.96, pct_change=36.32%)."
+        },
+        {
+          "date": "2025-05-12",
+          "anomaly_type": "support_ticket_spike",
+          "metric": "support_ticket_count",
+          "value": 353.0,
+          "severity": "low",
+          "reason": "support_ticket_count value 353.0000 is above its rolling baseline (z=1.26, pct_change=29.27%)."
+        },
+        {
+          "date": "2025-05-13",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 32417.94,
+          "severity": "low",
+          "reason": "net_revenue value 32417.9400 is below its rolling baseline (z=-1.75, pct_change=-31.33%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and prioritize delayed deliveries.",
+        "Monitor shipping delay rate and delivery complaints until both return to baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-016",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-05-19",
+      "incident_end_date": "2025-05-19",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34245.79,
+          "maximum": 34245.79,
+          "average": 34245.79,
+          "largest_absolute_percent_change": 0.2633
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-05-19 to 2025-05-19."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-05-19",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34245.79,
+          "severity": "low",
+          "reason": "net_revenue value 34245.7900 is below its rolling baseline (z=-1.32, pct_change=-26.33%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-017",
+      "title": "Checkout Failure Spike",
+      "incident_start_date": "2025-05-26",
+      "incident_end_date": "2025-05-27",
+      "main_anomaly_type": "checkout_failure_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 36336.94,
+          "maximum": 42217.36,
+          "average": 39277.15,
+          "largest_absolute_percent_change": 0.222
+        },
+        {
+          "metric": "checkout_failure_rate",
+          "anomaly_types": [
+            "checkout_failure_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0184,
+          "maximum": 0.0205,
+          "average": 0.0195,
+          "largest_absolute_percent_change": 0.1137
+        }
+      ],
+      "possible_contributing_factors": [
+        "checkout_failure_spike",
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-05-26 to 2025-05-27."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-05-26",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 36336.94,
+          "severity": "low",
+          "reason": "net_revenue value 36336.9400 is below its rolling baseline (z=-1.34, pct_change=-22.20%)."
+        },
+        {
+          "date": "2025-05-27",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.0205,
+          "severity": "medium",
+          "reason": "checkout_failure_rate value 0.0205 is above its rolling baseline (z=3.63, pct_change=11.37%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Inspect checkout errors and dependency health for the incident window.",
+        "Confirm checkout failure rate and revenue have returned to baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-018",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-06-02",
+      "incident_end_date": "2025-06-03",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0591,
+          "maximum": 0.0623,
+          "average": 0.0607,
+          "largest_absolute_percent_change": 0.1478
+        },
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 37305.23,
+          "maximum": 48238.32,
+          "average": 42771.775,
+          "largest_absolute_percent_change": 0.2456
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop",
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-06-02 to 2025-06-03."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-06-02",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0623,
+          "severity": "low",
+          "reason": "shipping_delay_rate value 0.0623 is above its rolling baseline (z=2.03, pct_change=14.78%)."
+        },
+        {
+          "date": "2025-06-03",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 37305.23,
+          "severity": "low",
+          "reason": "net_revenue value 37305.2300 is below its rolling baseline (z=-1.94, pct_change=-24.56%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-019",
+      "title": "Revenue Drop",
+      "incident_start_date": "2025-06-09",
+      "incident_end_date": "2025-06-10",
+      "main_anomaly_type": "revenue_drop",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 2,
+          "minimum": 37135.8,
+          "maximum": 37239.99,
+          "average": 37187.895,
+          "largest_absolute_percent_change": 0.264
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-06-09 to 2025-06-10."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-06-09",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 37135.8,
+          "severity": "low",
+          "reason": "net_revenue value 37135.8000 is below its rolling baseline (z=-1.45, pct_change=-26.40%)."
+        },
+        {
+          "date": "2025-06-10",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 37239.99,
+          "severity": "low",
+          "reason": "net_revenue value 37239.9900 is below its rolling baseline (z=-1.46, pct_change=-26.28%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review conversion, checkout, inventory, and logistics signals for revenue impact.",
+        "Monitor net revenue against its rolling baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-020",
+      "title": "Checkout Failure Spike",
+      "incident_start_date": "2025-06-16",
+      "incident_end_date": "2025-06-18",
+      "main_anomaly_type": "checkout_failure_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 3,
+          "minimum": 38313.77,
+          "maximum": 39772.37,
+          "average": 39013.12,
+          "largest_absolute_percent_change": 0.2368
+        },
+        {
+          "metric": "checkout_failure_rate",
+          "anomaly_types": [
+            "checkout_failure_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0183,
+          "maximum": 0.0216,
+          "average": 0.0197,
+          "largest_absolute_percent_change": 0.1891
+        }
+      ],
+      "possible_contributing_factors": [
+        "checkout_failure_spike",
+        "revenue_drop"
+      ],
+      "supporting_evidence": [
+        "4 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-06-16 to 2025-06-18."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-06-16",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 38313.77,
+          "severity": "low",
+          "reason": "net_revenue value 38313.7700 is below its rolling baseline (z=-1.17, pct_change=-23.68%)."
+        },
+        {
+          "date": "2025-06-17",
+          "anomaly_type": "checkout_failure_spike",
+          "metric": "checkout_failure_rate",
+          "value": 0.0216,
+          "severity": "high",
+          "reason": "checkout_failure_rate value 0.0216 is above its rolling baseline (z=4.26, pct_change=18.91%)."
+        },
+        {
+          "date": "2025-06-17",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 38953.22,
+          "severity": "low",
+          "reason": "net_revenue value 38953.2200 is below its rolling baseline (z=-1.00, pct_change=-21.30%)."
+        },
+        {
+          "date": "2025-06-18",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 39772.37,
+          "severity": "low",
+          "reason": "net_revenue value 39772.3700 is below its rolling baseline (z=-0.94, pct_change=-19.83%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Inspect checkout errors and dependency health for the incident window.",
+        "Confirm checkout failure rate and revenue have returned to baseline."
+      ]
+    },
+    {
+      "incident_id": "INC-021",
+      "title": "Shipping Delay Spike",
+      "incident_start_date": "2025-06-23",
+      "incident_end_date": "2025-06-23",
+      "main_anomaly_type": "shipping_delay_spike",
+      "related_anomaly_types": [
+        "revenue_drop"
+      ],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "net_revenue",
+          "anomaly_types": [
+            "revenue_drop"
+          ],
+          "event_count": 1,
+          "minimum": 34631.3,
+          "maximum": 34631.3,
+          "average": 34631.3,
+          "largest_absolute_percent_change": 0.2758
+        },
+        {
+          "metric": "shipping_delay_rate",
+          "anomaly_types": [
+            "shipping_delay_spike"
+          ],
+          "event_count": 1,
+          "minimum": 0.0628,
+          "maximum": 0.0628,
+          "average": 0.0628,
+          "largest_absolute_percent_change": 0.1475
+        }
+      ],
+      "possible_contributing_factors": [
+        "revenue_drop",
+        "shipping_delay_spike"
+      ],
+      "supporting_evidence": [
+        "2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-06-23 to 2025-06-23."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-06-23",
+          "anomaly_type": "revenue_drop",
+          "metric": "net_revenue",
+          "value": 34631.3,
+          "severity": "low",
+          "reason": "net_revenue value 34631.3000 is below its rolling baseline (z=-1.37, pct_change=-27.58%)."
+        },
+        {
+          "date": "2025-06-23",
+          "anomaly_type": "shipping_delay_spike",
+          "metric": "shipping_delay_rate",
+          "value": 0.0628,
+          "severity": "medium",
+          "reason": "shipping_delay_rate value 0.0628 is above its rolling baseline (z=2.83, pct_change=14.75%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Review carrier performance and delayed shipment queues.",
+        "Notify affected customers and monitor delivery complaints."
+      ]
+    },
+    {
+      "incident_id": "INC-022",
+      "title": "Latency Spike",
+      "incident_start_date": "2025-06-28",
+      "incident_end_date": "2025-06-28",
+      "main_anomaly_type": "latency_spike",
+      "related_anomaly_types": [],
+      "likely_cause": "No known deterministic root-cause pattern matched",
+      "affected_kpis": [
+        {
+          "metric": "avg_api_latency_ms",
+          "anomaly_types": [
+            "latency_spike"
+          ],
+          "event_count": 1,
+          "minimum": 220.13,
+          "maximum": 220.13,
+          "average": 220.13,
+          "largest_absolute_percent_change": 0.0541
+        }
+      ],
+      "possible_contributing_factors": [
+        "latency_spike"
+      ],
+      "supporting_evidence": [
+        "1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-06-28 to 2025-06-28."
+      ],
+      "deployment_events": [],
+      "anomaly_events": [
+        {
+          "date": "2025-06-28",
+          "anomaly_type": "latency_spike",
+          "metric": "avg_api_latency_ms",
+          "value": 220.13,
+          "severity": "medium",
+          "reason": "avg_api_latency_ms value 220.1300 is above its rolling baseline (z=3.12, pct_change=5.41%)."
+        }
+      ],
+      "recommended_next_steps": [
+        "Inspect service latency by endpoint and dependency.",
+        "Confirm latency has returned to its rolling baseline."
+      ]
+    }
+  ]
+}

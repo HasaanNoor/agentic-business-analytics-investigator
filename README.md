@@ -28,6 +28,8 @@ The project starts with a deterministic analytics foundation before adding LLM r
 │   ├── dashboard
 │   ├── explainability/
 │   ├── forecasting/
+│   ├── investigation/
+│   │   └── investigate_anomalies.py
 │   ├── ingestion/
 │   │   ├── __init__.py
 │   │   └── generate_synthetic_data.py
@@ -176,6 +178,45 @@ python3 -m py_compile src/anomaly_detection/detect_anomalies.py
 ```
 
 No LLMs or agent frameworks are used in Phase 2.
+
+## Phase 3: Deterministic Investigation Engine
+
+Phase 3 groups nearby anomaly events into incidents and explains them with deterministic rules. Consecutive anomaly dates separated by no more than three days are grouped into one incident by default. Each report includes the incident date range, main and related anomaly types, affected KPI summaries, possible contributing factors, supporting evidence, deployment events, and recommended next steps.
+
+The engine recognizes these initial root-cause patterns:
+
+- Latency spike plus checkout failure spike plus a recent failed deployment: likely deployment-related checkout incident.
+- Inventory shortage plus lost sales plus revenue drop: likely inventory shortage incident.
+- Shipping delay spike plus elevated delivery complaints: likely logistics disruption incident.
+
+Generate the investigation reports with:
+
+```bash
+python3 src/investigation/investigate_anomalies.py
+```
+
+The engine reads:
+
+- `outputs/reports/kpi_summary_daily.csv`
+- `outputs/reports/anomaly_events.csv`
+- `data/synthetic/deployment_events.csv`
+
+It writes:
+
+- `outputs/reports/investigation_reports.json`
+- `outputs/reports/investigation_summary.md`
+
+Run the complete deterministic pipeline and checks with:
+
+```bash
+python3 src/analytics/kpi_monitor.py
+python3 src/anomaly_detection/detect_anomalies.py
+python3 src/investigation/investigate_anomalies.py
+python3 -m pytest
+python3 -m py_compile src/investigation/investigate_anomalies.py
+```
+
+No OpenAI API, LLMs, or agent frameworks are used in Phase 3.
 
 ## Roadmap
 
