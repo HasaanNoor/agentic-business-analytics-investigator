@@ -15,9 +15,16 @@ The project starts with a deterministic analytics foundation before adding LLM r
 │   └── synthetic/
 ├── notebooks/
 ├── outputs/
+│   ├── figures/
+│   └── reports/
 ├── src/
 │   ├── agents
 │   ├── analytics/
+│   │   ├── __init__.py
+│   │   └── kpi_monitor.py
+│   ├── anomaly_detection/
+│   │   ├── __init__.py
+│   │   └── detect_anomalies.py
 │   ├── dashboard
 │   ├── explainability/
 │   ├── forecasting/
@@ -109,6 +116,67 @@ outputs/reports/synthetic_data_profile.md
 
 The report includes row counts, date/time ranges, missing values, numeric descriptive statistics, and detected incident windows by affected metric file.
 
+## Phase 2: Deterministic KPI Monitoring and Anomaly Detection
+
+Phase 2 adds a non-LLM analytics layer over the synthetic data. It builds a daily KPI table and then flags unusual metric behavior with rolling averages, rolling standard deviations, z-scores, and percent change thresholds.
+
+Build the daily KPI summary with:
+
+```bash
+python3 src/analytics/kpi_monitor.py
+```
+
+The KPI monitor reads CSV files from `data/synthetic/` and writes:
+
+```text
+outputs/reports/kpi_summary_daily.csv
+```
+
+The summary includes:
+
+- Net revenue
+- Conversion rate
+- Refund rate, derived from support refund requests divided by orders
+- Average API latency
+- Checkout failure rate
+- Support ticket count
+- Stockout units
+- Lost sales units
+- Shipping delay rate
+- Delivery complaints
+
+It also writes simple KPI plots under:
+
+```text
+outputs/figures/
+```
+
+Detect anomalies with:
+
+```bash
+python3 src/anomaly_detection/detect_anomalies.py
+```
+
+The anomaly detector reads `outputs/reports/kpi_summary_daily.csv` and writes:
+
+```text
+outputs/reports/anomaly_events.csv
+```
+
+It flags deterministic event types for revenue drops, latency spikes, checkout failure spikes, support ticket spikes, inventory shortage periods, and shipping delay spikes. A simple anomaly count plot is also written to `outputs/figures/`.
+
+Run the Phase 2 checks with:
+
+```bash
+python3 src/analytics/kpi_monitor.py
+python3 src/anomaly_detection/detect_anomalies.py
+python3 -m pytest
+python3 -m py_compile src/analytics/kpi_monitor.py
+python3 -m py_compile src/anomaly_detection/detect_anomalies.py
+```
+
+No LLMs or agent frameworks are used in Phase 2.
+
 ## Roadmap
 
 1. **Data foundation**
@@ -117,13 +185,14 @@ The report includes row counts, date/time ranges, missing values, numeric descri
    - Deterministic incident labels for evaluation
 
 2. **Analytics layer**
-   - KPI summaries
-   - Baseline and trend calculations
+   - Deterministic KPI summaries
+   - Rolling baselines and trend checks
    - Incident-aware metric joins
 
 3. **Detection layer**
-   - Forecasting-based anomaly detection
-   - Threshold and robust-statistical detectors
+   - Rolling z-score and percent-change anomaly detection
+   - Future forecasting-based anomaly detection
+   - Future robust-statistical detectors
    - Evaluation against injected incident labels
 
 4. **Investigation layer**
