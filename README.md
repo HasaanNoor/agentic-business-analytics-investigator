@@ -287,6 +287,40 @@ python3 -m py_compile src/forecasting/generate_forecasts.py
 
 No OpenAI API, SHAP analysis, dashboards, or agent orchestration are used in Phase 4.
 
+## Phase 5: Forecast Explainability with SHAP
+
+Phase 5 explains why each selected forecasting model produced its forecast. It loads the trained model artifacts from `outputs/models/`, regenerates the same lag-based feature datasets used during training, reads `outputs/reports/model_metrics.csv` and `outputs/reports/forecast_summary.csv`, and explains the selected models for:
+
+- `net_revenue`
+- `support_ticket_count`
+- `shipping_delay_rate`
+
+SHAP is used because it provides feature-level attributions for individual predictions while also supporting aggregate feature importance. Tree-based models use `TreeExplainer` where possible. Linear Regression uses `LinearExplainer`, with a coefficient-based fallback if SHAP cannot explain the model cleanly. If a model type cannot be explained safely, the script writes a clear fallback explanation instead of failing the pipeline.
+
+Generate forecast explanations with:
+
+```bash
+python3 src/explainability/explain_forecasts.py
+```
+
+The explainability script writes:
+
+```text
+outputs/reports/shap_feature_importance.csv
+outputs/reports/forecast_explanations.md
+outputs/figures/shap_summary_<kpi>.png
+```
+
+The markdown report describes the predicted KPI, selected model, most important features, prediction-level feature influence for the most recent forecast, and limitations. These explanations are grounded in model outputs only; no OpenAI API, LLM reporting, RAG, dashboards, or agent orchestration are used in Phase 5.
+
+Run the Phase 5 checks with:
+
+```bash
+python3 src/explainability/explain_forecasts.py
+python3 -m pytest
+python3 -m py_compile src/explainability/explain_forecasts.py
+```
+
 ## Roadmap
 
 1. **Data foundation**

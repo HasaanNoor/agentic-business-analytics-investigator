@@ -1,0 +1,19 @@
+kpi,model_name,feature,mean_abs_attribution,rank,explanation_method
+net_revenue,linear_regression,previous_day_value,2516.342589,1,SHAP LinearExplainer
+net_revenue,linear_regression,lag_14d,2201.687266,2,SHAP LinearExplainer
+net_revenue,linear_regression,rolling_avg_3d,1794.127478,3,SHAP LinearExplainer
+net_revenue,linear_regression,lag_7d,1250.212004,4,SHAP LinearExplainer
+net_revenue,linear_regression,rolling_avg_7d,663.980427,5,SHAP LinearExplainer
+net_revenue,linear_regression,rolling_avg_14d,33.409085,6,SHAP LinearExplainer
+shipping_delay_rate,random_forest,previous_day_value,0.005812,1,SHAP TreeExplainer
+shipping_delay_rate,random_forest,rolling_avg_7d,0.0012,2,SHAP TreeExplainer
+shipping_delay_rate,random_forest,rolling_avg_3d,0.001035,3,SHAP TreeExplainer
+shipping_delay_rate,random_forest,rolling_avg_14d,0.000998,4,SHAP TreeExplainer
+shipping_delay_rate,random_forest,lag_7d,0.000622,5,SHAP TreeExplainer
+shipping_delay_rate,random_forest,lag_14d,0.000462,6,SHAP TreeExplainer
+support_ticket_count,random_forest,previous_day_value,14.734932,1,SHAP TreeExplainer
+support_ticket_count,random_forest,lag_7d,2.110617,2,SHAP TreeExplainer
+support_ticket_count,random_forest,rolling_avg_3d,2.052086,3,SHAP TreeExplainer
+support_ticket_count,random_forest,rolling_avg_7d,1.565261,4,SHAP TreeExplainer
+support_ticket_count,random_forest,lag_14d,1.50019,5,SHAP TreeExplainer
+support_ticket_count,random_forest,rolling_avg_14d,1.012709,6,SHAP TreeExplainer
