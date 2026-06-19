@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from src.analytics.kpi_monitor import run_kpi_monitor
 from src.explainability.explain_forecasts import run_explainability
 from src.forecasting.generate_forecasts import run_forecasting
-from src.forecasting.train_forecasting_models import FEATURE_COLUMNS, TARGET_KPIS, create_forecasting_dataset, run_training
+from src.forecasting.train_forecasting_models import TARGET_KPIS, create_forecasting_dataset, get_feature_columns, run_training
 from src.ingestion.generate_synthetic_data import generate_all_datasets, write_datasets
 
 
@@ -50,8 +50,9 @@ def test_explainability_handles_selected_linear_regression_for_net_revenue(tmp_p
     kpi_path = tmp_path / "reports" / "kpi_summary_daily.csv"
     summary = pd.read_csv(kpi_path)
     dataset = create_forecasting_dataset(summary, "net_revenue")
+    feature_columns = list(get_feature_columns("net_revenue"))
     model = LinearRegression()
-    model.fit(dataset[list(FEATURE_COLUMNS)], dataset["net_revenue"])
+    model.fit(dataset[feature_columns], dataset["net_revenue"])
 
     artifact_path = models_dir / "forecasting_net_revenue.joblib"
     artifact = joblib.load(artifact_path)

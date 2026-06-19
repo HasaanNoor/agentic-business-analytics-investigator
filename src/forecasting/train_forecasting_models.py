@@ -36,7 +36,44 @@ FEATURE_COLUMNS = (
     "rolling_avg_14d",
     "lag_7d",
     "lag_14d",
+    "avg_api_latency_ms",
+    "checkout_failure_rate",
+    "support_ticket_count",
+    "shipping_delay_rate",
+    "stockout_units",
+    "lost_sales_units",
+    "conversion_rate",
+    "refund_rate",
+    "delivery_complaints",
+    "deployment_event_flag",
+    "inventory_shortage_flag",
+    "shipping_disruption_flag",
 )
+BASE_FEATURE_COLUMNS = FEATURE_COLUMNS[:6]
+CROSS_KPI_FEATURES = {
+    "net_revenue": (
+        "avg_api_latency_ms",
+        "checkout_failure_rate",
+        "support_ticket_count",
+        "shipping_delay_rate",
+        "stockout_units",
+        "lost_sales_units",
+        "conversion_rate",
+        "refund_rate",
+    ),
+    "support_ticket_count": (
+        "avg_api_latency_ms",
+        "checkout_failure_rate",
+        "shipping_delay_rate",
+        "deployment_event_flag",
+    ),
+    "shipping_delay_rate": (
+        "delivery_complaints",
+        "support_ticket_count",
+        "stockout_units",
+        "shipping_disruption_flag",
+    ),
+}
 RANDOM_STATE = 42
 
 
@@ -62,12 +99,26 @@ def load_kpi_summary(path: Path) -> pd.DataFrame:
     return summary.sort_values("date").reset_index(drop=True)
 
 
+def get_feature_columns(target_kpi: str) -> tuple[str, ...]:
+    if target_kpi not in TARGET_KPIS:
+        raise ForecastingError(f"Unsupported target KPI: {target_kpi}")
+    return (*BASE_FEATURE_COLUMNS, *CROSS_KPI_FEATURES[target_kpi])
+
+
 def create_forecasting_dataset(summary: pd.DataFrame, target_kpi: str) -> pd.DataFrame:
     if target_kpi not in summary.columns:
         raise ForecastingError(f"KPI summary missing target column: {target_kpi}")
 
-    dataset = summary[["date", target_kpi]].copy()
+    feature_columns = get_feature_columns(target_kpi)
+    required_columns = {"date", target_kpi, *CROSS_KPI_FEATURES[target_kpi]}
+    missing_columns = sorted(required_columns.difference(summary.columns))
+    if missing_columns:
+        raise ForecastingError(f"KPI summary missing required feature columns: {', '.join(missing_columns)}")
+
+    dataset = summary[["date", target_kpi, *CROSS_KPI_FEATURES[target_kpi]]].copy()
     dataset[target_kpi] = dataset[target_kpi].astype(float)
+    for column in CROSS_KPI_FEATURES[target_kpi]:
+        dataset[column] = dataset[column].astype(float)
     prior_values = dataset[target_kpi].shift(1)
     dataset["previous_day_value"] = prior_values
     dataset["rolling_avg_3d"] = prior_values.rolling(window=3, min_periods=3).mean()
@@ -76,7 +127,7 @@ def create_forecasting_dataset(summary: pd.DataFrame, target_kpi: str) -> pd.Dat
     dataset["lag_7d"] = dataset[target_kpi].shift(7)
     dataset["lag_14d"] = dataset[target_kpi].shift(14)
 
-    return dataset.dropna(subset=[*FEATURE_COLUMNS, target_kpi]).reset_index(drop=True)
+    return dataset.dropna(subset=[*feature_columns, target_kpi]).reset_index(drop=True)
 
 
 def split_time_ordered(dataset: pd.DataFrame, test_fraction: float = 0.2, minimum_test_rows: int = 14) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -147,9 +198,10 @@ def train_models_for_kpi(
 ) -> tuple[list[dict[str, object]], object]:
     dataset = create_forecasting_dataset(summary, target_kpi)
     train, test = split_time_ordered(dataset)
-    x_train = train[list(FEATURE_COLUMNS)]
+    feature_columns = get_feature_columns(target_kpi)
+    x_train = train[list(feature_columns)]
     y_train = train[target_kpi]
-    x_test = test[list(FEATURE_COLUMNS)]
+    x_test = test[list(feature_columns)]
     y_test = test[target_kpi]
 
     metrics: list[dict[str, object]] = []
@@ -192,8 +244,8 @@ def train_models_for_kpi(
         "kpi": target_kpi,
         "model_name": best_model_name,
         "model": best_model,
-        "feature_columns": list(FEATURE_COLUMNS),
-        "training_history": summary[["date", target_kpi]].copy(),
+        "feature_columns": list(feature_columns),
+        "training_history": summary.copy(),
         "last_training_date": summary["date"].max(),
     }
     joblib.dump(artifact, models_dir / f"forecasting_{target_kpi}.joblib")
@@ -209,13 +261,49 @@ def write_model_metrics(metrics: list[dict[str, object]], output_path: Path) -> 
     return metrics_frame
 
 
+def write_model_comparison(baseline_metrics: pd.DataFrame, enhanced_metrics: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    required_columns = {"kpi", "model_name", "mae", "rmse", "r2", "selected_model"}
+    missing_columns = sorted(required_columns.difference(baseline_metrics.columns).union(required_columns.difference(enhanced_metrics.columns)))
+    if missing_columns:
+        raise ForecastingError(f"Cannot compare metrics; missing columns: {', '.join(missing_columns)}")
+
+    baseline = baseline_metrics[list(required_columns)].rename(
+        columns={
+            "mae": "before_mae",
+            "rmse": "before_rmse",
+            "r2": "before_r2",
+            "selected_model": "before_selected_model",
+        }
+    )
+    enhanced = enhanced_metrics[list(required_columns)].rename(
+        columns={
+            "mae": "after_mae",
+            "rmse": "after_rmse",
+            "r2": "after_r2",
+            "selected_model": "after_selected_model",
+        }
+    )
+    comparison = baseline.merge(enhanced, on=["kpi", "model_name"], how="outer")
+    comparison["mae_delta"] = comparison["after_mae"] - comparison["before_mae"]
+    comparison["rmse_delta"] = comparison["after_rmse"] - comparison["before_rmse"]
+    comparison["r2_delta"] = comparison["after_r2"] - comparison["before_r2"]
+    comparison = comparison.sort_values(["kpi", "after_selected_model", "rmse_delta"], ascending=[True, False, True])
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    comparison.to_csv(output_path, index=False)
+    LOGGER.info("Wrote model comparison to %s", output_path)
+    return comparison
+
+
 def run_training(
     input_path: Path,
     metrics_path: Path,
     models_dir: Path,
     figures_dir: Path,
     create_plots: bool = True,
+    comparison_path: Path | None = Path("outputs/reports/model_comparison.csv"),
 ) -> pd.DataFrame:
+    baseline_metrics = pd.read_csv(metrics_path) if metrics_path.exists() else None
     summary = load_kpi_summary(input_path)
     all_metrics: list[dict[str, object]] = []
     for target_kpi in TARGET_KPIS:
@@ -227,7 +315,10 @@ def run_training(
             create_plots=create_plots,
         )
         all_metrics.extend(metrics)
-    return write_model_metrics(all_metrics, metrics_path)
+    enhanced_metrics = write_model_metrics(all_metrics, metrics_path)
+    if baseline_metrics is not None and comparison_path is not None:
+        write_model_comparison(baseline_metrics, enhanced_metrics, comparison_path)
+    return enhanced_metrics
 
 
 def parse_args(args: Iterable[str] | None = None) -> argparse.Namespace:
@@ -256,6 +347,12 @@ def parse_args(args: Iterable[str] | None = None) -> argparse.Namespace:
         default=Path("outputs/figures"),
         help="Directory for forecasting plot PNG files.",
     )
+    parser.add_argument(
+        "--comparison-path",
+        type=Path,
+        default=Path("outputs/reports/model_comparison.csv"),
+        help="Output before/after model comparison CSV path.",
+    )
     parser.add_argument("--no-plots", action="store_true", help="Skip writing forecasting plot files.")
     return parser.parse_args(args)
 
@@ -269,6 +366,7 @@ def main(args: Iterable[str] | None = None) -> None:
         models_dir=parsed.models_dir,
         figures_dir=parsed.figures_dir,
         create_plots=not parsed.no_plots,
+        comparison_path=parsed.comparison_path,
     )
 
 

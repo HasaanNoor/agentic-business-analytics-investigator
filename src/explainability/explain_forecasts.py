@@ -114,7 +114,7 @@ def build_forecast_feature_rows(artifact: dict[str, object], forecast_rows: pd.D
 
     explanation_rows: list[dict[str, object]] = []
     for _, forecast in kpi_forecasts.iterrows():
-        feature_row = build_next_feature_row(history, target_kpi)
+        feature_row = build_next_feature_row(history, target_kpi, feature_columns)
         prediction = constrain_prediction(target_kpi, float(model.predict(feature_row[feature_columns])[0]))
         explanation_row = {
             "date": forecast["date"],
@@ -126,8 +126,11 @@ def build_forecast_feature_rows(artifact: dict[str, object], forecast_rows: pd.D
         }
         explanation_row.update(feature_row.iloc[0].to_dict())
         explanation_rows.append(explanation_row)
+        next_history_row = history.iloc[-1].copy()
+        next_history_row["date"] = forecast["date"]
+        next_history_row[target_kpi] = float(forecast["prediction"])
         history = pd.concat(
-            [history, pd.DataFrame([{"date": forecast["date"], target_kpi: float(forecast["prediction"])}])],
+            [history, pd.DataFrame([next_history_row])],
             ignore_index=True,
         )
 

@@ -24,7 +24,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.forecasting.train_forecasting_models import FEATURE_COLUMNS, TARGET_KPIS, ForecastingError
+from src.forecasting.train_forecasting_models import BASE_FEATURE_COLUMNS, FEATURE_COLUMNS, TARGET_KPIS, ForecastingError
 
 
 LOGGER = logging.getLogger(__name__)
@@ -47,7 +47,8 @@ def load_model_artifact(models_dir: Path, target_kpi: str) -> dict[str, object]:
     return artifact
 
 
-def build_next_feature_row(history: pd.DataFrame, target_kpi: str) -> pd.DataFrame:
+def build_next_feature_row(history: pd.DataFrame, target_kpi: str, feature_columns: Iterable[str] | None = None) -> pd.DataFrame:
+    selected_columns = list(feature_columns or FEATURE_COLUMNS)
     values = history[target_kpi].astype(float)
     if len(values) < 14:
         raise ForecastingError(f"At least 14 history rows are required to forecast {target_kpi}")
@@ -60,7 +61,14 @@ def build_next_feature_row(history: pd.DataFrame, target_kpi: str) -> pd.DataFra
         "lag_7d": values.iloc[-7],
         "lag_14d": values.iloc[-14],
     }
-    return pd.DataFrame([features], columns=list(FEATURE_COLUMNS))
+    latest_row = history.iloc[-1]
+    for column in selected_columns:
+        if column in BASE_FEATURE_COLUMNS:
+            continue
+        if column not in history.columns:
+            raise ForecastingError(f"Training history missing feature column for forecasting: {column}")
+        features[column] = float(latest_row[column])
+    return pd.DataFrame([{column: features[column] for column in selected_columns}], columns=selected_columns)
 
 
 def constrain_prediction(target_kpi: str, value: float) -> float:
@@ -80,8 +88,9 @@ def generate_forecast_for_kpi(artifact: dict[str, object], horizon_days: int = 7
     history = history.sort_values("date").reset_index(drop=True)
 
     forecast_rows: list[dict[str, object]] = []
+    feature_columns = list(artifact.get("feature_columns", FEATURE_COLUMNS))
     for step in range(1, horizon_days + 1):
-        feature_row = build_next_feature_row(history, target_kpi)
+        feature_row = build_next_feature_row(history, target_kpi, feature_columns)
         prediction = constrain_prediction(target_kpi, float(model.predict(feature_row)[0]))
         forecast_date = history["date"].max() + pd.Timedelta(days=1)
         forecast_rows.append(
@@ -93,8 +102,11 @@ def generate_forecast_for_kpi(artifact: dict[str, object], horizon_days: int = 7
                 "model_name": model_name,
             }
         )
+        next_history_row = history.iloc[-1].copy()
+        next_history_row["date"] = forecast_date
+        next_history_row[target_kpi] = prediction
         history = pd.concat(
-            [history, pd.DataFrame([{"date": forecast_date, target_kpi: prediction}])],
+            [history, pd.DataFrame([next_history_row])],
             ignore_index=True,
         )
 

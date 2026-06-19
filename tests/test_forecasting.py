@@ -4,7 +4,7 @@ import pandas as pd
 
 from src.analytics.kpi_monitor import run_kpi_monitor
 from src.forecasting.generate_forecasts import run_forecasting
-from src.forecasting.train_forecasting_models import TARGET_KPIS, create_forecasting_dataset, run_training
+from src.forecasting.train_forecasting_models import TARGET_KPIS, create_forecasting_dataset, get_feature_columns, run_training
 from src.ingestion.generate_synthetic_data import generate_all_datasets, write_datasets
 
 
@@ -34,7 +34,16 @@ def test_forecasting_dataset_uses_required_lag_features(tmp_path):
         "rolling_avg_14d",
         "lag_7d",
         "lag_14d",
+        "avg_api_latency_ms",
+        "checkout_failure_rate",
+        "support_ticket_count",
+        "shipping_delay_rate",
+        "stockout_units",
+        "lost_sales_units",
+        "conversion_rate",
+        "refund_rate",
     }.issubset(dataset.columns)
+    assert set(get_feature_columns("net_revenue")).issubset(dataset.columns)
     assert dataset["previous_day_value"].notna().all()
     assert dataset["date"].is_monotonic_increasing
 

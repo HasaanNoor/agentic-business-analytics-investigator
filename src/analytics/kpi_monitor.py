@@ -29,6 +29,7 @@ REQUIRED_FILES = {
     "support": "support_tickets_daily.csv",
     "inventory": "inventory_levels_daily.csv",
     "shipping": "shipping_delays_daily.csv",
+    "deployment": "deployment_events.csv",
 }
 
 
@@ -44,6 +45,9 @@ KPI_COLUMNS = [
     "lost_sales_units",
     "shipping_delay_rate",
     "delivery_complaints",
+    "deployment_event_flag",
+    "inventory_shortage_flag",
+    "shipping_disruption_flag",
 ]
 
 
@@ -110,7 +114,12 @@ def aggregate_hourly_checkout(checkout: pd.DataFrame) -> pd.DataFrame:
 
 def aggregate_inventory(inventory: pd.DataFrame) -> pd.DataFrame:
     parsed = parse_daily_dates(inventory)
-    return parsed.groupby("date", as_index=False).agg(stockout_units=("stockout_units", "sum"))
+    daily = parsed.groupby("date", as_index=False).agg(
+        stockout_units=("stockout_units", "sum"),
+        inventory_shortage_flag=("incident_flag", "max"),
+    )
+    daily["inventory_shortage_flag"] = daily["inventory_shortage_flag"].astype(int)
+    return daily
 
 
 def aggregate_shipping(shipping: pd.DataFrame) -> pd.DataFrame:
@@ -118,9 +127,19 @@ def aggregate_shipping(shipping: pd.DataFrame) -> pd.DataFrame:
     daily = parsed.groupby("date", as_index=False).agg(
         shipments=("shipments", "sum"),
         delayed_shipments=("delayed_shipments", "sum"),
+        shipping_disruption_flag=("incident_flag", "max"),
     )
     daily["shipping_delay_rate"] = safe_divide(daily["delayed_shipments"], daily["shipments"]).round(4)
-    return daily[["date", "shipping_delay_rate"]]
+    daily["shipping_disruption_flag"] = daily["shipping_disruption_flag"].astype(int)
+    return daily[["date", "shipping_delay_rate", "shipping_disruption_flag"]]
+
+
+def aggregate_deployment_events(deployment: pd.DataFrame) -> pd.DataFrame:
+    parsed = deployment.copy()
+    parsed["date"] = pd.to_datetime(parsed["timestamp"], errors="raise").dt.normalize()
+    daily = parsed.groupby("date", as_index=False).agg(deployment_event_flag=("incident_flag", "max"))
+    daily["deployment_event_flag"] = daily["deployment_event_flag"].astype(int)
+    return daily
 
 
 def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
@@ -152,12 +171,16 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
         .merge(support_daily, on="date", how="left")
         .merge(aggregate_inventory(datasets["inventory"]), on="date", how="left")
         .merge(aggregate_shipping(datasets["shipping"]), on="date", how="left")
+        .merge(aggregate_deployment_events(datasets["deployment"]), on="date", how="left")
     )
 
     summary["refund_rate"] = safe_divide(summary["refund_requests"], summary["orders"]).round(4)
     summary["support_ticket_count"] = summary["support_ticket_count"].fillna(0).astype(int)
     summary["stockout_units"] = summary["stockout_units"].fillna(0).astype(int)
     summary["delivery_complaints"] = summary["delivery_complaints"].fillna(0).astype(int)
+    summary["deployment_event_flag"] = summary["deployment_event_flag"].fillna(0).astype(int)
+    summary["inventory_shortage_flag"] = summary["inventory_shortage_flag"].fillna(0).astype(int)
+    summary["shipping_disruption_flag"] = summary["shipping_disruption_flag"].fillna(0).astype(int)
 
     return summary[KPI_COLUMNS].sort_values("date").reset_index(drop=True)
 

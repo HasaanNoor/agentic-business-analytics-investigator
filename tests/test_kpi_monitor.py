@@ -32,6 +32,12 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["refund_rate"].between(0, 1).all()
     assert summary["checkout_failure_rate"].between(0, 1).all()
     assert summary["shipping_delay_rate"].between(0, 1).all()
+    assert summary["deployment_event_flag"].isin([0, 1]).all()
+    assert summary["inventory_shortage_flag"].isin([0, 1]).all()
+    assert summary["shipping_disruption_flag"].isin([0, 1]).all()
+    assert summary["deployment_event_flag"].sum() == 2
+    assert summary["inventory_shortage_flag"].sum() > 0
+    assert summary["shipping_disruption_flag"].sum() > 0
 
 
 def test_kpi_summary_aggregates_hourly_and_entity_data_correctly(tmp_path):
