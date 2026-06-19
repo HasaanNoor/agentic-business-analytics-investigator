@@ -1,0 +1,10 @@
+kpi,model_name,mae,rmse,r2,train_rows,test_rows,selected_model
+net_revenue,linear_regression,5248.511426,6711.635599,0.528452,134,33,True
+net_revenue,random_forest,6289.335438,7803.315167,0.362578,134,33,False
+net_revenue,xgboost,6946.165436,8517.43376,0.240572,134,33,False
+shipping_delay_rate,random_forest,0.003936,0.005004,-0.361671,134,33,True
+shipping_delay_rate,xgboost,0.004071,0.005096,-0.412288,134,33,False
+shipping_delay_rate,linear_regression,0.004336,0.005447,-0.613216,134,33,False
+support_ticket_count,random_forest,10.114034,12.411259,-0.01234,134,33,True
+support_ticket_count,xgboost,11.64245,13.773262,-0.246719,134,33,False
+support_ticket_count,linear_regression,11.544735,14.150951,-0.316031,134,33,False

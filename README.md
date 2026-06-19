@@ -218,6 +218,75 @@ python3 -m py_compile src/investigation/investigate_anomalies.py
 
 No OpenAI API, LLMs, or agent frameworks are used in Phase 3.
 
+## Phase 4: Deterministic Forecasting Layer
+
+Phase 4 adds a reproducible machine learning forecasting layer for forward-looking KPI baselines. It reads the daily KPI summary and trains one forecasting model family per target KPI:
+
+- `net_revenue`
+- `support_ticket_count`
+- `shipping_delay_rate`
+
+Each target uses the same lag-based feature architecture:
+
+- Previous day value
+- 3-day rolling average
+- 7-day rolling average
+- 14-day rolling average
+- 7-day lag
+- 14-day lag
+
+Rolling features are shifted so the current day is never used to predict itself. Train/test splits preserve time ordering and do not shuffle records.
+
+Train forecasting models with:
+
+```bash
+python3 src/forecasting/train_forecasting_models.py
+```
+
+The trainer evaluates:
+
+- Linear Regression baseline
+- Random Forest Regressor
+- XGBoost Regressor
+
+Models are evaluated with MAE, RMSE, and R². The best model for each KPI is selected by lowest RMSE, with MAE as a deterministic tie-breaker. Metrics are written to:
+
+```text
+outputs/reports/model_metrics.csv
+```
+
+Selected model artifacts are written to `outputs/models/`, and actual-vs-predicted plots are written under:
+
+```text
+outputs/figures/
+```
+
+Generate 7-day KPI forecasts with:
+
+```bash
+python3 src/forecasting/generate_forecasts.py
+```
+
+Forecasts are generated iteratively so each predicted day feeds the lag features for the next day. Results are written to:
+
+```text
+outputs/reports/forecast_summary.csv
+```
+
+Forecast extension plots are also written to `outputs/figures/`.
+
+Run the Phase 4 checks with:
+
+```bash
+python3 src/forecasting/train_forecasting_models.py
+python3 src/forecasting/generate_forecasts.py
+python3 -m pytest
+python3 -m py_compile src/forecasting/train_forecasting_models.py
+python3 -m py_compile src/forecasting/generate_forecasts.py
+```
+
+No OpenAI API, SHAP analysis, dashboards, or agent orchestration are used in Phase 4.
+
 ## Roadmap
 
 1. **Data foundation**
