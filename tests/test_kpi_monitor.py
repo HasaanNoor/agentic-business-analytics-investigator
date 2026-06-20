@@ -23,9 +23,9 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     summary = build_daily_kpi_summary(load_synthetic_datasets(data_dir))
 
     assert list(summary.columns) == KPI_COLUMNS
-    assert len(summary) == 181
+    assert len(summary) == 730
     assert summary["date"].min() == pd.Timestamp("2025-01-01")
-    assert summary["date"].max() == pd.Timestamp("2025-06-30")
+    assert summary["date"].max() == pd.Timestamp("2026-12-31")
     assert summary["date"].is_monotonic_increasing
     assert summary["net_revenue"].gt(0).all()
     assert summary["conversion_rate"].between(0, 1).all()
@@ -35,7 +35,7 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["deployment_event_flag"].isin([0, 1]).all()
     assert summary["inventory_shortage_flag"].isin([0, 1]).all()
     assert summary["shipping_disruption_flag"].isin([0, 1]).all()
-    assert summary["deployment_event_flag"].sum() == 2
+    assert summary["deployment_event_flag"].sum() == 14
     assert summary["inventory_shortage_flag"].sum() > 0
     assert summary["shipping_disruption_flag"].sum() > 0
 

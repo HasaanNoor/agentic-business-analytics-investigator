@@ -4,12 +4,19 @@ from __future__ import annotations
 
 import argparse
 import logging
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_bool_dtype, is_numeric_dtype
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.ingestion.generate_synthetic_data import PHASE_6_INCIDENTS
 
 
 LOGGER = logging.getLogger(__name__)
@@ -174,29 +181,38 @@ FILE_SPECS: dict[str, FileSpec] = {
 
 
 INCIDENT_SPECS: tuple[IncidentSpec, ...] = (
-    IncidentSpec(
-        incident_type="failed_deployment",
-        start=pd.Timestamp("2025-03-18 09:00"),
-        end=pd.Timestamp("2025-03-20 23:59:59"),
-        affected_files=(
-            "sales_metrics_daily.csv",
-            "api_latency_hourly.csv",
-            "checkout_failures_hourly.csv",
-            "support_tickets_daily.csv",
-            "deployment_events.csv",
-        ),
+    *(
+        IncidentSpec(
+            incident_type="failed_deployment",
+            start=incident.start,
+            end=incident.end,
+            affected_files=(
+                "sales_metrics_daily.csv",
+                "api_latency_hourly.csv",
+                "checkout_failures_hourly.csv",
+                "support_tickets_daily.csv",
+                "deployment_events.csv",
+            ),
+        )
+        for incident in PHASE_6_INCIDENTS.deployments
     ),
-    IncidentSpec(
-        incident_type="inventory_shortage",
-        start=pd.Timestamp("2025-04-10"),
-        end=pd.Timestamp("2025-04-20 23:59:59"),
-        affected_files=("sales_metrics_daily.csv", "inventory_levels_daily.csv"),
+    *(
+        IncidentSpec(
+            incident_type="inventory_shortage",
+            start=incident.start,
+            end=incident.end + pd.Timedelta(hours=23, minutes=59, seconds=59),
+            affected_files=("sales_metrics_daily.csv", "inventory_levels_daily.csv", "support_tickets_daily.csv"),
+        )
+        for incident in PHASE_6_INCIDENTS.inventory_shortages
     ),
-    IncidentSpec(
-        incident_type="shipping_disruption",
-        start=pd.Timestamp("2025-05-05"),
-        end=pd.Timestamp("2025-05-14 23:59:59"),
-        affected_files=("support_tickets_daily.csv", "shipping_delays_daily.csv"),
+    *(
+        IncidentSpec(
+            incident_type="shipping_disruption",
+            start=incident.start,
+            end=incident.end + pd.Timedelta(hours=23, minutes=59, seconds=59),
+            affected_files=("support_tickets_daily.csv", "shipping_delays_daily.csv"),
+        )
+        for incident in PHASE_6_INCIDENTS.shipping_disruptions
     ),
 )
 

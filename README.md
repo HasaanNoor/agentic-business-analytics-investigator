@@ -72,11 +72,12 @@ The initial MVP simulates daily and hourly enterprise operations data:
 - Shipping delays
 - Deployment events
 
-The synthetic data includes realistic incidents that create linked signals across datasets:
+The synthetic data includes realistic incidents that create linked signals across datasets. The Phase 6 default range is
+January 1, 2025 through December 31, 2026 and includes:
 
-- Failed deployment causing latency spikes, checkout failures, support ticket increases, and revenue decline.
-- Inventory shortage causing lost sales.
-- Shipping disruption causing delivery delays and customer complaints.
+- 7 failed deployments with varying severity and duration, causing latency spikes, checkout failures, support ticket increases, and revenue decline.
+- 5 inventory shortages with varying severity and duration, causing stockouts, lost sales, and revenue decline.
+- 5 shipping disruptions with varying severity and duration, causing delay-rate increases, delivery complaints, and support ticket increases.
 
 Generate the data with:
 
@@ -90,7 +91,7 @@ By default, CSV files are written to `data/synthetic/`. The generator accepts a 
 python3 src/ingestion/generate_synthetic_data.py \
   --seed 42 \
   --start-date 2025-01-01 \
-  --end-date 2025-06-30 \
+  --end-date 2026-12-31 \
   --output-dir data/synthetic
 ```
 
