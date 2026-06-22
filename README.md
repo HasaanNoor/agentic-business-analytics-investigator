@@ -18,7 +18,9 @@ The project starts with a deterministic analytics foundation before adding LLM r
 │   ├── figures/
 │   └── reports/
 ├── src/
-│   ├── agents
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   └── executive_report_agent.py
 │   ├── analytics/
 │   │   ├── __init__.py
 │   │   └── kpi_monitor.py
@@ -459,6 +461,62 @@ python3 src/explainability/explain_forecasts.py
 python3 -m pytest
 ```
 
+## Phase 8: LLM-Powered Executive Reporting
+
+Phase 8 adds an executive reporting layer over the deterministic pipeline outputs. The report agent reads only structured artifacts already produced by the system:
+
+- `outputs/reports/investigation_reports.json`
+- `outputs/reports/investigation_summary.md`
+- `outputs/reports/forecast_summary.csv`
+- `outputs/reports/forecast_explanations.md`
+- `outputs/reports/shap_feature_importance.csv`
+- `outputs/reports/model_metrics.csv`
+
+It does not read raw full datasets, does not add RAG, and does not add FastAPI or dashboard behavior. The agent builds a compact evidence bundle containing top incidents, affected KPIs, likely causes, forecast outlook, SHAP drivers, and model limitations. That evidence is then used to produce:
+
+```text
+outputs/reports/executive_operations_report.md
+```
+
+The report includes:
+
+- Executive Summary
+- Key Incidents
+- Forecast Outlook
+- Main Business Drivers
+- Recommended Actions
+- Limitations
+
+If `OPENAI_API_KEY` is set, the agent uses the OpenAI API to turn the evidence bundle into an executive markdown narrative. The prompt instructs the model to use only provided evidence and to avoid inventing facts, causal claims, dates, KPIs, incidents, drivers, or recommendations.
+
+Set an API key with:
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+Optionally set a model:
+
+```bash
+export OPENAI_MODEL="gpt-4o-mini"
+```
+
+If no API key exists, the agent automatically writes a deterministic fallback report without calling OpenAI. This keeps the pipeline runnable in local development, CI, and offline environments.
+
+Generate the executive report with:
+
+```bash
+python3 src/agents/executive_report_agent.py
+```
+
+Run Phase 8 checks with:
+
+```bash
+python3 src/agents/executive_report_agent.py
+python3 -m pytest
+python3 -m py_compile src/agents/executive_report_agent.py
+```
+
 ## Roadmap
 
 1. **Data foundation**
@@ -484,7 +542,7 @@ python3 -m pytest
 
 5. **Decision layer**
    - Recommendation rules
-   - LLM-assisted executive summaries
+   - LLM-assisted executive summaries over structured deterministic outputs
    - Human review workflow
 
 6. **Interface layer**
