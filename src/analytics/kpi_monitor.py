@@ -47,11 +47,22 @@ KPI_COLUMNS = [
     "is_weekend",
     "avg_api_latency_ms",
     "checkout_failure_rate",
+    "shipping_complaint_tickets",
+    "checkout_issue_tickets",
+    "billing_issue_tickets",
+    "account_access_tickets",
+    "general_support_tickets",
     "support_ticket_count",
     "stockout_units",
     "lost_sales_units",
     "shipping_delay_rate",
+    "carrier_capacity_utilization",
+    "warehouse_backlog",
     "delivery_complaints",
+    "east_region_disruption",
+    "west_region_disruption",
+    "south_region_disruption",
+    "central_region_disruption",
     "deployment_event_flag",
     "inventory_shortage_flag",
     "shipping_disruption_flag",
@@ -134,11 +145,38 @@ def aggregate_shipping(shipping: pd.DataFrame) -> pd.DataFrame:
     daily = parsed.groupby("date", as_index=False).agg(
         shipments=("shipments", "sum"),
         delayed_shipments=("delayed_shipments", "sum"),
+        carrier_capacity_utilization=("carrier_capacity_utilization", "mean"),
+        warehouse_backlog=("warehouse_backlog", "sum"),
+        east_region_disruption=("east_region_disruption", "max"),
+        west_region_disruption=("west_region_disruption", "max"),
+        south_region_disruption=("south_region_disruption", "max"),
+        central_region_disruption=("central_region_disruption", "max"),
         shipping_disruption_flag=("incident_flag", "max"),
     )
     daily["shipping_delay_rate"] = safe_divide(daily["delayed_shipments"], daily["shipments"]).round(4)
+    daily["carrier_capacity_utilization"] = daily["carrier_capacity_utilization"].round(4)
+    daily["warehouse_backlog"] = daily["warehouse_backlog"].astype(int)
     daily["shipping_disruption_flag"] = daily["shipping_disruption_flag"].astype(int)
-    return daily[["date", "shipping_delay_rate", "shipping_disruption_flag"]]
+    for column in (
+        "east_region_disruption",
+        "west_region_disruption",
+        "south_region_disruption",
+        "central_region_disruption",
+    ):
+        daily[column] = daily[column].astype(int)
+    return daily[
+        [
+            "date",
+            "shipping_delay_rate",
+            "carrier_capacity_utilization",
+            "warehouse_backlog",
+            "east_region_disruption",
+            "west_region_disruption",
+            "south_region_disruption",
+            "central_region_disruption",
+            "shipping_disruption_flag",
+        ]
+    ]
 
 
 def aggregate_deployment_events(deployment: pd.DataFrame) -> pd.DataFrame:
@@ -174,6 +212,11 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
         [
             "date",
             "total_tickets",
+            "shipping_complaint_tickets",
+            "checkout_issue_tickets",
+            "billing_issue_tickets",
+            "account_access_tickets",
+            "general_support_tickets",
             "refund_requests",
             "delivery_complaints",
         ]
@@ -189,9 +232,21 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
     )
 
     summary["refund_rate"] = safe_divide(summary["refund_requests"], summary["orders"]).round(4)
+    category_columns = [
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+    ]
+    for column in category_columns:
+        summary[column] = summary[column].fillna(0).astype(int)
+    summary["support_ticket_count"] = summary[category_columns].sum(axis=1).astype(int)
     summary["support_ticket_count"] = summary["support_ticket_count"].fillna(0).astype(int)
     summary["stockout_units"] = summary["stockout_units"].fillna(0).astype(int)
     summary["delivery_complaints"] = summary["delivery_complaints"].fillna(0).astype(int)
+    summary["carrier_capacity_utilization"] = summary["carrier_capacity_utilization"].fillna(0).round(4)
+    summary["warehouse_backlog"] = summary["warehouse_backlog"].fillna(0).astype(int)
     summary["website_visitors"] = summary["website_visitors"].fillna(0).astype(int)
     summary["active_customers"] = summary["active_customers"].fillna(0).astype(int)
     summary["day_of_week"] = summary["day_of_week"].astype(int)
@@ -201,6 +256,13 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
     summary["deployment_event_flag"] = summary["deployment_event_flag"].fillna(0).astype(int)
     summary["inventory_shortage_flag"] = summary["inventory_shortage_flag"].fillna(0).astype(int)
     summary["shipping_disruption_flag"] = summary["shipping_disruption_flag"].fillna(0).astype(int)
+    for column in (
+        "east_region_disruption",
+        "west_region_disruption",
+        "south_region_disruption",
+        "central_region_disruption",
+    ):
+        summary[column] = summary[column].fillna(0).astype(int)
 
     return summary[KPI_COLUMNS].sort_values("date").reset_index(drop=True)
 
@@ -220,6 +282,9 @@ def plot_kpi_summary(summary: pd.DataFrame, figures_dir: Path) -> list[Path]:
         ("avg_api_latency_ms", "Average API Latency", "kpi_api_latency.png"),
         ("checkout_failure_rate", "Checkout Failure Rate", "kpi_checkout_failure_rate.png"),
         ("shipping_delay_rate", "Shipping Delay Rate", "kpi_shipping_delay_rate.png"),
+        ("support_ticket_count", "Support Ticket Count", "kpi_support_ticket_count.png"),
+        ("carrier_capacity_utilization", "Carrier Capacity Utilization", "kpi_carrier_capacity_utilization.png"),
+        ("warehouse_backlog", "Warehouse Backlog", "kpi_warehouse_backlog.png"),
     ]
 
     written_paths: list[Path] = []

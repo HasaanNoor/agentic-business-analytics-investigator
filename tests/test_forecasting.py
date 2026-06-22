@@ -60,6 +60,37 @@ def test_forecasting_dataset_uses_required_lag_features(tmp_path):
     assert dataset["date"].is_monotonic_increasing
 
 
+def test_phase_7_forecasting_feature_sets_use_operational_drivers(tmp_path):
+    kpi_path = build_test_kpi_summary(tmp_path)
+    summary = pd.read_csv(kpi_path)
+    support_dataset = create_forecasting_dataset(summary, "support_ticket_count")
+    shipping_dataset = create_forecasting_dataset(summary, "shipping_delay_rate")
+
+    support_features = set(get_feature_columns("support_ticket_count"))
+    shipping_features = set(get_feature_columns("shipping_delay_rate"))
+
+    assert {
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+        "active_customers",
+        "website_visitors",
+    }.issubset(support_features)
+    assert {
+        "carrier_capacity_utilization",
+        "warehouse_backlog",
+        "shipping_complaint_tickets",
+        "east_region_disruption",
+        "west_region_disruption",
+        "south_region_disruption",
+        "central_region_disruption",
+    }.issubset(shipping_features)
+    assert support_features.issubset(support_dataset.columns)
+    assert shipping_features.issubset(shipping_dataset.columns)
+
+
 def test_training_generates_metrics_and_model_artifacts(tmp_path):
     kpi_path = build_test_kpi_summary(tmp_path)
     metrics_path = tmp_path / "reports" / "model_metrics.csv"

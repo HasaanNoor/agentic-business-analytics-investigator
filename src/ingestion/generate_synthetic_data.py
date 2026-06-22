@@ -63,6 +63,12 @@ SKUS = (
 )
 
 REGIONS = ("Northeast", "Southeast", "Midwest", "West")
+REGION_DISRUPTION_COLUMNS = {
+    "Northeast": "east_region_disruption",
+    "West": "west_region_disruption",
+    "Southeast": "south_region_disruption",
+    "Midwest": "central_region_disruption",
+}
 CARRIERS = ("ShipFast", "ParcelPro", "Northline")
 
 
@@ -439,18 +445,82 @@ def generate_support_tickets(
     dates: pd.DatetimeIndex,
     rng: np.random.Generator,
     incidents: IncidentCatalog,
+    sales_metrics: pd.DataFrame | None = None,
+    checkout_failures: pd.DataFrame | None = None,
+    shipping_delays: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     deployment_effect = deployment_severity(dates, incidents, normalize=True)
     inventory_effect = inventory_severity(dates, incidents)
     shipping_effect = shipping_severity(dates, incidents)
     incident_days = (deployment_effect > 0) | (shipping_effect > 0) | (inventory_effect > 0)
 
-    base = rng.poisson(135, len(dates)).astype(int)
-    checkout_complaints = rng.poisson(16 + 95 * deployment_effect).astype(int)
-    delivery_complaints = rng.poisson(24 + 96 * shipping_effect).astype(int)
-    inventory_complaints = rng.poisson(18 + 42 * inventory_effect).astype(int)
-    refund_requests = rng.poisson(22 + 25 * deployment_effect + 20 * shipping_effect + 10 * inventory_effect).astype(int)
-    total = base + checkout_complaints + delivery_complaints + inventory_complaints + refund_requests
+    active_customers = np.full(len(dates), 7_200.0)
+    if sales_metrics is not None and {"date", "active_customers"} <= set(sales_metrics.columns):
+        sales = sales_metrics.copy()
+        sales["date"] = pd.to_datetime(sales["date"], errors="raise").dt.normalize()
+        active_customers = (
+            pd.DataFrame({"date": dates})
+            .merge(sales[["date", "active_customers"]], on="date", how="left")["active_customers"]
+            .fillna(active_customers[0])
+            .to_numpy(dtype=float)
+        )
+
+    checkout_failure_rate = np.full(len(dates), 0.018)
+    if checkout_failures is not None and {"timestamp", "checkout_attempts", "failed_checkouts"} <= set(checkout_failures.columns):
+        checkout = checkout_failures.copy()
+        checkout["date"] = pd.to_datetime(checkout["timestamp"], errors="raise").dt.normalize()
+        daily_checkout = checkout.groupby("date", as_index=False).agg(
+            checkout_attempts=("checkout_attempts", "sum"),
+            failed_checkouts=("failed_checkouts", "sum"),
+        )
+        daily_checkout["checkout_failure_rate"] = daily_checkout["failed_checkouts"] / daily_checkout["checkout_attempts"].where(
+            daily_checkout["checkout_attempts"] != 0
+        )
+        checkout_failure_rate = (
+            pd.DataFrame({"date": dates})
+            .merge(daily_checkout[["date", "checkout_failure_rate"]], on="date", how="left")["checkout_failure_rate"]
+            .fillna(0.018)
+            .to_numpy(dtype=float)
+        )
+
+    shipping_delay_rate = np.full(len(dates), 0.055)
+    if shipping_delays is not None and {"date", "shipments", "delayed_shipments"} <= set(shipping_delays.columns):
+        shipping = shipping_delays.copy()
+        shipping["date"] = pd.to_datetime(shipping["date"], errors="raise").dt.normalize()
+        daily_shipping = shipping.groupby("date", as_index=False).agg(
+            shipments=("shipments", "sum"),
+            delayed_shipments=("delayed_shipments", "sum"),
+        )
+        daily_shipping["shipping_delay_rate"] = daily_shipping["delayed_shipments"] / daily_shipping["shipments"].where(
+            daily_shipping["shipments"] != 0
+        )
+        shipping_delay_rate = (
+            pd.DataFrame({"date": dates})
+            .merge(daily_shipping[["date", "shipping_delay_rate"]], on="date", how="left")["shipping_delay_rate"]
+            .fillna(0.055)
+            .to_numpy(dtype=float)
+        )
+
+    customer_pressure = np.clip((active_customers - 6_800.0) / 1_000.0, -1.2, 3.0)
+    checkout_pressure = np.clip((checkout_failure_rate - 0.018) / 0.01, 0.0, 18.0)
+    shipping_pressure = np.clip((shipping_delay_rate - 0.055) / 0.01, 0.0, 22.0)
+
+    shipping_complaint_tickets = rng.poisson(18 + 2.9 * customer_pressure + 5.3 * shipping_pressure + 42 * shipping_effect).astype(int)
+    checkout_issue_tickets = rng.poisson(12 + 2.1 * customer_pressure + 4.8 * checkout_pressure + 34 * deployment_effect).astype(int)
+    billing_issue_tickets = rng.poisson(15 + 1.5 * customer_pressure + 11 * deployment_effect + 7 * shipping_effect + 5 * inventory_effect).astype(int)
+    account_access_tickets = rng.poisson(20 + 2.2 * customer_pressure + 36 * deployment_effect).astype(int)
+    general_support_tickets = rng.poisson(54 + 5.4 * customer_pressure + 28 * deployment_effect + 10 * shipping_effect + 8 * inventory_effect).astype(int)
+    total = (
+        shipping_complaint_tickets
+        + checkout_issue_tickets
+        + billing_issue_tickets
+        + account_access_tickets
+        + general_support_tickets
+    )
+    refund_requests = np.maximum(
+        0,
+        np.round(0.52 * billing_issue_tickets + rng.normal(8 + 6 * shipping_effect + 4 * deployment_effect, 2.5, len(dates))),
+    ).astype(int)
 
     incident_type = incident_type_for_days(
         dates,
@@ -463,9 +533,14 @@ def generate_support_tickets(
         {
             "date": dates.date,
             "total_tickets": total,
-            "checkout_complaints": checkout_complaints,
-            "delivery_complaints": delivery_complaints,
-            "inventory_complaints": inventory_complaints,
+            "shipping_complaint_tickets": shipping_complaint_tickets,
+            "checkout_issue_tickets": checkout_issue_tickets,
+            "billing_issue_tickets": billing_issue_tickets,
+            "account_access_tickets": account_access_tickets,
+            "general_support_tickets": general_support_tickets,
+            "checkout_complaints": checkout_issue_tickets,
+            "delivery_complaints": shipping_complaint_tickets,
+            "inventory_complaints": np.maximum(0, np.round(general_support_tickets * 0.18 + 18 * inventory_effect)).astype(int),
             "refund_requests": refund_requests,
             "avg_first_response_minutes": np.round(rng.normal(42, 8, len(dates)) + np.where(incident_days, 16, 0), 1),
             "incident_flag": incident_type != "normal",
@@ -546,11 +621,31 @@ def generate_shipping_delays(
                 disruption_severity = sum(incident.severity for incident in active_disruptions)
                 affected = disruption_severity > 0
                 shipments = int(rng.poisson(420 if region != "West" else 360))
-                delay_rate = rng.normal(0.055, 0.012)
-                delay_rate += 0.18 * disruption_severity
+                weekday_pressure = 0.025 if date.dayofweek in (0, 1) else 0.0
+                seasonal_pressure = 0.045 if date.month in (11, 12) else 0.0
+                carrier_pressure = {"ShipFast": 0.025, "ParcelPro": 0.045, "Northline": 0.015}[carrier]
+                utilization = rng.normal(0.64, 0.045) + weekday_pressure + seasonal_pressure + carrier_pressure
+                utilization += 0.12 * disruption_severity
+                utilization = float(np.clip(utilization, 0.35, 0.98))
+                warehouse_backlog = max(
+                    0,
+                    int(
+                        rng.normal(32, 11)
+                        + shipments * max(utilization - 0.68, 0) * 0.42
+                        + 92 * disruption_severity
+                    ),
+                )
+                delay_rate = rng.normal(0.04, 0.01)
+                delay_rate += 0.16 * disruption_severity
+                delay_rate += 0.24 * max(utilization - 0.76, 0)
+                delay_rate += 0.00065 * warehouse_backlog
                 delay_rate = float(np.clip(delay_rate, 0.01, 0.45))
                 delayed_shipments = int(rng.binomial(shipments, delay_rate))
+                warehouse_backlog += int(delayed_shipments * rng.uniform(0.18, 0.32))
                 avg_delay_hours = rng.normal(7.5, 1.6) + 22 * disruption_severity
+                region_flags = {column: 0 for column in REGION_DISRUPTION_COLUMNS.values()}
+                if affected:
+                    region_flags[REGION_DISRUPTION_COLUMNS[region]] = 1
 
                 records.append(
                     {
@@ -560,7 +655,10 @@ def generate_shipping_delays(
                         "shipments": shipments,
                         "delayed_shipments": delayed_shipments,
                         "delay_rate": round(delay_rate, 4),
+                        "carrier_capacity_utilization": round(utilization, 4),
+                        "warehouse_backlog": warehouse_backlog,
                         "avg_delay_hours": round(max(avg_delay_hours, 0.5), 1),
+                        **region_flags,
                         "incident_flag": affected,
                         "incident_type": "shipping_disruption" if affected else "normal",
                     }
@@ -653,13 +751,19 @@ def generate_all_datasets(
     hours = hourly_dates(start_date, end_date)
 
     LOGGER.info("Generating Northstar Commerce synthetic data from %s to %s with seed=%s", start_date, end_date, seed)
+    sales_metrics = generate_sales_metrics(days, rng, incidents)
+    api_latency = generate_api_latency(hours, rng, incidents)
+    checkout_failures = generate_checkout_failures(hours, rng, incidents)
+    inventory_levels = generate_inventory_levels(days, rng, incidents)
+    shipping_delays = generate_shipping_delays(days, rng, incidents)
+    support_tickets = generate_support_tickets(days, rng, incidents, sales_metrics, checkout_failures, shipping_delays)
     return {
-        "sales_metrics_daily": generate_sales_metrics(days, rng, incidents),
-        "api_latency_hourly": generate_api_latency(hours, rng, incidents),
-        "checkout_failures_hourly": generate_checkout_failures(hours, rng, incidents),
-        "support_tickets_daily": generate_support_tickets(days, rng, incidents),
-        "inventory_levels_daily": generate_inventory_levels(days, rng, incidents),
-        "shipping_delays_daily": generate_shipping_delays(days, rng, incidents),
+        "sales_metrics_daily": sales_metrics,
+        "api_latency_hourly": api_latency,
+        "checkout_failures_hourly": checkout_failures,
+        "support_tickets_daily": support_tickets,
+        "inventory_levels_daily": inventory_levels,
+        "shipping_delays_daily": shipping_delays,
         "deployment_events": generate_deployment_events(incidents),
     }
 

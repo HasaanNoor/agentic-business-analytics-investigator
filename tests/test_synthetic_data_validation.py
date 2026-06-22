@@ -65,6 +65,39 @@ def test_generated_sales_data_includes_revenue_driver_fields():
     assert sales["average_order_value"].gt(0).all()
 
 
+def test_generated_operational_data_includes_phase_7_drivers():
+    datasets = generate_all_datasets(seed=42)
+    support = datasets["support_tickets_daily"]
+    shipping = datasets["shipping_delays_daily"]
+
+    support_categories = [
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+    ]
+    assert set(support_categories).issubset(support.columns)
+    assert support["total_tickets"].equals(support[support_categories].sum(axis=1))
+    assert support.loc[support["incident_type"] == "shipping_disruption", "shipping_complaint_tickets"].mean() > support.loc[
+        support["incident_type"] == "normal", "shipping_complaint_tickets"
+    ].mean()
+    assert support.loc[support["incident_type"] == "failed_deployment", "checkout_issue_tickets"].mean() > support.loc[
+        support["incident_type"] == "normal", "checkout_issue_tickets"
+    ].mean()
+
+    assert {
+        "carrier_capacity_utilization",
+        "warehouse_backlog",
+        "east_region_disruption",
+        "west_region_disruption",
+        "south_region_disruption",
+        "central_region_disruption",
+    }.issubset(shipping.columns)
+    assert shipping["carrier_capacity_utilization"].between(0, 1).all()
+    assert shipping["warehouse_backlog"].ge(0).all()
+
+
 def test_validation_reports_missing_required_file(tmp_path):
     data_dir = tmp_path / "synthetic"
     write_default_synthetic_data(data_dir)

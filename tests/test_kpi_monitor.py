@@ -35,6 +35,8 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["refund_rate"].between(0, 1).all()
     assert summary["checkout_failure_rate"].between(0, 1).all()
     assert summary["shipping_delay_rate"].between(0, 1).all()
+    assert summary["carrier_capacity_utilization"].between(0, 1).all()
+    assert summary["warehouse_backlog"].ge(0).all()
     assert summary["day_of_week"].between(0, 6).all()
     assert summary["month"].between(1, 12).all()
     assert summary["quarter"].between(1, 4).all()
@@ -42,6 +44,18 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["deployment_event_flag"].isin([0, 1]).all()
     assert summary["inventory_shortage_flag"].isin([0, 1]).all()
     assert summary["shipping_disruption_flag"].isin([0, 1]).all()
+    assert summary["east_region_disruption"].isin([0, 1]).all()
+    assert summary["west_region_disruption"].isin([0, 1]).all()
+    assert summary["south_region_disruption"].isin([0, 1]).all()
+    assert summary["central_region_disruption"].isin([0, 1]).all()
+    category_columns = [
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+    ]
+    assert summary["support_ticket_count"].equals(summary[category_columns].sum(axis=1))
     assert summary["deployment_event_flag"].sum() == 14
     assert summary["inventory_shortage_flag"].sum() > 0
     assert summary["shipping_disruption_flag"].sum() > 0
@@ -76,6 +90,26 @@ def test_kpi_summary_aggregates_hourly_and_entity_data_correctly(tmp_path):
     assert first_day["active_customers"] == datasets["sales"].loc[0, "active_customers"]
     assert first_day["average_order_value"] == datasets["sales"].loc[0, "average_order_value"]
 
+    support = datasets["support"].copy()
+    support["date"] = pd.to_datetime(support["date"])
+    support_day = support[support["date"] == pd.Timestamp("2025-01-01")].iloc[0]
+    support_categories = [
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+    ]
+    assert first_day["support_ticket_count"] == support_day[support_categories].sum()
+
+    shipping = datasets["shipping"].copy()
+    shipping["date"] = pd.to_datetime(shipping["date"])
+    shipping_day = shipping[shipping["date"] == pd.Timestamp("2025-01-01")]
+    expected_utilization = shipping_day["carrier_capacity_utilization"].mean()
+    expected_backlog = shipping_day["warehouse_backlog"].sum()
+    assert first_day["carrier_capacity_utilization"] == round(expected_utilization, 4)
+    assert first_day["warehouse_backlog"] == expected_backlog
+
 
 def test_run_kpi_monitor_writes_csv_and_plots(tmp_path):
     data_dir = tmp_path / "synthetic"
@@ -89,3 +123,5 @@ def test_run_kpi_monitor_writes_csv_and_plots(tmp_path):
     assert len(pd.read_csv(output_path)) == len(summary)
     assert (figures_dir / "kpi_net_revenue.png").exists()
     assert (figures_dir / "kpi_api_latency.png").exists()
+    assert (figures_dir / "kpi_support_ticket_count.png").exists()
+    assert (figures_dir / "kpi_carrier_capacity_utilization.png").exists()

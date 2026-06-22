@@ -90,31 +90,42 @@ No missing values detected.
 
 | Column | Count | Mean | Std | Min | Median | Max |
 | --- | --- | --- | --- | --- | --- | --- |
-| total_tickets | 730 | 231.0932 | 43.168 | 160.0 | 218.0 | 434.0 |
-| checkout_complaints | 730 | 19.1795 | 19.5022 | 5.0 | 16.0 | 178.0 |
-| delivery_complaints | 730 | 30.2397 | 25.9165 | 9.0 | 24.0 | 170.0 |
-| inventory_complaints | 730 | 21.526 | 13.5746 | 7.0 | 18.0 | 88.0 |
-| refund_requests | 730 | 25.026 | 8.7514 | 11.0 | 23.0 | 69.0 |
-| avg_first_response_minutes | 730 | 45.0447 | 10.1336 | 15.3 | 44.0 | 78.7 |
+| total_tickets | 730 | 172.2562 | 43.7515 | 85.0 | 164.0 | 439.0 |
+| shipping_complaint_tickets | 730 | 35.726 | 23.5413 | 7.0 | 30.0 | 165.0 |
+| checkout_issue_tickets | 730 | 20.0137 | 15.6823 | 5.0 | 18.0 | 145.0 |
+| billing_issue_tickets | 730 | 19.7507 | 5.7002 | 7.0 | 19.0 | 44.0 |
+| account_access_tickets | 730 | 26.9 | 9.1597 | 10.0 | 26.0 | 92.0 |
+| general_support_tickets | 730 | 69.8658 | 11.6463 | 32.0 | 69.0 | 142.0 |
+| checkout_complaints | 730 | 20.0137 | 15.6823 | 5.0 | 18.0 | 145.0 |
+| delivery_complaints | 730 | 35.726 | 23.5413 | 7.0 | 30.0 | 165.0 |
+| inventory_complaints | 730 | 14.1192 | 6.174 | 6.0 | 12.0 | 42.0 |
+| refund_requests | 730 | 18.6205 | 4.7713 | 7.0 | 18.0 | 38.0 |
+| avg_first_response_minutes | 730 | 44.8379 | 9.9607 | 17.0 | 44.45 | 76.4 |
 
 ### inventory_levels_daily.csv
 
 | Column | Count | Mean | Std | Min | Median | Max |
 | --- | --- | --- | --- | --- | --- | --- |
-| on_hand_units | 3650 | 305.6537 | 382.0708 | 0.0 | 183.5 | 2589.0 |
-| units_demanded | 3650 | 61.1808 | 16.0493 | 18.0 | 61.0 | 143.0 |
-| units_received | 3650 | 35.7542 | 161.7023 | 0.0 | 0.0 | 935.0 |
-| stockout_units | 3650 | 1.6858 | 13.5588 | 0.0 | 0.0 | 143.0 |
+| on_hand_units | 3650 | 316.24 | 405.9265 | 0.0 | 181.0 | 2584.0 |
+| units_demanded | 3650 | 61.2318 | 16.0103 | 20.0 | 61.0 | 140.0 |
+| units_received | 3650 | 35.4005 | 160.0758 | 0.0 | 0.0 | 905.0 |
+| stockout_units | 3650 | 1.6425 | 13.2038 | 0.0 | 0.0 | 139.0 |
 | reorder_point | 3650 | 220.0 | 0.0 | 220.0 | 220.0 | 220.0 |
 
 ### shipping_delays_daily.csv
 
 | Column | Count | Mean | Std | Min | Median | Max |
 | --- | --- | --- | --- | --- | --- | --- |
-| shipments | 8760 | 404.9292 | 32.7121 | 292.0 | 411.0 | 495.0 |
-| delayed_shipments | 8760 | 23.7671 | 12.9749 | 4.0 | 22.0 | 142.0 |
-| delay_rate | 8760 | 0.0588 | 0.0296 | 0.014 | 0.0553 | 0.3159 |
-| avg_delay_hours | 8760 | 7.9281 | 3.6642 | 1.0 | 7.5 | 37.9 |
+| shipments | 8760 | 404.7183 | 33.1229 | 295.0 | 411.0 | 494.0 |
+| delayed_shipments | 8760 | 27.6999 | 16.7199 | 4.0 | 25.0 | 182.0 |
+| delay_rate | 8760 | 0.0686 | 0.0389 | 0.01 | 0.0636 | 0.414 |
+| carrier_capacity_utilization | 8760 | 0.6858 | 0.0547 | 0.5047 | 0.683 | 0.9252 |
+| warehouse_backlog | 8760 | 44.029 | 24.3178 | 1.0 | 41.0 | 248.0 |
+| avg_delay_hours | 8760 | 7.9627 | 3.6599 | 0.8 | 7.5 | 39.4 |
+| east_region_disruption | 8760 | 0.0068 | 0.0825 | 0.0 | 0.0 | 1.0 |
+| west_region_disruption | 8760 | 0.0051 | 0.0715 | 0.0 | 0.0 | 1.0 |
+| south_region_disruption | 8760 | 0.0042 | 0.0649 | 0.0 | 0.0 | 1.0 |
+| central_region_disruption | 8760 | 0.0035 | 0.0594 | 0.0 | 0.0 | 1.0 |
 
 ### deployment_events.csv
 
