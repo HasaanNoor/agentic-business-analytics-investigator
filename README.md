@@ -1,133 +1,69 @@
 # Agentic Business Analytics Investigator
 
-An AI-powered decision intelligence platform for detecting operational anomalies, investigating likely contributing factors, explaining outcomes, and recommending actions.
+This project investigates problems in a simulated ecommerce business called **Northstar Commerce**.
 
-The project starts with a deterministic analytics foundation before adding LLM reasoning or agent orchestration. The first MVP uses a simulated enterprise operations dataset for **Northstar Commerce**, an ecommerce business with sales, checkout, infrastructure, inventory, logistics, and support signals.
+It creates business data, checks that the data is usable, tracks important metrics, finds unusual changes, groups those changes into incidents, forecasts a few key metrics, explains the forecasts, and writes reports.
 
-## Current Repository Structure
+The project is built in stages. Most stages are deterministic, which means they use fixed Python rules and reproducible data instead of asking an LLM to reason about the business. This makes the system easier to test before adding more advanced AI behavior.
+
+## Repository Structure
 
 ```text
 .
-├── configs/
-├── data/
-│   ├── processed/
-│   ├── raw/
-│   └── synthetic/
-├── notebooks/
+├── data/synthetic/                 # Generated business data
 ├── outputs/
-│   ├── figures/
-│   └── reports/
+│   ├── figures/                    # Charts
+│   └── reports/                    # CSV, JSON, and markdown reports
 ├── src/
-│   ├── agents/
-│   │   ├── __init__.py
-│   │   └── executive_report_agent.py
-│   ├── analytics/
-│   │   ├── __init__.py
-│   │   └── kpi_monitor.py
-│   ├── anomaly_detection/
-│   │   ├── __init__.py
-│   │   └── detect_anomalies.py
-│   ├── dashboard
-│   ├── explainability/
-│   ├── forecasting/
-│   ├── investigation/
-│   │   └── investigate_anomalies.py
-│   ├── ingestion/
-│   │   ├── __init__.py
-│   │   └── generate_synthetic_data.py
-│   ├── orchestration
-│   └── utils
+│   ├── agents/                     # Report and investigation agents
+│   ├── analytics/                  # KPI summary builder
+│   ├── anomaly_detection/          # Anomaly detection rules
+│   ├── explainability/             # SHAP forecast explanations
+│   ├── forecasting/                # Forecast model training and prediction
+│   ├── ingestion/                  # Synthetic data generation and validation
+│   └── investigation/              # Incident grouping and first-pass investigation
 ├── tests/
 ├── README.md
 └── requirements.txt
 ```
 
-Some directories are placeholders for upcoming modules. The first implemented module is synthetic data generation under `src/ingestion`.
+Some folders are placeholders for future dashboard, API, or orchestration work.
 
-## Architecture
-
-The system is designed as a deterministic-first decision intelligence pipeline:
+## How The Pipeline Works
 
 ```text
-Synthetic/Public Data
-  -> Ingestion and Validation
-  -> KPI Modeling
-  -> Forecasting and Baselines
-  -> Anomaly Detection
-  -> Contribution and Root-Cause Analysis
-  -> Explainability Layer
-  -> LLM-Assisted Narrative and Recommendations
-  -> Dashboard/API
+Generate synthetic data
+  -> Validate the generated files
+  -> Build daily KPI summary
+  -> Detect unusual KPI changes
+  -> Group anomalies into incidents
+  -> Forecast revenue, support tickets, and shipping delays
+  -> Explain forecast drivers with SHAP
+  -> Write incident and operations reports
+  -> Review each incident with focused deterministic agents
 ```
 
-Early stages should be reproducible and testable without agent frameworks. LLMs are planned as a later reasoning and communication layer over structured analytical outputs.
+## Phase 1: Synthetic Data And Validation
 
-## MVP Scope: Northstar Commerce
+**What was added:** Phase 1 creates synthetic data for sales, checkout failures, API latency, support tickets, inventory levels, shipping delays, and software deployments.
 
-The initial MVP simulates daily and hourly enterprise operations data:
+**Why it was added:** The project needs realistic data with known incidents so the rest of the system can be tested. For example, the generator creates failed checkout deployments, inventory shortages, and shipping disruptions that show up across several metrics.
 
-- Sales metrics
-- API latency
-- Checkout failures
-- Support tickets
-- Inventory levels
-- Shipping delays
-- Deployment events
+**How it affects the system:** Later phases can detect and investigate known problems. A failed checkout deployment can cause higher API latency, more checkout failures, more support tickets, and lower revenue.
 
-The synthetic data includes realistic incidents that create linked signals across datasets. The Phase 7 default range is
-January 1, 2025 through December 31, 2026 and includes:
-
-- 7 failed deployments with varying severity and duration, causing latency spikes, checkout failures, support ticket increases, and revenue decline.
-- 5 inventory shortages with varying severity and duration, causing stockouts, lost sales, and revenue decline.
-- 5 shipping disruptions with varying severity and duration, causing delay-rate increases, delivery complaints, and support ticket increases.
-
-Phase 6.5 improved the revenue signal by adding explicit demand, customer, order-value, and calendar drivers to the sales and KPI datasets:
-
-- `website_visitors`
-- `active_customers`
-- `average_order_value`
-- `day_of_week`
-- `month`
-- `quarter`
-- `is_weekend`
-
-`net_revenue` is now generated from a more realistic ecommerce relationship: demand (`website_visitors`), conversion, checkout failures, average order value, refunds, lost sales, stockouts, and operational incident pressure. This keeps revenue explainable while preserving deterministic behavior.
-
-Phase 7 adds operational realism below support and logistics KPIs. Support tickets are now generated by category:
-
-- `shipping_complaint_tickets`
-- `checkout_issue_tickets`
-- `billing_issue_tickets`
-- `account_access_tickets`
-- `general_support_tickets`
-
-`support_ticket_count` is defined as the sum of these categories. Shipping complaints increase with shipping delays, checkout tickets increase with checkout failures, deployment incidents increase account and general support tickets, and higher `active_customers` increases baseline support demand.
-
-Shipping delay generation now includes logistics drivers:
-
-- `carrier_capacity_utilization`
-- `warehouse_backlog`
-- Regional disruption indicators: `east_region_disruption`, `west_region_disruption`, `south_region_disruption`, and `central_region_disruption`
-
-Higher capacity utilization and warehouse backlog increase delay rates. Injected shipping disruptions increase delay rates, utilization pressure, backlog, and the regional disruption flags for affected regions.
-
-Generate the data with:
+Generate the data:
 
 ```bash
 python3 src/ingestion/generate_synthetic_data.py
 ```
 
-By default, CSV files are written to `data/synthetic/`. The generator accepts a reproducibility seed, date range, and output directory:
+The default output folder is:
 
-```bash
-python3 src/ingestion/generate_synthetic_data.py \
-  --seed 42 \
-  --start-date 2025-01-01 \
-  --end-date 2026-12-31 \
-  --output-dir data/synthetic
+```text
+data/synthetic/
 ```
 
-Expected outputs:
+Expected files:
 
 - `sales_metrics_daily.csv`
 - `api_latency_hourly.csv`
@@ -137,236 +73,160 @@ Expected outputs:
 - `shipping_delays_daily.csv`
 - `deployment_events.csv`
 
-Validate and profile the generated data with:
+Validate the generated data:
 
 ```bash
 python3 src/ingestion/validate_synthetic_data.py
 ```
 
-The validator checks required files and columns, date/time parsing, duplicate metric keys, numeric null coverage, nonnegative operational metrics, rate bounds, and the expected injected incident windows. It writes a deterministic profiling report to:
+The validator checks required columns, date parsing, duplicate rows, missing values, nonnegative counts, valid rates, and expected incident windows. It writes:
 
 ```text
 outputs/reports/synthetic_data_profile.md
 ```
 
-The report includes row counts, date/time ranges, missing values, numeric descriptive statistics, and detected incident windows by affected metric file.
+## Phase 2: KPI Monitoring And Anomaly Detection
 
-## Phase 2: Deterministic KPI Monitoring and Anomaly Detection
+**What was added:** Phase 2 combines the synthetic datasets into one daily KPI table, then flags unusual metric changes.
 
-Phase 2 adds a non-LLM analytics layer over the synthetic data. It builds a daily KPI table and then flags unusual metric behavior with rolling averages, rolling standard deviations, z-scores, and percent change thresholds.
+**Why it was added:** Incidents are easier to find when related metrics are in one place. For example, a checkout problem can be reviewed beside revenue, conversion rate, checkout failure rate, API latency, and support ticket volume.
 
-Build the daily KPI summary with:
+**How it affects the system:** The output from this phase becomes the main input for investigation, forecasting, and later reporting.
+
+Build the daily KPI summary:
 
 ```bash
 python3 src/analytics/kpi_monitor.py
 ```
 
-The KPI monitor reads CSV files from `data/synthetic/` and writes:
+This writes:
 
 ```text
 outputs/reports/kpi_summary_daily.csv
 ```
 
-The summary includes:
+The KPI table includes:
 
-- Net revenue
-- Website visitors
-- Active customers
-- Average order value
-- Conversion rate
-- Refund rate, derived from support refund requests divided by orders
-- Calendar features: day of week, month, quarter, and weekend flag
-- Average API latency
-- Checkout failure rate
-- Support ticket categories
-- Support ticket count
-- Stockout units
-- Lost sales units
-- Shipping delay rate
-- Carrier capacity utilization
-- Warehouse backlog
-- Delivery complaints
-- Regional shipping disruption indicators
+- Revenue metrics such as `net_revenue`, `website_visitors`, `average_order_value`, `conversion_rate`, and `refund_rate`
+- Platform metrics such as `avg_api_latency_ms` and `checkout_failure_rate`
+- Support ticket totals and categories
+- Inventory metrics such as `stockout_units` and `lost_sales_units`
+- Logistics metrics such as `shipping_delay_rate`, `carrier_capacity_utilization`, `warehouse_backlog`, `delivery_complaints`, and regional disruption flags
 
-It also writes simple KPI plots under:
-
-```text
-outputs/figures/
-```
-
-Detect anomalies with:
+Detect anomalies:
 
 ```bash
 python3 src/anomaly_detection/detect_anomalies.py
 ```
 
-The anomaly detector reads `outputs/reports/kpi_summary_daily.csv` and writes:
+This writes:
 
 ```text
 outputs/reports/anomaly_events.csv
 ```
 
-It flags deterministic event types for revenue drops, latency spikes, checkout failure spikes, support ticket spikes, inventory shortage periods, and shipping delay spikes. A simple anomaly count plot is also written to `outputs/figures/`.
-
-Run the Phase 2 checks with:
-
-```bash
-python3 src/analytics/kpi_monitor.py
-python3 src/anomaly_detection/detect_anomalies.py
-python3 -m pytest
-python3 -m py_compile src/analytics/kpi_monitor.py
-python3 -m py_compile src/anomaly_detection/detect_anomalies.py
-```
-
-No LLMs or agent frameworks are used in Phase 2.
+The detector looks for revenue drops, latency spikes, checkout failure spikes, support ticket spikes, inventory shortage periods, and shipping delay spikes.
 
 ## Phase 3: Deterministic Investigation Engine
 
-Phase 3 groups nearby anomaly events into incidents and explains them with deterministic rules. Consecutive anomaly dates separated by no more than three days are grouped into one incident by default. Each report includes the incident date range, main and related anomaly types, affected KPI summaries, possible contributing factors, supporting evidence, deployment events, and recommended next steps.
+**What was added:** Phase 3 groups nearby anomaly events into incidents and gives each incident a first explanation.
 
-The engine recognizes these initial root-cause patterns:
+**Why it was added:** A real business problem usually affects more than one metric. For example, a shipping disruption can raise shipping delay rate, delivery complaints, support tickets, and sometimes lower revenue.
 
-- Latency spike plus checkout failure spike plus a recent failed deployment: likely deployment-related checkout incident.
-- Inventory shortage plus lost sales plus revenue drop: likely inventory shortage incident.
-- Shipping delay spike plus elevated delivery complaints: likely logistics disruption incident.
+**How it affects the system:** Instead of reviewing isolated anomaly rows, users get incident reports with a date range, likely cause, evidence, affected KPIs, deployment events, and next steps.
 
-Generate the investigation reports with:
+Generate investigation reports:
 
 ```bash
 python3 src/investigation/investigate_anomalies.py
 ```
 
-The engine reads:
+Inputs:
 
 - `outputs/reports/kpi_summary_daily.csv`
 - `outputs/reports/anomaly_events.csv`
 - `data/synthetic/deployment_events.csv`
 
-It writes:
+Outputs:
 
 - `outputs/reports/investigation_reports.json`
 - `outputs/reports/investigation_summary.md`
 
-Run the complete deterministic pipeline and checks with:
+The investigation rules recognize examples such as:
 
-```bash
-python3 src/analytics/kpi_monitor.py
-python3 src/anomaly_detection/detect_anomalies.py
-python3 src/investigation/investigate_anomalies.py
-python3 -m pytest
-python3 -m py_compile src/investigation/investigate_anomalies.py
-```
+- Latency spike plus checkout failure spike plus a failed deployment means a likely deployment-related checkout incident.
+- Inventory shortage plus lost sales plus revenue drop means a likely inventory shortage incident.
+- Shipping delay spike plus delivery complaints means a likely logistics disruption incident.
 
-No OpenAI API, LLMs, or agent frameworks are used in Phase 3.
+## Phase 4: Forecasting
 
-## Phase 4: Deterministic Forecasting Layer
+**What was added:** Phase 4 trains models to forecast `net_revenue`, `support_ticket_count`, and `shipping_delay_rate`.
 
-Phase 4 adds a reproducible machine learning forecasting layer for forward-looking KPI baselines. It reads the daily KPI summary and trains one forecasting model family per target KPI:
+**Why it was added:** Forecasts provide a short-term view of where important KPIs may go next. For example, if support tickets are forecast to stay high after an incident, the business may need temporary staffing or customer messaging.
 
-- `net_revenue`
-- `support_ticket_count`
-- `shipping_delay_rate`
+**How it affects the system:** Forecast outputs give later reports more context than historical incident evidence alone.
 
-Each target uses the same lag-based feature architecture:
-
-- Previous day value
-- 3-day rolling average
-- 7-day rolling average
-- 14-day rolling average
-- 7-day lag
-- 14-day lag
-
-Rolling features are shifted so the current day is never used to predict itself. Train/test splits preserve time ordering and do not shuffle records.
-
-Train forecasting models with:
+Train forecasting models:
 
 ```bash
 python3 src/forecasting/train_forecasting_models.py
 ```
 
-The trainer evaluates:
-
-- Linear Regression baseline
-- Random Forest Regressor
-- XGBoost Regressor
-
-Models are evaluated with MAE, RMSE, and R². The best model for each KPI is selected by lowest RMSE, with MAE as a deterministic tie-breaker. Metrics are written to:
+The trainer compares Linear Regression, Random Forest, and XGBoost models. It writes model metrics to:
 
 ```text
 outputs/reports/model_metrics.csv
 ```
 
-Selected model artifacts are written to `outputs/models/`, and actual-vs-predicted plots are written under:
+It also saves selected models in:
 
 ```text
-outputs/figures/
+outputs/models/
 ```
 
-Generate 7-day KPI forecasts with:
+Generate 7-day forecasts:
 
 ```bash
 python3 src/forecasting/generate_forecasts.py
 ```
 
-Forecasts are generated iteratively so each predicted day feeds the lag features for the next day. Results are written to:
+This writes:
 
 ```text
 outputs/reports/forecast_summary.csv
 ```
 
-Forecast extension plots are also written to `outputs/figures/`.
+## Phase 5: Forecast Explanations
 
-Run the Phase 4 checks with:
+**What was added:** Phase 5 explains which input features mattered most to each forecast model.
 
-```bash
-python3 src/forecasting/train_forecasting_models.py
-python3 src/forecasting/generate_forecasts.py
-python3 -m pytest
-python3 -m py_compile src/forecasting/train_forecasting_models.py
-python3 -m py_compile src/forecasting/generate_forecasts.py
-```
+**Why it was added:** A forecast is more useful when the user can see what drove it. For example, a revenue forecast may depend heavily on website visitors, conversion rate, average order value, checkout failures, and lost sales.
 
-No OpenAI API, SHAP analysis, dashboards, or agent orchestration are used in Phase 4.
+**How it affects the system:** Reports can include model drivers instead of only predicted values. This helps users understand whether a forecast is being shaped by demand, platform health, support activity, or logistics pressure.
 
-## Phase 5: Forecast Explainability with SHAP
-
-Phase 5 explains why each selected forecasting model produced its forecast. It loads the trained model artifacts from `outputs/models/`, regenerates the same lag-based feature datasets used during training, reads `outputs/reports/model_metrics.csv` and `outputs/reports/forecast_summary.csv`, and explains the selected models for:
-
-- `net_revenue`
-- `support_ticket_count`
-- `shipping_delay_rate`
-
-SHAP is used because it provides feature-level attributions for individual predictions while also supporting aggregate feature importance. Tree-based models use `TreeExplainer` where possible. Linear Regression uses `LinearExplainer`, with a coefficient-based fallback if SHAP cannot explain the model cleanly. If a model type cannot be explained safely, the script writes a clear fallback explanation instead of failing the pipeline.
-
-Generate forecast explanations with:
+Generate forecast explanations:
 
 ```bash
 python3 src/explainability/explain_forecasts.py
 ```
 
-The explainability script writes:
+Outputs:
 
-```text
-outputs/reports/shap_feature_importance.csv
-outputs/reports/forecast_explanations.md
-outputs/figures/shap_summary_<kpi>.png
-```
+- `outputs/reports/shap_feature_importance.csv`
+- `outputs/reports/forecast_explanations.md`
+- `outputs/figures/shap_summary_<kpi>.png`
 
-The markdown report describes the predicted KPI, selected model, most important features, prediction-level feature influence for the most recent forecast, and limitations. These explanations are grounded in model outputs only; no OpenAI API, LLM reporting, RAG, dashboards, or agent orchestration are used in Phase 5.
+SHAP is used for feature importance when possible. If a model cannot be explained cleanly, the script writes a clear fallback explanation instead of stopping the pipeline.
 
-Run the Phase 5 checks with:
+## Phase 6.5: Better Revenue Forecasting
 
-```bash
-python3 src/explainability/explain_forecasts.py
-python3 -m pytest
-python3 -m py_compile src/explainability/explain_forecasts.py
-```
+**What was added:** Phase 6.5 adds more revenue-specific inputs to the revenue model.
 
-## Phase 6.5: Revenue Forecasting Improvement
+**Why it was added:** Revenue is not explained well by past revenue alone. Ecommerce revenue depends on traffic, conversion, order value, refunds, checkout failures, stockouts, lost sales, and calendar patterns.
 
-Phase 6.5 focuses specifically on improving `net_revenue` forecasting quality without materially changing the `support_ticket_count` or `shipping_delay_rate` feature sets.
+**How it affects the system:** The revenue model can learn clearer cause-and-effect patterns. For example, high website visitors with low conversion rate can point to a checkout or pricing problem, while stockouts and lost sales can explain revenue that fell despite demand.
 
-Revenue forecasting now includes the existing lag and rolling features plus:
+Added revenue inputs include:
 
 - `website_visitors`
 - `active_customers`
@@ -384,170 +244,146 @@ Revenue forecasting now includes the existing lag and rolling features plus:
 - `lost_sales_units`
 - `shipping_delay_rate`
 
-Demand and order-value features improve revenue forecasting because ecommerce revenue is fundamentally driven by the number of visitors, the share who convert, and how much each order is worth. Refunds, checkout failures, stockouts, and lost sales explain why expected demand does not fully become retained revenue. Basic seasonality helps the model learn recurring weekday, weekend, monthly, and quarterly patterns instead of forcing lag features to approximate calendar effects indirectly.
+After these changes, the selected `net_revenue` model improved from about R² `0.65` and RMSE `8,487` to R² `0.95` and RMSE `4,858` on the generated dataset.
 
-Train and regenerate all Phase 6.5 outputs with:
+## Phase 7: More Realistic Support And Logistics Signals
 
-```bash
-python3 src/ingestion/generate_synthetic_data.py
-python3 src/ingestion/validate_synthetic_data.py
-python3 src/analytics/kpi_monitor.py
-python3 src/anomaly_detection/detect_anomalies.py
-python3 src/investigation/investigate_anomalies.py
-python3 src/forecasting/train_forecasting_models.py
-python3 src/forecasting/generate_forecasts.py
-python3 src/explainability/explain_forecasts.py
-python3 -m pytest
-```
+**What was added:** Phase 7 adds support ticket categories and logistics drivers.
 
-The selected `net_revenue` model improved from the prior baseline of about R² `0.65` and RMSE `8,487` to R² `0.95` and RMSE `4,858` after adding these revenue drivers. Forecast explanations now surface revenue-specific drivers such as website visitors, conversion rate, average order value, checkout failures, and lost sales in `outputs/reports/shap_feature_importance.csv`.
+**Why it was added:** A total support ticket count does not explain what customers are complaining about. A shipping delay rate also does not explain whether the issue came from carrier capacity, warehouse backlog, or regional disruption.
 
-## Phase 7: Operational Realism
+**How it affects the system:** Forecasts and investigations can point to clearer business reasons. For example, shipping complaint tickets can rise when shipping delays rise, checkout issue tickets can rise when checkout failures rise, and warehouse backlog can explain higher delay rates.
 
-Phase 7 improves `support_ticket_count` and `shipping_delay_rate` forecasting by modeling operational drivers beneath those KPIs.
+Support ticket categories:
 
-Support forecasting now uses lag features plus:
+- `shipping_complaint_tickets`
+- `checkout_issue_tickets`
+- `billing_issue_tickets`
+- `account_access_tickets`
+- `general_support_tickets`
 
-- Lagged ticket category metrics: previous-day values, 3-day rolling averages, and 7-day rolling averages for `shipping_complaint_tickets`, `checkout_issue_tickets`, `billing_issue_tickets`, `account_access_tickets`, and `general_support_tickets`
-- Customer-base metrics: `active_customers` and `website_visitors`
-- Operational pressure metrics: `checkout_failure_rate`, `shipping_delay_rate`, `avg_api_latency_ms`, and `deployment_event_flag`
-
-Phase 7.1 removes target leakage from `support_ticket_count` forecasting. Because `support_ticket_count` is the sum of the five ticket category metrics, using same-day category counts as features gives the model the answer. The support model now excludes same-day ticket category columns and same-day `support_ticket_count`; it keeps only prior and rolling category features plus same-day operational drivers that would realistically be known before prediction.
-
-Shipping delay forecasting now uses lag features plus:
+Logistics drivers:
 
 - `carrier_capacity_utilization`
 - `warehouse_backlog`
-- `shipping_complaint_tickets`
 - `delivery_complaints`
-- `support_ticket_count`
-- `stockout_units`
 - `east_region_disruption`
 - `west_region_disruption`
 - `south_region_disruption`
 - `central_region_disruption`
-- `shipping_disruption_flag`
 
-The full deterministic pipeline regenerates:
+Phase 7.1 also removes a support forecasting problem. Since `support_ticket_count` is the sum of ticket categories, the model should not use same-day category counts to predict the same-day total. It now uses prior-day and rolling category values plus operational signals that would reasonably be known before prediction.
 
-```text
-outputs/reports/model_metrics.csv
-outputs/reports/model_comparison.csv
-outputs/reports/forecast_summary.csv
-outputs/reports/shap_feature_importance.csv
-outputs/reports/forecast_explanations.md
-```
+Current Phase 7.1 results:
 
-Current Phase 7.1 before-vs-after results:
+| KPI | Selected model | RMSE | R² |
+| --- | --- | ---: | ---: |
+| `support_ticket_count` | XGBoost | `18.575684` | `0.862286` |
+| `shipping_delay_rate` | Linear Regression | `0.014857` | `0.862143` |
 
-| KPI | After selected model | Before RMSE | After RMSE | Before R² | After R² |
-| --- | --- | ---: | ---: | ---: | ---: |
-| `support_ticket_count` | XGBoost | `0.000000` | `18.575684` | `1.000000` | `0.862286` |
-| `shipping_delay_rate` | Linear Regression | `0.014857` | `0.014857` | `0.862143` | `0.862143` |
+## Phase 8: Executive Operations Report
 
-`support_ticket_count` is no longer exactly reconstructed after the leakage fix. Its R² drops from `1.000000` to a realistic `0.862286`, while the support model still uses useful operational signals and historical ticket-category behavior. Shipping delay forecasting is unchanged by Phase 7.1 and keeps the operational-driver feature set added in Phase 7.
+**What was added:** Phase 8 writes an operations report from the investigation, forecast, explanation, and model metric files.
 
-Regenerate all Phase 7 outputs and verify the repository with:
+**Why it was added:** Users need one readable report instead of checking many CSV, JSON, and markdown files.
+
+**How it affects the system:** The report summarizes top incidents, forecast outlook, important model drivers, recommended actions, and limitations.
+
+Generate the report:
 
 ```bash
-python3 src/ingestion/generate_synthetic_data.py
-python3 src/ingestion/validate_synthetic_data.py
-python3 src/analytics/kpi_monitor.py
-python3 src/anomaly_detection/detect_anomalies.py
-python3 src/investigation/investigate_anomalies.py
-python3 src/forecasting/train_forecasting_models.py
-python3 src/forecasting/generate_forecasts.py
-python3 src/explainability/explain_forecasts.py
-python3 -m pytest
+python3 src/agents/executive_report_agent.py
 ```
 
-## Phase 8: LLM-Powered Executive Reporting
-
-Phase 8 adds an executive reporting layer over the deterministic pipeline outputs. The report agent reads only structured artifacts already produced by the system:
-
-- `outputs/reports/investigation_reports.json`
-- `outputs/reports/investigation_summary.md`
-- `outputs/reports/forecast_summary.csv`
-- `outputs/reports/forecast_explanations.md`
-- `outputs/reports/shap_feature_importance.csv`
-- `outputs/reports/model_metrics.csv`
-
-It does not read raw full datasets, does not add RAG, and does not add FastAPI or dashboard behavior. The agent builds a compact evidence bundle containing top incidents, affected KPIs, likely causes, forecast outlook, SHAP drivers, and model limitations. That evidence is then used to produce:
+Output:
 
 ```text
 outputs/reports/executive_operations_report.md
 ```
 
-The report includes:
+If `OPENAI_API_KEY` is set, the report agent can call the OpenAI API to write the markdown narrative from a structured evidence bundle. If no API key is set, it writes a deterministic fallback report. This keeps local development and tests runnable without network access.
 
-- Executive Summary
-- Key Incidents
-- Forecast Outlook
-- Main Business Drivers
-- Recommended Actions
-- Limitations
-
-If `OPENAI_API_KEY` is set, the agent uses the OpenAI API to turn the evidence bundle into an executive markdown narrative. The prompt instructs the model to use only provided evidence and to avoid inventing facts, causal claims, dates, KPIs, incidents, drivers, or recommendations.
-
-Set an API key with:
+Optional environment variables:
 
 ```bash
 export OPENAI_API_KEY="your_api_key_here"
-```
-
-Optionally set a model:
-
-```bash
 export OPENAI_MODEL="gpt-4o-mini"
 ```
 
-If no API key exists, the agent automatically writes a deterministic fallback report without calling OpenAI. This keeps the pipeline runnable in local development, CI, and offline environments.
+## Phase 9: Multi-Agent Investigation Workflow
 
-Generate the executive report with:
+**What was added:** Phase 9 splits incident review into five deterministic agents:
+
+- Revenue Agent
+- Customer Support Agent
+- Logistics Agent
+- Platform Reliability Agent
+- Coordinator Agent
+
+**Why it was added:** One incident can affect different parts of the business. A failed checkout deployment may reduce revenue, increase checkout support tickets, raise API latency, and trigger rollback events. A shipping disruption may raise delay rates, warehouse backlog, delivery complaints, and shipping-related support tickets.
+
+**How it affects the system:** Each specialist agent reviews the same incident from a different angle, then the coordinator combines the findings into one clear report. This proves the multi-agent workflow with simple Python rules before adding RAG, LLM reasoning, or an external agent framework.
+
+Agent responsibilities:
+
+- Revenue Agent checks revenue, conversion rate, refunds, website visitors, average order value, stockouts, and lost sales.
+- Customer Support Agent checks support ticket count and ticket categories.
+- Logistics Agent checks shipping delay rate, carrier utilization, warehouse backlog, delivery complaints, and regional disruption flags.
+- Platform Reliability Agent checks API latency, checkout failure rate, deployment events, and rollback events.
+- Coordinator Agent combines all findings into a final incident report with a title, date range, likely cause, evidence, recommendations, and confidence level.
+
+Run Phase 9:
 
 ```bash
-python3 src/agents/executive_report_agent.py
+python3 src/agents/multi_agent_investigation.py
 ```
 
-Run Phase 8 checks with:
+Inputs:
+
+- `outputs/reports/investigation_reports.json`
+- `outputs/reports/kpi_summary_daily.csv`
+- `data/synthetic/deployment_events.csv`
+- `outputs/reports/forecast_summary.csv`
+- `outputs/reports/shap_feature_importance.csv`
+
+Outputs:
+
+- `outputs/reports/multi_agent_investigation_reports.json`
+- `outputs/reports/multi_agent_investigation_summary.md`
+
+No OpenAI calls, RAG, CrewAI, LangChain, AutoGen, or other agent framework is used in Phase 9.
+
+## Run The Full Local Pipeline
 
 ```bash
+python3 src/ingestion/generate_synthetic_data.py
+python3 src/ingestion/validate_synthetic_data.py
+python3 src/analytics/kpi_monitor.py
+python3 src/anomaly_detection/detect_anomalies.py
+python3 src/investigation/investigate_anomalies.py
+python3 src/forecasting/train_forecasting_models.py
+python3 src/forecasting/generate_forecasts.py
+python3 src/explainability/explain_forecasts.py
 python3 src/agents/executive_report_agent.py
+python3 src/agents/multi_agent_investigation.py
 python3 -m pytest
-python3 -m py_compile src/agents/executive_report_agent.py
+```
+
+## Phase 9 Checks
+
+```bash
+python3 src/agents/multi_agent_investigation.py
+python3 -m pytest
+python3 -m py_compile src/agents/multi_agent_investigation.py
 ```
 
 ## Roadmap
 
-1. **Data foundation**
-   - Synthetic dataset generation
-   - Schema checks and data quality validation
-   - Deterministic incident labels for evaluation
-
-2. **Analytics layer**
-   - Deterministic KPI summaries
-   - Rolling baselines and trend checks
-   - Incident-aware metric joins
-
-3. **Detection layer**
-   - Rolling z-score and percent-change anomaly detection
-   - Future forecasting-based anomaly detection
-   - Future robust-statistical detectors
-   - Evaluation against injected incident labels
-
-4. **Investigation layer**
-   - Contribution analysis across metrics and entities
-   - Root-cause candidate ranking
-   - Explainability with SHAP or model-native attributions where appropriate
-
-5. **Decision layer**
-   - Recommendation rules
-   - LLM-assisted executive summaries over structured deterministic outputs
-   - Human review workflow
-
-6. **Interface layer**
-   - Streamlit dashboard for MVP exploration
-   - FastAPI endpoints for metric, anomaly, and investigation outputs
+- Add a dashboard for exploring KPIs, anomalies, incidents, forecasts, and reports.
+- Add API endpoints for generated outputs.
+- Add human review states for incident reports and recommendations.
+- Add RAG only after the deterministic incident and report structure is stable.
+- Add LLM reasoning where it can improve explanation quality without replacing tested analytics.
 
 ## Tech Stack
 
@@ -556,17 +392,14 @@ python3 -m py_compile src/agents/executive_report_agent.py
 - scikit-learn
 - XGBoost
 - SHAP
-- FastAPI
-- Streamlit
-- SQLAlchemy and PostgreSQL
-- Plotly and Matplotlib
+- Matplotlib
 - pytest
-- OpenAI API for later narrative and recommendation workflows
+- OpenAI API for optional narrative reporting
 
 ## Development Principles
 
-- Build deterministic analytical behavior before adding agents.
-- Keep data generation, transformations, detection, and explanations modular.
-- Make incident labels explicit so models and rules can be evaluated.
-- Prefer reproducible scripts with configurable seeds and clear file outputs.
-- Add LLM reasoning only after structured analytics can explain what happened.
+- Build testable Python rules before adding LLM reasoning.
+- Keep each script focused on one job.
+- Write outputs to clear file paths so each phase can be rerun.
+- Use concrete business metrics, not vague explanations.
+- Make reports useful for action: explain what happened, why it likely happened, what evidence supports it, and what to check next.
