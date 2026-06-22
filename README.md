@@ -406,9 +406,11 @@ Phase 7 improves `support_ticket_count` and `shipping_delay_rate` forecasting by
 
 Support forecasting now uses lag features plus:
 
-- Ticket category metrics: `shipping_complaint_tickets`, `checkout_issue_tickets`, `billing_issue_tickets`, `account_access_tickets`, and `general_support_tickets`
+- Lagged ticket category metrics: previous-day values, 3-day rolling averages, and 7-day rolling averages for `shipping_complaint_tickets`, `checkout_issue_tickets`, `billing_issue_tickets`, `account_access_tickets`, and `general_support_tickets`
 - Customer-base metrics: `active_customers` and `website_visitors`
-- Operational pressure metrics: `checkout_failure_rate`, `shipping_delay_rate`, `avg_api_latency_ms`, `deployment_event_flag`, and `shipping_disruption_flag`
+- Operational pressure metrics: `checkout_failure_rate`, `shipping_delay_rate`, `avg_api_latency_ms`, and `deployment_event_flag`
+
+Phase 7.1 removes target leakage from `support_ticket_count` forecasting. Because `support_ticket_count` is the sum of the five ticket category metrics, using same-day category counts as features gives the model the answer. The support model now excludes same-day ticket category columns and same-day `support_ticket_count`; it keeps only prior and rolling category features plus same-day operational drivers that would realistically be known before prediction.
 
 Shipping delay forecasting now uses lag features plus:
 
@@ -434,14 +436,14 @@ outputs/reports/shap_feature_importance.csv
 outputs/reports/forecast_explanations.md
 ```
 
-Current Phase 7 before-vs-after results for the selected models:
+Current Phase 7.1 before-vs-after results:
 
-| KPI | Selected model | Before RMSE | After RMSE | Before R² | After R² |
+| KPI | After selected model | Before RMSE | After RMSE | Before R² | After R² |
 | --- | --- | ---: | ---: | ---: | ---: |
-| `support_ticket_count` | Linear Regression | `28.548242` | `0.000000` | `0.646739` | `1.000000` |
-| `shipping_delay_rate` | Linear Regression | `0.015253` | `0.014857` | `0.740091` | `0.862143` |
+| `support_ticket_count` | XGBoost | `0.000000` | `18.575684` | `1.000000` | `0.862286` |
+| `shipping_delay_rate` | Linear Regression | `0.014857` | `0.014857` | `0.862143` | `0.862143` |
 
-`support_ticket_count` is exactly reconstructed because it is defined as the sum of its category metrics and those category metrics are included in the support model feature set. Shipping delay quality improves because the model can now see utilization, backlog, complaints, and regional disruption indicators instead of relying mainly on lagged delay rates.
+`support_ticket_count` is no longer exactly reconstructed after the leakage fix. Its R² drops from `1.000000` to a realistic `0.862286`, while the support model still uses useful operational signals and historical ticket-category behavior. Shipping delay forecasting is unchanged by Phase 7.1 and keeps the operational-driver feature set added in Phase 7.
 
 Regenerate all Phase 7 outputs and verify the repository with:
 

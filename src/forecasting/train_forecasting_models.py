@@ -29,6 +29,22 @@ LOGGER = logging.getLogger(__name__)
 
 
 TARGET_KPIS = ("net_revenue", "support_ticket_count", "shipping_delay_rate")
+SUPPORT_TICKET_CATEGORY_COLUMNS = (
+    "shipping_complaint_tickets",
+    "checkout_issue_tickets",
+    "billing_issue_tickets",
+    "account_access_tickets",
+    "general_support_tickets",
+)
+SUPPORT_TICKET_CATEGORY_FEATURES = tuple(
+    feature
+    for category in SUPPORT_TICKET_CATEGORY_COLUMNS
+    for feature in (
+        f"{category}_previous_day",
+        f"{category}_rolling_avg_3d",
+        f"{category}_rolling_avg_7d",
+    )
+)
 FEATURE_COLUMNS = (
     "previous_day_value",
     "rolling_avg_3d",
@@ -46,10 +62,25 @@ FEATURE_COLUMNS = (
     "avg_api_latency_ms",
     "checkout_failure_rate",
     "shipping_complaint_tickets",
+    "shipping_complaint_tickets_previous_day",
+    "shipping_complaint_tickets_rolling_avg_3d",
+    "shipping_complaint_tickets_rolling_avg_7d",
     "checkout_issue_tickets",
+    "checkout_issue_tickets_previous_day",
+    "checkout_issue_tickets_rolling_avg_3d",
+    "checkout_issue_tickets_rolling_avg_7d",
     "billing_issue_tickets",
+    "billing_issue_tickets_previous_day",
+    "billing_issue_tickets_rolling_avg_3d",
+    "billing_issue_tickets_rolling_avg_7d",
     "account_access_tickets",
+    "account_access_tickets_previous_day",
+    "account_access_tickets_rolling_avg_3d",
+    "account_access_tickets_rolling_avg_7d",
     "general_support_tickets",
+    "general_support_tickets_previous_day",
+    "general_support_tickets_rolling_avg_3d",
+    "general_support_tickets_rolling_avg_7d",
     "support_ticket_count",
     "shipping_delay_rate",
     "carrier_capacity_utilization",
@@ -92,13 +123,8 @@ CROSS_KPI_FEATURES = {
         "avg_api_latency_ms",
         "checkout_failure_rate",
         "shipping_delay_rate",
-        "shipping_complaint_tickets",
-        "checkout_issue_tickets",
-        "billing_issue_tickets",
-        "account_access_tickets",
-        "general_support_tickets",
         "deployment_event_flag",
-        "shipping_disruption_flag",
+        *SUPPORT_TICKET_CATEGORY_FEATURES,
     ),
     "shipping_delay_rate": (
         "carrier_capacity_utilization",
@@ -145,20 +171,41 @@ def get_feature_columns(target_kpi: str) -> tuple[str, ...]:
     return (*BASE_FEATURE_COLUMNS, *CROSS_KPI_FEATURES[target_kpi])
 
 
+def add_support_ticket_category_features(dataset: pd.DataFrame) -> pd.DataFrame:
+    for column in SUPPORT_TICKET_CATEGORY_COLUMNS:
+        prior_values = dataset[column].astype(float).shift(1)
+        dataset[f"{column}_previous_day"] = prior_values
+        dataset[f"{column}_rolling_avg_3d"] = prior_values.rolling(window=3, min_periods=3).mean()
+        dataset[f"{column}_rolling_avg_7d"] = prior_values.rolling(window=7, min_periods=7).mean()
+    return dataset
+
+
 def create_forecasting_dataset(summary: pd.DataFrame, target_kpi: str) -> pd.DataFrame:
     if target_kpi not in summary.columns:
         raise ForecastingError(f"KPI summary missing target column: {target_kpi}")
 
     feature_columns = get_feature_columns(target_kpi)
     required_columns = {"date", target_kpi, *CROSS_KPI_FEATURES[target_kpi]}
+    if target_kpi == "support_ticket_count":
+        required_columns.difference_update(SUPPORT_TICKET_CATEGORY_FEATURES)
+        required_columns.update(SUPPORT_TICKET_CATEGORY_COLUMNS)
     missing_columns = sorted(required_columns.difference(summary.columns))
     if missing_columns:
         raise ForecastingError(f"KPI summary missing required feature columns: {', '.join(missing_columns)}")
 
-    dataset = summary[["date", target_kpi, *CROSS_KPI_FEATURES[target_kpi]]].copy()
+    cross_kpi_dataset_columns = list(CROSS_KPI_FEATURES[target_kpi])
+    if target_kpi == "support_ticket_count":
+        cross_kpi_dataset_columns = [column for column in cross_kpi_dataset_columns if column not in SUPPORT_TICKET_CATEGORY_FEATURES]
+    dataset_columns = ["date", target_kpi, *cross_kpi_dataset_columns]
+    if target_kpi == "support_ticket_count":
+        dataset_columns.extend(column for column in SUPPORT_TICKET_CATEGORY_COLUMNS if column not in dataset_columns)
+    dataset = summary[dataset_columns].copy()
     dataset[target_kpi] = dataset[target_kpi].astype(float)
-    for column in CROSS_KPI_FEATURES[target_kpi]:
+    for column in dataset.columns.difference(["date"]):
         dataset[column] = dataset[column].astype(float)
+    if target_kpi == "support_ticket_count":
+        dataset = add_support_ticket_category_features(dataset)
+        dataset = dataset.drop(columns=list(SUPPORT_TICKET_CATEGORY_COLUMNS))
     prior_values = dataset[target_kpi].shift(1)
     dataset["previous_day_value"] = prior_values
     dataset["rolling_avg_3d"] = prior_values.rolling(window=3, min_periods=3).mean()

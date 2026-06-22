@@ -21,16 +21,16 @@ Limitations: SHAP attributions explain model behavior, not guaranteed real-world
 ### support_ticket_count
 
 - Predicted KPI: `support_ticket_count`
-- Selected model: `linear_regression`
-- Explanation method: SHAP LinearExplainer
-- Most recent forecast explained: 2027-01-07, forecast value `161.000000`
-- Features that mattered most: `shipping_complaint_tickets`, `general_support_tickets`, `checkout_issue_tickets`
+- Selected model: `xgboost`
+- Explanation method: SHAP TreeExplainer
+- Most recent forecast explained: 2027-01-07, forecast value `187.297409`
+- Features that mattered most: `shipping_delay_rate`, `active_customers`, `checkout_failure_rate`
 - SHAP summary plot: `outputs/figures/shap_summary_support_ticket_count.png`
 
 Prediction-level influence:
-- `general_support_tickets` decreased the forecast by about 15.3900 model units (feature value: 55.0000).
-- `shipping_complaint_tickets` increased the forecast by about 13.3000 model units (feature value: 47.0000).
-- `account_access_tickets` decreased the forecast by about 4.8700 model units (feature value: 22.0000).
+- `shipping_delay_rate` increased the forecast by about 11.9157 model units (feature value: 0.0815).
+- `website_visitors` increased the forecast by about 5.3500 model units (feature value: 28691.0000).
+- `active_customers` increased the forecast by about 3.2368 model units (feature value: 18845.0000).
 
 Limitations: SHAP attributions explain model behavior, not guaranteed real-world causality.
 

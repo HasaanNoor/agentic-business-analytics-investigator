@@ -68,16 +68,30 @@ def test_phase_7_forecasting_feature_sets_use_operational_drivers(tmp_path):
 
     support_features = set(get_feature_columns("support_ticket_count"))
     shipping_features = set(get_feature_columns("shipping_delay_rate"))
-
-    assert {
+    ticket_category_columns = {
         "shipping_complaint_tickets",
         "checkout_issue_tickets",
         "billing_issue_tickets",
         "account_access_tickets",
         "general_support_tickets",
+    }
+
+    assert {
         "active_customers",
         "website_visitors",
+        "avg_api_latency_ms",
+        "checkout_failure_rate",
+        "shipping_delay_rate",
+        "deployment_event_flag",
     }.issubset(support_features)
+    assert support_features.isdisjoint(ticket_category_columns)
+    assert "support_ticket_count" not in support_features
+    for ticket_category in ticket_category_columns:
+        assert {
+            f"{ticket_category}_previous_day",
+            f"{ticket_category}_rolling_avg_3d",
+            f"{ticket_category}_rolling_avg_7d",
+        }.issubset(support_features)
     assert {
         "carrier_capacity_utilization",
         "warehouse_backlog",
@@ -89,6 +103,30 @@ def test_phase_7_forecasting_feature_sets_use_operational_drivers(tmp_path):
     }.issubset(shipping_features)
     assert support_features.issubset(support_dataset.columns)
     assert shipping_features.issubset(shipping_dataset.columns)
+
+
+def test_support_ticket_forecast_features_do_not_leak_same_day_ticket_categories(tmp_path):
+    kpi_path = build_test_kpi_summary(tmp_path)
+    summary = pd.read_csv(kpi_path).sort_values("date").reset_index(drop=True)
+    support_dataset = create_forecasting_dataset(summary, "support_ticket_count")
+    support_features = set(get_feature_columns("support_ticket_count"))
+    leaking_columns = {
+        "support_ticket_count",
+        "shipping_complaint_tickets",
+        "checkout_issue_tickets",
+        "billing_issue_tickets",
+        "account_access_tickets",
+        "general_support_tickets",
+    }
+
+    assert support_features.isdisjoint(leaking_columns)
+    first_model_row = support_dataset.iloc[0]
+    source_row = summary[summary["date"] == first_model_row["date"]].index[0]
+    assert source_row >= 14
+    for column in leaking_columns.difference({"support_ticket_count"}):
+        assert first_model_row[f"{column}_previous_day"] == summary.loc[source_row - 1, column]
+        assert first_model_row[f"{column}_rolling_avg_3d"] == summary.loc[source_row - 3 : source_row - 1, column].mean()
+        assert first_model_row[f"{column}_rolling_avg_7d"] == summary.loc[source_row - 7 : source_row - 1, column].mean()
 
 
 def test_training_generates_metrics_and_model_artifacts(tmp_path):

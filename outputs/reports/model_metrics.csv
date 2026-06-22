@@ -5,6 +5,6 @@ net_revenue,random_forest,7034.548308,10151.042323,0.782747,573,143,False
 shipping_delay_rate,linear_regression,0.007219,0.014857,0.862143,573,143,True
 shipping_delay_rate,xgboost,0.007879,0.016072,0.838682,573,143,False
 shipping_delay_rate,random_forest,0.008021,0.016574,0.828446,573,143,False
-support_ticket_count,linear_regression,0.0,0.0,1.0,573,143,True
-support_ticket_count,xgboost,5.509973,10.636359,0.954848,573,143,False
-support_ticket_count,random_forest,8.110011,13.641726,0.925728,573,143,False
+support_ticket_count,xgboost,13.681357,18.575684,0.862286,573,143,True
+support_ticket_count,random_forest,13.843747,19.317244,0.851071,573,143,False
+support_ticket_count,linear_regression,17.608099,23.296784,0.783389,573,143,False

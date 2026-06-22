@@ -24,11 +24,18 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.forecasting.train_forecasting_models import BASE_FEATURE_COLUMNS, FEATURE_COLUMNS, TARGET_KPIS, ForecastingError
+from src.forecasting.train_forecasting_models import (
+    BASE_FEATURE_COLUMNS,
+    FEATURE_COLUMNS,
+    SUPPORT_TICKET_CATEGORY_COLUMNS,
+    TARGET_KPIS,
+    ForecastingError,
+)
 
 
 LOGGER = logging.getLogger(__name__)
 DATE_FEATURE_COLUMNS = {"day_of_week", "month", "quarter", "is_weekend"}
+SUPPORT_CATEGORY_FEATURE_SUFFIXES = ("_previous_day", "_rolling_avg_3d", "_rolling_avg_7d")
 
 
 def configure_logging() -> None:
@@ -46,6 +53,21 @@ def load_model_artifact(models_dir: Path, target_kpi: str) -> dict[str, object]:
     if missing_keys:
         raise ForecastingError(f"Forecasting artifact missing required keys: {', '.join(sorted(missing_keys))}")
     return artifact
+
+
+def build_support_category_forecast_features(history: pd.DataFrame) -> dict[str, float]:
+    if len(history) < 7:
+        raise ForecastingError("At least 7 history rows are required to build support ticket category features")
+
+    features: dict[str, float] = {}
+    for column in SUPPORT_TICKET_CATEGORY_COLUMNS:
+        if column not in history.columns:
+            raise ForecastingError(f"Training history missing support ticket category column for forecasting: {column}")
+        values = history[column].astype(float)
+        features[f"{column}_previous_day"] = float(values.iloc[-1])
+        features[f"{column}_rolling_avg_3d"] = float(values.iloc[-3:].mean())
+        features[f"{column}_rolling_avg_7d"] = float(values.iloc[-7:].mean())
+    return features
 
 
 def build_next_feature_row(history: pd.DataFrame, target_kpi: str, feature_columns: Iterable[str] | None = None) -> pd.DataFrame:
@@ -67,9 +89,13 @@ def build_next_feature_row(history: pd.DataFrame, target_kpi: str, feature_colum
         "quarter": forecast_date.quarter,
         "is_weekend": int(forecast_date.dayofweek >= 5),
     }
+    if target_kpi == "support_ticket_count":
+        features.update(build_support_category_forecast_features(history))
     latest_row = history.iloc[-1]
     for column in selected_columns:
         if column in BASE_FEATURE_COLUMNS or column in DATE_FEATURE_COLUMNS:
+            continue
+        if target_kpi == "support_ticket_count" and column.endswith(SUPPORT_CATEGORY_FEATURE_SUFFIXES):
             continue
         if column not in history.columns:
             raise ForecastingError(f"Training history missing feature column for forecasting: {column}")

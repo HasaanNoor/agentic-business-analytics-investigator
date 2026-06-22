@@ -13,10 +13,10 @@ date,kpi,forecast_day,prediction,model_name
 2027-01-05,shipping_delay_rate,5,0.07168,linear_regression
 2027-01-06,shipping_delay_rate,6,0.07178,linear_regression
 2027-01-07,shipping_delay_rate,7,0.072088,linear_regression
-2027-01-01,support_ticket_count,1,161.0,linear_regression
-2027-01-02,support_ticket_count,2,161.0,linear_regression
-2027-01-03,support_ticket_count,3,161.0,linear_regression
-2027-01-04,support_ticket_count,4,161.0,linear_regression
-2027-01-05,support_ticket_count,5,161.0,linear_regression
-2027-01-06,support_ticket_count,6,161.0,linear_regression
-2027-01-07,support_ticket_count,7,161.0,linear_regression
+2027-01-01,support_ticket_count,1,187.731323,xgboost
+2027-01-02,support_ticket_count,2,190.314804,xgboost
+2027-01-03,support_ticket_count,3,192.276047,xgboost
+2027-01-04,support_ticket_count,4,189.477478,xgboost
+2027-01-05,support_ticket_count,5,187.212265,xgboost
+2027-01-06,support_ticket_count,6,187.366043,xgboost
+2027-01-07,support_ticket_count,7,187.297409,xgboost
