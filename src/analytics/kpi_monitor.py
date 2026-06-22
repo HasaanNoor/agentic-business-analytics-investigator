@@ -36,8 +36,15 @@ REQUIRED_FILES = {
 KPI_COLUMNS = [
     "date",
     "net_revenue",
+    "website_visitors",
+    "active_customers",
+    "average_order_value",
     "conversion_rate",
     "refund_rate",
+    "day_of_week",
+    "month",
+    "quarter",
+    "is_weekend",
     "avg_api_latency_ms",
     "checkout_failure_rate",
     "support_ticket_count",
@@ -150,7 +157,14 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
         [
             "date",
             "net_revenue",
+            "website_visitors",
+            "active_customers",
+            "average_order_value",
             "conversion_rate",
+            "day_of_week",
+            "month",
+            "quarter",
+            "is_weekend",
             "orders",
             "lost_sales_units",
         ]
@@ -178,6 +192,12 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
     summary["support_ticket_count"] = summary["support_ticket_count"].fillna(0).astype(int)
     summary["stockout_units"] = summary["stockout_units"].fillna(0).astype(int)
     summary["delivery_complaints"] = summary["delivery_complaints"].fillna(0).astype(int)
+    summary["website_visitors"] = summary["website_visitors"].fillna(0).astype(int)
+    summary["active_customers"] = summary["active_customers"].fillna(0).astype(int)
+    summary["day_of_week"] = summary["day_of_week"].astype(int)
+    summary["month"] = summary["month"].astype(int)
+    summary["quarter"] = summary["quarter"].astype(int)
+    summary["is_weekend"] = summary["is_weekend"].astype(int)
     summary["deployment_event_flag"] = summary["deployment_event_flag"].fillna(0).astype(int)
     summary["inventory_shortage_flag"] = summary["inventory_shortage_flag"].fillna(0).astype(int)
     summary["shipping_disruption_flag"] = summary["shipping_disruption_flag"].fillna(0).astype(int)

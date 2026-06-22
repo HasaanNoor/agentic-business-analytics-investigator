@@ -72,12 +72,24 @@ The initial MVP simulates daily and hourly enterprise operations data:
 - Shipping delays
 - Deployment events
 
-The synthetic data includes realistic incidents that create linked signals across datasets. The Phase 6 default range is
+The synthetic data includes realistic incidents that create linked signals across datasets. The Phase 6.5 default range is
 January 1, 2025 through December 31, 2026 and includes:
 
 - 7 failed deployments with varying severity and duration, causing latency spikes, checkout failures, support ticket increases, and revenue decline.
 - 5 inventory shortages with varying severity and duration, causing stockouts, lost sales, and revenue decline.
 - 5 shipping disruptions with varying severity and duration, causing delay-rate increases, delivery complaints, and support ticket increases.
+
+Phase 6.5 improves the revenue signal by adding explicit demand, customer, order-value, and calendar drivers to the sales and KPI datasets:
+
+- `website_visitors`
+- `active_customers`
+- `average_order_value`
+- `day_of_week`
+- `month`
+- `quarter`
+- `is_weekend`
+
+`net_revenue` is now generated from a more realistic ecommerce relationship: demand (`website_visitors`), conversion, checkout failures, average order value, refunds, lost sales, stockouts, and operational incident pressure. This keeps revenue explainable while preserving deterministic behavior.
 
 Generate the data with:
 
@@ -138,8 +150,12 @@ outputs/reports/kpi_summary_daily.csv
 The summary includes:
 
 - Net revenue
+- Website visitors
+- Active customers
+- Average order value
 - Conversion rate
 - Refund rate, derived from support refund requests divided by orders
+- Calendar features: day of week, month, quarter, and weekend flag
 - Average API latency
 - Checkout failure rate
 - Support ticket count
@@ -321,6 +337,46 @@ python3 src/explainability/explain_forecasts.py
 python3 -m pytest
 python3 -m py_compile src/explainability/explain_forecasts.py
 ```
+
+## Phase 6.5: Revenue Forecasting Improvement
+
+Phase 6.5 focuses specifically on improving `net_revenue` forecasting quality without materially changing the `support_ticket_count` or `shipping_delay_rate` feature sets.
+
+Revenue forecasting now includes the existing lag and rolling features plus:
+
+- `website_visitors`
+- `active_customers`
+- `average_order_value`
+- `day_of_week`
+- `month`
+- `quarter`
+- `is_weekend`
+- `conversion_rate`
+- `refund_rate`
+- `checkout_failure_rate`
+- `avg_api_latency_ms`
+- `support_ticket_count`
+- `stockout_units`
+- `lost_sales_units`
+- `shipping_delay_rate`
+
+Demand and order-value features improve revenue forecasting because ecommerce revenue is fundamentally driven by the number of visitors, the share who convert, and how much each order is worth. Refunds, checkout failures, stockouts, and lost sales explain why expected demand does not fully become retained revenue. Basic seasonality helps the model learn recurring weekday, weekend, monthly, and quarterly patterns instead of forcing lag features to approximate calendar effects indirectly.
+
+Train and regenerate all Phase 6.5 outputs with:
+
+```bash
+python3 src/ingestion/generate_synthetic_data.py
+python3 src/ingestion/validate_synthetic_data.py
+python3 src/analytics/kpi_monitor.py
+python3 src/anomaly_detection/detect_anomalies.py
+python3 src/investigation/investigate_anomalies.py
+python3 src/forecasting/train_forecasting_models.py
+python3 src/forecasting/generate_forecasts.py
+python3 src/explainability/explain_forecasts.py
+python3 -m pytest
+```
+
+The selected `net_revenue` model improved from the prior baseline of about R² `0.65` and RMSE `8,487` to R² `0.95` and RMSE `4,858` after adding these revenue drivers. Forecast explanations now surface revenue-specific drivers such as website visitors, conversion rate, average order value, checkout failures, and lost sales in `outputs/reports/shap_feature_importance.csv`.
 
 ## Roadmap
 

@@ -16,8 +16,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 33287.06, max 33841.42, average 33564.24 (1 anomaly event(s))
-- `checkout_failure_rate`: min 0.0168, max 0.0193, average 0.0181 (1 anomaly event(s))
+- `net_revenue`: min 36361.73, max 40917.99, average 38639.86 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.018, max 0.0181, average 0.0181 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -37,8 +37,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `avg_api_latency_ms`: min 200.26, max 217.63, average 208.364 (2 anomaly event(s))
-- `net_revenue`: min 33487.56, max 44872.66, average 38936.93 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 199.13, max 209.01, average 204.57 (2 anomaly event(s))
+- `net_revenue`: min 32182.47, max 44506.34, average 40173.03 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -58,8 +58,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 28278.3, max 40761.57, average 34540.5133 (2 anomaly event(s))
-- `support_ticket_count`: min 200.0, max 251.0, average 223.6667 (1 anomaly event(s))
+- `net_revenue`: min 38518.7, max 50563.99, average 43732.84 (2 anomaly event(s))
+- `support_ticket_count`: min 195.0, max 206.0, average 200.3333 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -79,7 +79,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 29305.58, max 29305.58, average 29305.58 (1 anomaly event(s))
+- `net_revenue`: min 33602.53, max 33602.53, average 33602.53 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -99,7 +99,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0639, max 0.0639, average 0.0639 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0584, max 0.0584, average 0.0584 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -119,7 +119,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0653, max 0.0653, average 0.0653 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0722, max 0.0722, average 0.0722 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -139,8 +139,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `avg_api_latency_ms`: min 208.72, max 214.95, average 211.835 (1 anomaly event(s))
-- `net_revenue`: min 30915.47, max 33807.57, average 32361.52 (2 anomaly event(s))
+- `avg_api_latency_ms`: min 202.76, max 212.48, average 207.62 (1 anomaly event(s))
+- `net_revenue`: min 36002.54, max 38982.52, average 37492.53 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -161,10 +161,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.1025, max 0.1225, average 0.1155 (3 anomaly event(s))
-- `avg_api_latency_ms`: min 501.8, max 567.73, average 545.4 (3 anomaly event(s))
-- `net_revenue`: min 22534.46, max 27479.75, average 24871.9033 (3 anomaly event(s))
-- `support_ticket_count`: min 279.0, max 316.0, average 294.3333 (3 anomaly event(s))
+- `checkout_failure_rate`: min 0.0995, max 0.1239, average 0.1139 (3 anomaly event(s))
+- `avg_api_latency_ms`: min 510.83, max 564.89, average 546.1333 (3 anomaly event(s))
+- `net_revenue`: min 25906.11, max 27830.67, average 26772.3333 (3 anomaly event(s))
+- `support_ticket_count`: min 310.0, max 353.0, average 332.0 (3 anomaly event(s))
 - `conversion_rate`: min 0.0265, max 0.0302, average 0.0285 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -186,7 +186,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 31951.38, max 31951.38, average 31951.38 (1 anomaly event(s))
+- `net_revenue`: min 43282.0, max 43282.0, average 43282.0 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -206,7 +206,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 32283.12, max 32283.12, average 32283.12 (1 anomaly event(s))
+- `net_revenue`: min 41310.21, max 41310.21, average 41310.21 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -223,15 +223,15 @@ Total incidents: **73**
 ### Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-04-07 to 2025-04-20.
-- Lost sales units reached 126.00 during the incident.
+- Lost sales units reached 113.00 during the incident.
 
 ### Affected KPIs
 
-- `net_revenue`: min 32658.99, max 45561.81, average 38989.2836 (5 anomaly event(s))
-- `stockout_units`: min 0.0, max 102.0, average 69.7857 (11 anomaly event(s))
-- `support_ticket_count`: min 194.0, max 298.0, average 261.5 (4 anomaly event(s))
-- `shipping_delay_rate`: min 0.0461, max 0.0677, average 0.0553 (2 anomaly event(s))
-- `lost_sales_units`: min 0.0, max 126.0, average 79.7143 (0 anomaly event(s))
+- `net_revenue`: min 28393.31, max 47473.27, average 38492.545 (5 anomaly event(s))
+- `stockout_units`: min 0.0, max 112.0, average 77.1429 (11 anomaly event(s))
+- `support_ticket_count`: min 214.0, max 291.0, average 255.6429 (4 anomaly event(s))
+- `shipping_delay_rate`: min 0.045, max 0.0641, average 0.0539 (2 anomaly event(s))
+- `lost_sales_units`: min 0.0, max 113.0, average 75.0 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -249,14 +249,14 @@ Total incidents: **73**
 ### Evidence
 
 - Shipping delay anomalies occurred from 2025-05-05 to 2025-05-12.
-- Delivery complaints reached 146.00 versus a prior average of 23.79.
+- Delivery complaints reached 132.00 versus a prior average of 24.36.
 
 ### Affected KPIs
 
-- `net_revenue`: min 33658.84, max 55220.59, average 45183.8275 (2 anomaly event(s))
-- `shipping_delay_rate`: min 0.1124, max 0.1304, average 0.1192 (7 anomaly event(s))
-- `support_ticket_count`: min 317.0, max 357.0, average 337.625 (6 anomaly event(s))
-- `delivery_complaints`: min 113.0, max 146.0, average 122.25 (0 anomaly event(s))
+- `net_revenue`: min 35003.13, max 58425.92, average 45275.75 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.1074, max 0.1211, average 0.1161 (7 anomaly event(s))
+- `support_ticket_count`: min 328.0, max 357.0, average 342.625 (6 anomaly event(s))
+- `delivery_complaints`: min 105.0, max 132.0, average 119.125 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -277,7 +277,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 36181.01, max 36181.01, average 36181.01 (1 anomaly event(s))
+- `net_revenue`: min 42263.43, max 42263.43, average 42263.43 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -297,7 +297,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 40662.61, max 40662.61, average 40662.61 (1 anomaly event(s))
+- `net_revenue`: min 44380.12, max 44380.12, average 44380.12 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -317,7 +317,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `avg_api_latency_ms`: min 215.23, max 215.23, average 215.23 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 205.77, max 205.77, average 205.77 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -337,10 +337,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0156, max 0.0201, average 0.0179 (1 anomaly event(s))
-- `net_revenue`: min 40503.66, max 56096.21, average 47896.0486 (2 anomaly event(s))
-- `avg_api_latency_ms`: min 201.32, max 215.9, average 206.7729 (1 anomaly event(s))
-- `support_ticket_count`: min 193.0, max 240.0, average 209.4286 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.0153, max 0.0193, average 0.0176 (1 anomaly event(s))
+- `net_revenue`: min 43326.96, max 63378.89, average 51359.3886 (2 anomaly event(s))
+- `avg_api_latency_ms`: min 201.36, max 211.68, average 206.9543 (1 anomaly event(s))
+- `support_ticket_count`: min 201.0, max 238.0, average 216.1429 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -360,8 +360,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0521, max 0.0655, average 0.0588 (1 anomaly event(s))
-- `net_revenue`: min 38051.5, max 46112.28, average 42081.89 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0517, max 0.0623, average 0.057 (1 anomaly event(s))
+- `net_revenue`: min 44366.87, max 50159.3, average 47263.085 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -381,7 +381,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 36484.17, max 36718.37, average 36601.27 (2 anomaly event(s))
+- `net_revenue`: min 35001.53, max 40409.72, average 37705.625 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -401,8 +401,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `support_ticket_count`: min 194.0, max 236.0, average 215.0 (1 anomaly event(s))
-- `net_revenue`: min 39243.05, max 48569.13, average 43906.09 (1 anomaly event(s))
+- `support_ticket_count`: min 196.0, max 223.0, average 209.5 (1 anomaly event(s))
+- `net_revenue`: min 38507.13, max 54749.8, average 46628.465 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -422,7 +422,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0624, max 0.0624, average 0.0624 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0508, max 0.0508, average 0.0508 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -443,10 +443,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0263, max 0.0482, average 0.0372 (1 anomaly event(s))
-- `avg_api_latency_ms`: min 236.31, max 308.89, average 272.6 (1 anomaly event(s))
-- `net_revenue`: min 30921.83, max 33015.25, average 31968.54 (2 anomaly event(s))
-- `support_ticket_count`: min 264.0, max 284.0, average 274.0 (2 anomaly event(s))
+- `checkout_failure_rate`: min 0.0303, max 0.0468, average 0.0386 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 234.99, max 311.17, average 273.08 (1 anomaly event(s))
+- `net_revenue`: min 31629.44, max 33624.5, average 32626.97 (2 anomaly event(s))
+- `support_ticket_count`: min 274.0, max 284.0, average 279.0 (2 anomaly event(s))
 - `conversion_rate`: min 0.0306, max 0.0367, average 0.0336 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -468,7 +468,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 37023.04, max 37093.28, average 37058.16 (2 anomaly event(s))
+- `net_revenue`: min 33010.03, max 35349.82, average 34179.925 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -485,15 +485,15 @@ Total incidents: **73**
 ### Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-08-11 to 2025-08-20.
-- Lost sales units reached 96.00 during the incident.
+- Lost sales units reached 92.00 during the incident.
 
 ### Affected KPIs
 
-- `net_revenue`: min 39203.73, max 59389.39, average 48840.273 (4 anomaly event(s))
-- `stockout_units`: min 0.0, max 74.0, average 43.8 (7 anomaly event(s))
-- `support_ticket_count`: min 195.0, max 262.0, average 235.7 (2 anomaly event(s))
-- `shipping_delay_rate`: min 0.0546, max 0.0691, average 0.0595 (1 anomaly event(s))
-- `lost_sales_units`: min 0.0, max 96.0, average 57.7 (0 anomaly event(s))
+- `net_revenue`: min 33504.76, max 55208.18, average 44440.761 (4 anomaly event(s))
+- `stockout_units`: min 0.0, max 75.0, average 42.8 (7 anomaly event(s))
+- `support_ticket_count`: min 197.0, max 272.0, average 239.5 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0506, max 0.0637, average 0.0545 (1 anomaly event(s))
+- `lost_sales_units`: min 0.0, max 92.0, average 46.7 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -514,8 +514,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0171, max 0.0217, average 0.0194 (1 anomaly event(s))
-- `net_revenue`: min 35949.95, max 44679.89, average 40314.92 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.0186, max 0.0187, average 0.0186 (1 anomaly event(s))
+- `net_revenue`: min 38672.95, max 50847.77, average 44760.36 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -535,7 +535,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 40033.92, max 40033.92, average 40033.92 (1 anomaly event(s))
+- `net_revenue`: min 35711.86, max 35711.86, average 35711.86 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -555,10 +555,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0506, max 0.0636, average 0.0564 (1 anomaly event(s))
-- `avg_api_latency_ms`: min 203.91, max 213.91, average 209.27 (2 anomaly event(s))
-- `net_revenue`: min 44130.03, max 65142.48, average 54397.582 (1 anomaly event(s))
-- `support_ticket_count`: min 192.0, max 261.0, average 222.6 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0487, max 0.06, average 0.0565 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 200.01, max 210.6, average 207.194 (2 anomaly event(s))
+- `net_revenue`: min 38084.11, max 64032.3, average 49364.292 (1 anomaly event(s))
+- `support_ticket_count`: min 201.0, max 223.0, average 213.8 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -575,14 +575,14 @@ Total incidents: **73**
 ### Evidence
 
 - Shipping delay anomalies occurred from 2025-09-15 to 2025-09-18.
-- Delivery complaints reached 101.00 versus a prior average of 22.93.
+- Delivery complaints reached 101.00 versus a prior average of 21.36.
 
 ### Affected KPIs
 
-- `net_revenue`: min 43316.08, max 60344.53, average 52350.8875 (2 anomaly event(s))
-- `support_ticket_count`: min 264.0, max 318.0, average 291.25 (3 anomaly event(s))
-- `shipping_delay_rate`: min 0.0564, max 0.0721, average 0.0653 (2 anomaly event(s))
-- `delivery_complaints`: min 82.0, max 101.0, average 92.75 (0 anomaly event(s))
+- `net_revenue`: min 33367.6, max 60787.09, average 46044.42 (2 anomaly event(s))
+- `support_ticket_count`: min 259.0, max 329.0, average 298.75 (3 anomaly event(s))
+- `shipping_delay_rate`: min 0.0545, max 0.0675, average 0.064 (2 anomaly event(s))
+- `delivery_complaints`: min 79.0, max 101.0, average 85.75 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -603,7 +603,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 42386.16, max 42386.16, average 42386.16 (1 anomaly event(s))
+- `net_revenue`: min 40116.25, max 40116.25, average 40116.25 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -624,11 +624,11 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 30539.98, max 73220.04, average 48413.5694 (10 anomaly event(s))
-- `avg_api_latency_ms`: min 199.8, max 660.19, average 284.495 (4 anomaly event(s))
-- `checkout_failure_rate`: min 0.0149, max 0.1491, average 0.04 (4 anomaly event(s))
-- `shipping_delay_rate`: min 0.0477, max 0.0645, average 0.0551 (1 anomaly event(s))
-- `support_ticket_count`: min 196.0, max 387.0, average 255.0625 (4 anomaly event(s))
+- `net_revenue`: min 22658.2, max 75335.86, average 45825.9219 (10 anomaly event(s))
+- `avg_api_latency_ms`: min 201.16, max 655.44, average 284.4656 (4 anomaly event(s))
+- `checkout_failure_rate`: min 0.0152, max 0.1503, average 0.04 (4 anomaly event(s))
+- `shipping_delay_rate`: min 0.0461, max 0.0629, average 0.0529 (1 anomaly event(s))
+- `support_ticket_count`: min 190.0, max 401.0, average 253.375 (4 anomaly event(s))
 - `conversion_rate`: min 0.022, max 0.0484, average 0.0385 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -650,7 +650,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 42294.8, max 46696.69, average 44495.745 (2 anomaly event(s))
+- `net_revenue`: min 55520.37, max 65719.68, average 60620.025 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -670,9 +670,9 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0488, max 0.0666, average 0.0567 (1 anomaly event(s))
-- `net_revenue`: min 36601.88, max 69079.86, average 54759.25 (4 anomaly event(s))
-- `support_ticket_count`: min 198.0, max 261.0, average 228.6 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0509, max 0.0675, average 0.0566 (1 anomaly event(s))
+- `net_revenue`: min 47369.5, max 78295.31, average 66125.218 (4 anomaly event(s))
+- `support_ticket_count`: min 196.0, max 228.0, average 213.0 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -692,9 +692,9 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 42869.95, max 68204.68, average 54116.458 (2 anomaly event(s))
-- `shipping_delay_rate`: min 0.05, max 0.0648, average 0.0558 (1 anomaly event(s))
-- `avg_api_latency_ms`: min 204.33, max 216.54, average 208.196 (1 anomaly event(s))
+- `net_revenue`: min 50122.48, max 79838.69, average 66519.652 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0515, max 0.0584, average 0.0552 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 208.31, max 212.57, average 211.05 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -711,14 +711,14 @@ Total incidents: **73**
 ### Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-12-03 to 2025-12-16.
-- Lost sales units reached 201.00 during the incident.
+- Lost sales units reached 190.00 during the incident.
 
 ### Affected KPIs
 
-- `stockout_units`: min 90.0, max 124.0, average 111.7143 (14 anomaly event(s))
-- `net_revenue`: min 32557.83, max 58574.79, average 45890.5393 (6 anomaly event(s))
-- `support_ticket_count`: min 243.0, max 312.0, average 283.7857 (5 anomaly event(s))
-- `lost_sales_units`: min 111.0, max 201.0, average 159.8571 (0 anomaly event(s))
+- `stockout_units`: min 92.0, max 134.0, average 117.0 (14 anomaly event(s))
+- `net_revenue`: min 28434.33, max 61170.31, average 41587.5243 (6 anomaly event(s))
+- `support_ticket_count`: min 263.0, max 306.0, average 287.1429 (5 anomaly event(s))
+- `lost_sales_units`: min 100.0, max 190.0, average 153.2143 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -739,7 +739,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0639, max 0.0639, average 0.0639 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0497, max 0.0497, average 0.0497 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -759,8 +759,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `avg_api_latency_ms`: min 216.89, max 216.89, average 216.89 (1 anomaly event(s))
-- `net_revenue`: min 50518.39, max 50518.39, average 50518.39 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 210.96, max 210.96, average 210.96 (1 anomaly event(s))
+- `net_revenue`: min 58149.45, max 58149.45, average 58149.45 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -780,8 +780,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 51703.76, max 51703.76, average 51703.76 (1 anomaly event(s))
-- `support_ticket_count`: min 237.0, max 237.0, average 237.0 (1 anomaly event(s))
+- `net_revenue`: min 55343.67, max 55343.67, average 55343.67 (1 anomaly event(s))
+- `support_ticket_count`: min 235.0, max 235.0, average 235.0 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -801,7 +801,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 44396.01, max 44396.01, average 44396.01 (1 anomaly event(s))
+- `net_revenue`: min 53386.07, max 53386.07, average 53386.07 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -822,11 +822,11 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0157, max 0.0711, average 0.0314 (2 anomaly event(s))
-- `avg_api_latency_ms`: min 202.62, max 407.37, average 255.2775 (2 anomaly event(s))
-- `net_revenue`: min 43233.91, max 82763.0, average 60310.9637 (3 anomaly event(s))
-- `support_ticket_count`: min 199.0, max 305.0, average 227.5 (2 anomaly event(s))
-- `shipping_delay_rate`: min 0.0472, max 0.0632, average 0.0555 (2 anomaly event(s))
+- `checkout_failure_rate`: min 0.0176, max 0.075, average 0.0315 (2 anomaly event(s))
+- `avg_api_latency_ms`: min 204.23, max 398.61, average 254.325 (2 anomaly event(s))
+- `net_revenue`: min 42119.47, max 73025.67, average 60486.2125 (3 anomaly event(s))
+- `support_ticket_count`: min 195.0, max 312.0, average 234.125 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0495, max 0.0631, average 0.0552 (2 anomaly event(s))
 - `conversion_rate`: min 0.0349, max 0.0496, average 0.042 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -845,14 +845,14 @@ Total incidents: **73**
 ### Evidence
 
 - Shipping delay anomalies occurred from 2026-02-09 to 2026-02-17.
-- Delivery complaints reached 163.00 versus a prior average of 22.43.
+- Delivery complaints reached 170.00 versus a prior average of 23.93.
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0898, max 0.0989, average 0.0939 (5 anomaly event(s))
-- `support_ticket_count`: min 360.0, max 409.0, average 373.0 (7 anomaly event(s))
-- `net_revenue`: min 47860.47, max 93772.02, average 61222.7767 (3 anomaly event(s))
-- `delivery_complaints`: min 133.0, max 163.0, average 146.3333 (0 anomaly event(s))
+- `shipping_delay_rate`: min 0.0876, max 0.1013, average 0.0923 (5 anomaly event(s))
+- `support_ticket_count`: min 349.0, max 397.0, average 375.7778 (7 anomaly event(s))
+- `net_revenue`: min 45078.65, max 77069.6, average 58123.1022 (3 anomaly event(s))
+- `delivery_complaints`: min 149.0, max 170.0, average 156.2222 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -873,7 +873,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 49075.3, max 49075.3, average 49075.3 (1 anomaly event(s))
+- `net_revenue`: min 63766.89, max 63766.89, average 63766.89 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -893,7 +893,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 49100.34, max 49100.34, average 49100.34 (1 anomaly event(s))
+- `net_revenue`: min 48293.97, max 48293.97, average 48293.97 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -913,8 +913,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 52828.81, max 57697.56, average 55263.185 (1 anomaly event(s))
-- `support_ticket_count`: min 218.0, max 255.0, average 236.5 (1 anomaly event(s))
+- `net_revenue`: min 63140.24, max 68683.17, average 65911.705 (1 anomaly event(s))
+- `support_ticket_count`: min 193.0, max 225.0, average 209.0 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -934,7 +934,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 49153.93, max 49153.93, average 49153.93 (1 anomaly event(s))
+- `net_revenue`: min 64817.0, max 64817.0, average 64817.0 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -954,7 +954,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 53444.37, max 53444.37, average 53444.37 (1 anomaly event(s))
+- `net_revenue`: min 56332.76, max 56332.76, average 56332.76 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -974,7 +974,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 55834.78, max 55834.78, average 55834.78 (1 anomaly event(s))
+- `net_revenue`: min 66348.87, max 66348.87, average 66348.87 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -995,10 +995,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `avg_api_latency_ms`: min 209.79, max 725.77, average 488.5011 (6 anomaly event(s))
-- `net_revenue`: min 29512.52, max 76474.18, average 50309.7833 (6 anomaly event(s))
-- `checkout_failure_rate`: min 0.0166, max 0.1724, average 0.099 (5 anomaly event(s))
-- `support_ticket_count`: min 184.0, max 442.0, average 304.5556 (5 anomaly event(s))
+- `avg_api_latency_ms`: min 202.99, max 733.8, average 488.28 (6 anomaly event(s))
+- `net_revenue`: min 22240.78, max 92473.3, average 51368.5422 (6 anomaly event(s))
+- `checkout_failure_rate`: min 0.0163, max 0.1728, average 0.0982 (5 anomaly event(s))
+- `support_ticket_count`: min 207.0, max 434.0, average 314.5556 (5 anomaly event(s))
 - `conversion_rate`: min 0.0197, max 0.0459, average 0.0325 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -1020,7 +1020,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0676, max 0.0676, average 0.0676 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0578, max 0.0578, average 0.0578 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1040,7 +1040,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 48601.74, max 48601.74, average 48601.74 (1 anomaly event(s))
+- `net_revenue`: min 62606.93, max 62606.93, average 62606.93 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1057,16 +1057,16 @@ Total incidents: **73**
 ### Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2026-05-10 to 2026-05-30.
-- Lost sales units reached 122.00 during the incident.
+- Lost sales units reached 130.00 during the incident.
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0152, max 0.0212, average 0.0186 (3 anomaly event(s))
-- `net_revenue`: min 50269.24, max 82965.41, average 66804.67 (6 anomaly event(s))
-- `support_ticket_count`: min 180.0, max 296.0, average 244.4762 (4 anomaly event(s))
-- `stockout_units`: min 0.0, max 116.0, average 51.381 (11 anomaly event(s))
-- `shipping_delay_rate`: min 0.0463, max 0.0645, average 0.0547 (1 anomaly event(s))
-- `lost_sales_units`: min 0.0, max 122.0, average 51.9048 (0 anomaly event(s))
+- `checkout_failure_rate`: min 0.0158, max 0.0202, average 0.0182 (3 anomaly event(s))
+- `net_revenue`: min 47213.13, max 84665.69, average 65440.8938 (6 anomaly event(s))
+- `support_ticket_count`: min 185.0, max 289.0, average 235.2857 (4 anomaly event(s))
+- `stockout_units`: min 0.0, max 125.0, average 55.381 (11 anomaly event(s))
+- `shipping_delay_rate`: min 0.045, max 0.0653, average 0.0547 (1 anomaly event(s))
+- `lost_sales_units`: min 0.0, max 130.0, average 51.8571 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1087,7 +1087,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 53844.41, max 53844.41, average 53844.41 (1 anomaly event(s))
+- `net_revenue`: min 64253.64, max 64253.64, average 64253.64 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1107,7 +1107,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 57413.57, max 60460.32, average 58936.945 (2 anomaly event(s))
+- `net_revenue`: min 60182.65, max 68437.91, average 64310.28 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1124,15 +1124,15 @@ Total incidents: **73**
 ### Evidence
 
 - Shipping delay anomalies occurred from 2026-06-20 to 2026-06-29.
-- Delivery complaints reached 125.00 versus a prior average of 22.50.
+- Delivery complaints reached 108.00 versus a prior average of 23.64.
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0173, max 0.0194, average 0.0181 (1 anomaly event(s))
-- `shipping_delay_rate`: min 0.0455, max 0.1093, average 0.0859 (6 anomaly event(s))
-- `support_ticket_count`: min 215.0, max 330.0, average 281.4 (4 anomaly event(s))
-- `net_revenue`: min 52260.42, max 91085.28, average 73105.793 (2 anomaly event(s))
-- `delivery_complaints`: min 22.0, max 125.0, average 83.3 (0 anomaly event(s))
+- `checkout_failure_rate`: min 0.0165, max 0.0206, average 0.0185 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0491, max 0.1083, average 0.0874 (6 anomaly event(s))
+- `support_ticket_count`: min 160.0, max 329.0, average 279.8 (4 anomaly event(s))
+- `net_revenue`: min 49521.87, max 96140.81, average 74472.776 (2 anomaly event(s))
+- `delivery_complaints`: min 17.0, max 108.0, average 76.4 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1153,8 +1153,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 57787.97, max 75655.33, average 66880.5175 (1 anomaly event(s))
-- `checkout_failure_rate`: min 0.0173, max 0.0191, average 0.0181 (1 anomaly event(s))
+- `net_revenue`: min 65669.1, max 102746.43, average 78326.1525 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.016, max 0.0181, average 0.0175 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1174,7 +1174,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 56640.91, max 56640.91, average 56640.91 (1 anomaly event(s))
+- `net_revenue`: min 57601.79, max 57601.79, average 57601.79 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1194,9 +1194,9 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0155, max 0.0214, average 0.0183 (1 anomaly event(s))
-- `net_revenue`: min 60407.31, max 95882.71, average 74447.9312 (3 anomaly event(s))
-- `shipping_delay_rate`: min 0.0485, max 0.0676, average 0.0553 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.0174, max 0.0191, average 0.0181 (1 anomaly event(s))
+- `net_revenue`: min 55466.06, max 109564.07, average 78149.3425 (3 anomaly event(s))
+- `shipping_delay_rate`: min 0.0506, max 0.0606, average 0.055 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1217,10 +1217,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.018, max 0.1065, average 0.0524 (2 anomaly event(s))
-- `avg_api_latency_ms`: min 209.36, max 512.1, average 330.6475 (2 anomaly event(s))
-- `net_revenue`: min 40202.62, max 70078.59, average 53674.2875 (3 anomaly event(s))
-- `support_ticket_count`: min 218.0, max 327.0, average 272.5 (2 anomaly event(s))
+- `checkout_failure_rate`: min 0.0162, max 0.1013, average 0.0511 (2 anomaly event(s))
+- `avg_api_latency_ms`: min 207.95, max 509.74, average 331.2825 (2 anomaly event(s))
+- `net_revenue`: min 37153.12, max 65913.9, average 51430.795 (3 anomaly event(s))
+- `support_ticket_count`: min 203.0, max 327.0, average 263.25 (2 anomaly event(s))
 - `conversion_rate`: min 0.0272, max 0.04, average 0.0346 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -1242,7 +1242,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 60843.45, max 60843.45, average 60843.45 (1 anomaly event(s))
+- `net_revenue`: min 68309.62, max 68309.62, average 68309.62 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1262,8 +1262,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0553, max 0.0666, average 0.0596 (1 anomaly event(s))
-- `net_revenue`: min 54449.52, max 96878.63, average 73404.36 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0449, max 0.0647, average 0.0549 (1 anomaly event(s))
+- `net_revenue`: min 50088.55, max 88595.9, average 71026.828 (2 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1283,7 +1283,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 59374.81, max 59374.81, average 59374.81 (1 anomaly event(s))
+- `net_revenue`: min 81280.14, max 81280.14, average 81280.14 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1300,15 +1300,15 @@ Total incidents: **73**
 ### Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2026-09-07 to 2026-09-23.
-- Lost sales units reached 179.00 during the incident.
+- Lost sales units reached 178.00 during the incident.
 
 ### Affected KPIs
 
-- `net_revenue`: min 49573.3, max 93627.89, average 65170.7329 (6 anomaly event(s))
-- `stockout_units`: min 0.0, max 138.0, average 105.4118 (15 anomaly event(s))
-- `support_ticket_count`: min 199.0, max 301.0, average 271.1765 (4 anomaly event(s))
-- `avg_api_latency_ms`: min 199.75, max 217.6, average 207.8018 (1 anomaly event(s))
-- `lost_sales_units`: min 0.0, max 179.0, average 115.4706 (0 anomaly event(s))
+- `net_revenue`: min 32242.51, max 79740.26, average 51200.4547 (6 anomaly event(s))
+- `stockout_units`: min 0.0, max 143.0, average 108.4706 (15 anomaly event(s))
+- `support_ticket_count`: min 193.0, max 307.0, average 272.5294 (4 anomaly event(s))
+- `avg_api_latency_ms`: min 196.93, max 214.7, average 207.0112 (1 anomaly event(s))
+- `lost_sales_units`: min 0.0, max 178.0, average 116.5882 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1326,15 +1326,15 @@ Total incidents: **73**
 ### Evidence
 
 - Shipping delay anomalies occurred from 2026-09-30 to 2026-10-13.
-- Delivery complaints reached 146.00 versus a prior average of 23.14.
+- Delivery complaints reached 161.00 versus a prior average of 24.79.
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0161, max 0.0205, average 0.0178 (1 anomaly event(s))
-- `shipping_delay_rate`: min 0.0494, max 0.1631, average 0.1205 (9 anomaly event(s))
-- `net_revenue`: min 61769.81, max 115107.58, average 79074.5564 (3 anomaly event(s))
-- `support_ticket_count`: min 212.0, max 372.0, average 300.7143 (6 anomaly event(s))
-- `delivery_complaints`: min 22.0, max 146.0, average 93.7143 (0 anomaly event(s))
+- `checkout_failure_rate`: min 0.0166, max 0.0197, average 0.0181 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0517, max 0.1682, average 0.1229 (9 anomaly event(s))
+- `net_revenue`: min 44608.19, max 95497.0, average 68414.8871 (3 anomaly event(s))
+- `support_ticket_count`: min 200.0, max 374.0, average 299.7143 (6 anomaly event(s))
+- `delivery_complaints`: min 21.0, max 161.0, average 95.9286 (0 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1355,7 +1355,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0216, max 0.0216, average 0.0216 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.0175, max 0.0175, average 0.0175 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1375,7 +1375,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 66322.31, max 66322.31, average 66322.31 (1 anomaly event(s))
+- `net_revenue`: min 54860.75, max 54860.75, average 54860.75 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1395,8 +1395,8 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 59463.83, max 90596.78, average 69259.525 (3 anomaly event(s))
-- `shipping_delay_rate`: min 0.0449, max 0.0647, average 0.0555 (1 anomaly event(s))
+- `net_revenue`: min 63076.86, max 94612.37, average 79272.86 (3 anomaly event(s))
+- `shipping_delay_rate`: min 0.0493, max 0.059, average 0.055 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1416,7 +1416,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 53565.65, max 53565.65, average 53565.65 (1 anomaly event(s))
+- `net_revenue`: min 67805.4, max 67805.4, average 67805.4 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1437,10 +1437,10 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0832, max 0.1328, average 0.1148 (4 anomaly event(s))
-- `avg_api_latency_ms`: min 449.05, max 628.11, average 563.025 (4 anomaly event(s))
-- `net_revenue`: min 45106.36, max 53223.63, average 48024.535 (4 anomaly event(s))
-- `support_ticket_count`: min 318.0, max 374.0, average 347.5 (4 anomaly event(s))
+- `checkout_failure_rate`: min 0.086, max 0.148, average 0.1217 (4 anomaly event(s))
+- `avg_api_latency_ms`: min 445.12, max 631.56, average 561.43 (4 anomaly event(s))
+- `net_revenue`: min 44661.09, max 56544.32, average 49736.84 (4 anomaly event(s))
+- `support_ticket_count`: min 329.0, max 401.0, average 363.75 (4 anomaly event(s))
 - `conversion_rate`: min 0.0245, max 0.036, average 0.031 (0 anomaly event(s))
 
 ### Recommended Next Steps
@@ -1462,7 +1462,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 60698.91, max 60698.91, average 60698.91 (1 anomaly event(s))
+- `net_revenue`: min 77299.31, max 77299.31, average 77299.31 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1482,7 +1482,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 61676.47, max 61676.47, average 61676.47 (1 anomaly event(s))
+- `net_revenue`: min 87613.24, max 87613.24, average 87613.24 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1502,9 +1502,9 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 61897.73, max 64628.37, average 63263.05 (2 anomaly event(s))
-- `checkout_failure_rate`: min 0.018, max 0.0211, average 0.0195 (1 anomaly event(s))
-- `avg_api_latency_ms`: min 209.79, max 216.36, average 213.075 (1 anomaly event(s))
+- `net_revenue`: min 86185.24, max 93529.71, average 89857.475 (2 anomaly event(s))
+- `checkout_failure_rate`: min 0.0162, max 0.0162, average 0.0162 (1 anomaly event(s))
+- `avg_api_latency_ms`: min 202.93, max 203.71, average 203.32 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1524,7 +1524,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0609, max 0.0609, average 0.0609 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.0531, max 0.0531, average 0.0531 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1544,7 +1544,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `shipping_delay_rate`: min 0.0617, max 0.0617, average 0.0617 (1 anomaly event(s))
+- `shipping_delay_rate`: min 0.055, max 0.055, average 0.055 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1564,9 +1564,9 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `net_revenue`: min 62626.81, max 75625.24, average 70198.2167 (2 anomaly event(s))
-- `shipping_delay_rate`: min 0.0447, max 0.0759, average 0.0599 (1 anomaly event(s))
-- `support_ticket_count`: min 194.0, max 231.0, average 212.6667 (1 anomaly event(s))
+- `net_revenue`: min 78900.95, max 93494.36, average 87524.1033 (2 anomaly event(s))
+- `shipping_delay_rate`: min 0.0541, max 0.0577, average 0.0553 (1 anomaly event(s))
+- `support_ticket_count`: min 217.0, max 224.0, average 219.6667 (1 anomaly event(s))
 
 ### Recommended Next Steps
 
@@ -1586,7 +1586,7 @@ Total incidents: **73**
 
 ### Affected KPIs
 
-- `checkout_failure_rate`: min 0.0211, max 0.0211, average 0.0211 (1 anomaly event(s))
+- `checkout_failure_rate`: min 0.0166, max 0.0166, average 0.0166 (1 anomaly event(s))
 
 ### Recommended Next Steps
 

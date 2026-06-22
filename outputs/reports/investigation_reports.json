@@ -20,9 +20,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 33287.06,
-          "maximum": 33841.42,
-          "average": 33564.24,
+          "minimum": 36361.73,
+          "maximum": 40917.99,
+          "average": 38639.86,
           "largest_absolute_percent_change": 0.1742
         },
         {
@@ -31,8 +31,8 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0168,
-          "maximum": 0.0193,
+          "minimum": 0.018,
+          "maximum": 0.0181,
           "average": 0.0181,
           "largest_absolute_percent_change": 0.1151
         }
@@ -85,9 +85,9 @@
             "latency_spike"
           ],
           "event_count": 2,
-          "minimum": 200.26,
-          "maximum": 217.63,
-          "average": 208.364,
+          "minimum": 199.13,
+          "maximum": 209.01,
+          "average": 204.57,
           "largest_absolute_percent_change": 0.0551
         },
         {
@@ -96,9 +96,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 33487.56,
-          "maximum": 44872.66,
-          "average": 38936.93,
+          "minimum": 32182.47,
+          "maximum": 44506.34,
+          "average": 40173.03,
           "largest_absolute_percent_change": 0.1732
         }
       ],
@@ -158,9 +158,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 28278.3,
-          "maximum": 40761.57,
-          "average": 34540.5133,
+          "minimum": 38518.7,
+          "maximum": 50563.99,
+          "average": 43732.84,
           "largest_absolute_percent_change": 0.3107
         },
         {
@@ -169,9 +169,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 200.0,
-          "maximum": 251.0,
-          "average": 223.6667,
+          "minimum": 195.0,
+          "maximum": 206.0,
+          "average": 200.3333,
           "largest_absolute_percent_change": 0.184
         }
       ],
@@ -229,9 +229,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 29305.58,
-          "maximum": 29305.58,
-          "average": 29305.58,
+          "minimum": 33602.53,
+          "maximum": 33602.53,
+          "average": 33602.53,
           "largest_absolute_percent_change": 0.2995
         }
       ],
@@ -272,9 +272,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0639,
-          "maximum": 0.0639,
-          "average": 0.0639,
+          "minimum": 0.0584,
+          "maximum": 0.0584,
+          "average": 0.0584,
           "largest_absolute_percent_change": 0.1659
         }
       ],
@@ -315,9 +315,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0653,
-          "maximum": 0.0653,
-          "average": 0.0653,
+          "minimum": 0.0722,
+          "maximum": 0.0722,
+          "average": 0.0722,
           "largest_absolute_percent_change": 0.1784
         }
       ],
@@ -360,9 +360,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 208.72,
-          "maximum": 214.95,
-          "average": 211.835,
+          "minimum": 202.76,
+          "maximum": 212.48,
+          "average": 207.62,
           "largest_absolute_percent_change": 0.0527
         },
         {
@@ -371,9 +371,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 30915.47,
-          "maximum": 33807.57,
-          "average": 32361.52,
+          "minimum": 36002.54,
+          "maximum": 38982.52,
+          "average": 37492.53,
           "largest_absolute_percent_change": 0.2895
         }
       ],
@@ -435,9 +435,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 3,
-          "minimum": 0.1025,
-          "maximum": 0.1225,
-          "average": 0.1155,
+          "minimum": 0.0995,
+          "maximum": 0.1239,
+          "average": 0.1139,
           "largest_absolute_percent_change": 4.7886
         },
         {
@@ -446,9 +446,9 @@
             "latency_spike"
           ],
           "event_count": 3,
-          "minimum": 501.8,
-          "maximum": 567.73,
-          "average": 545.4,
+          "minimum": 510.83,
+          "maximum": 564.89,
+          "average": 546.1333,
           "largest_absolute_percent_change": 1.4776
         },
         {
@@ -457,9 +457,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 22534.46,
-          "maximum": 27479.75,
-          "average": 24871.9033,
+          "minimum": 25906.11,
+          "maximum": 27830.67,
+          "average": 26772.3333,
           "largest_absolute_percent_change": 0.4631
         },
         {
@@ -468,9 +468,9 @@
             "support_ticket_spike"
           ],
           "event_count": 3,
-          "minimum": 279.0,
-          "maximum": 316.0,
-          "average": 294.3333,
+          "minimum": 310.0,
+          "maximum": 353.0,
+          "average": 332.0,
           "largest_absolute_percent_change": 0.4303
         },
         {
@@ -629,9 +629,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 31951.38,
-          "maximum": 31951.38,
-          "average": 31951.38,
+          "minimum": 43282.0,
+          "maximum": 43282.0,
+          "average": 43282.0,
           "largest_absolute_percent_change": 0.2044
         }
       ],
@@ -672,9 +672,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 32283.12,
-          "maximum": 32283.12,
-          "average": 32283.12,
+          "minimum": 41310.21,
+          "maximum": 41310.21,
+          "average": 41310.21,
           "largest_absolute_percent_change": 0.1981
         }
       ],
@@ -719,9 +719,9 @@
             "revenue_drop"
           ],
           "event_count": 5,
-          "minimum": 32658.99,
-          "maximum": 45561.81,
-          "average": 38989.2836,
+          "minimum": 28393.31,
+          "maximum": 47473.27,
+          "average": 38492.545,
           "largest_absolute_percent_change": 0.2714
         },
         {
@@ -731,8 +731,8 @@
           ],
           "event_count": 11,
           "minimum": 0.0,
-          "maximum": 102.0,
-          "average": 69.7857,
+          "maximum": 112.0,
+          "average": 77.1429,
           "largest_absolute_percent_change": 17.48
         },
         {
@@ -741,9 +741,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 194.0,
-          "maximum": 298.0,
-          "average": 261.5,
+          "minimum": 214.0,
+          "maximum": 291.0,
+          "average": 255.6429,
           "largest_absolute_percent_change": 0.4258
         },
         {
@@ -752,9 +752,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 2,
-          "minimum": 0.0461,
-          "maximum": 0.0677,
-          "average": 0.0553,
+          "minimum": 0.045,
+          "maximum": 0.0641,
+          "average": 0.0539,
           "largest_absolute_percent_change": 0.2464
         },
         {
@@ -762,8 +762,8 @@
           "anomaly_types": [],
           "event_count": 0,
           "minimum": 0.0,
-          "maximum": 126.0,
-          "average": 79.7143,
+          "maximum": 113.0,
+          "average": 75.0,
           "largest_absolute_percent_change": null
         }
       ],
@@ -774,7 +774,7 @@
       ],
       "supporting_evidence": [
         "Inventory shortage and revenue drop anomalies overlapped from 2025-04-07 to 2025-04-20.",
-        "Lost sales units reached 126.00 during the incident."
+        "Lost sales units reached 113.00 during the incident."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -979,9 +979,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 33658.84,
-          "maximum": 55220.59,
-          "average": 45183.8275,
+          "minimum": 35003.13,
+          "maximum": 58425.92,
+          "average": 45275.75,
           "largest_absolute_percent_change": 0.2841
         },
         {
@@ -990,9 +990,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 7,
-          "minimum": 0.1124,
-          "maximum": 0.1304,
-          "average": 0.1192,
+          "minimum": 0.1074,
+          "maximum": 0.1211,
+          "average": 0.1161,
           "largest_absolute_percent_change": 1.2453
         },
         {
@@ -1001,18 +1001,18 @@
             "support_ticket_spike"
           ],
           "event_count": 6,
-          "minimum": 317.0,
+          "minimum": 328.0,
           "maximum": 357.0,
-          "average": 337.625,
+          "average": 342.625,
           "largest_absolute_percent_change": 0.6128
         },
         {
           "metric": "delivery_complaints",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 113.0,
-          "maximum": 146.0,
-          "average": 122.25,
+          "minimum": 105.0,
+          "maximum": 132.0,
+          "average": 119.125,
           "largest_absolute_percent_change": null
         }
       ],
@@ -1022,7 +1022,7 @@
       ],
       "supporting_evidence": [
         "Shipping delay anomalies occurred from 2025-05-05 to 2025-05-12.",
-        "Delivery complaints reached 146.00 versus a prior average of 23.79."
+        "Delivery complaints reached 132.00 versus a prior average of 24.36."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -1168,9 +1168,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 36181.01,
-          "maximum": 36181.01,
-          "average": 36181.01,
+          "minimum": 42263.43,
+          "maximum": 42263.43,
+          "average": 42263.43,
           "largest_absolute_percent_change": 0.2361
         }
       ],
@@ -1211,9 +1211,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 40662.61,
-          "maximum": 40662.61,
-          "average": 40662.61,
+          "minimum": 44380.12,
+          "maximum": 44380.12,
+          "average": 44380.12,
           "largest_absolute_percent_change": 0.1544
         }
       ],
@@ -1254,9 +1254,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 215.23,
-          "maximum": 215.23,
-          "average": 215.23,
+          "minimum": 205.77,
+          "maximum": 205.77,
+          "average": 205.77,
           "largest_absolute_percent_change": 0.0502
         }
       ],
@@ -1301,9 +1301,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0156,
-          "maximum": 0.0201,
-          "average": 0.0179,
+          "minimum": 0.0153,
+          "maximum": 0.0193,
+          "average": 0.0176,
           "largest_absolute_percent_change": 0.1176
         },
         {
@@ -1312,9 +1312,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 40503.66,
-          "maximum": 56096.21,
-          "average": 47896.0486,
+          "minimum": 43326.96,
+          "maximum": 63378.89,
+          "average": 51359.3886,
           "largest_absolute_percent_change": 0.1608
         },
         {
@@ -1323,9 +1323,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 201.32,
-          "maximum": 215.9,
-          "average": 206.7729,
+          "minimum": 201.36,
+          "maximum": 211.68,
+          "average": 206.9543,
           "largest_absolute_percent_change": 0.0463
         },
         {
@@ -1334,9 +1334,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 193.0,
-          "maximum": 240.0,
-          "average": 209.4286,
+          "minimum": 201.0,
+          "maximum": 238.0,
+          "average": 216.1429,
           "largest_absolute_percent_change": 0.1622
         }
       ],
@@ -1414,9 +1414,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0521,
-          "maximum": 0.0655,
-          "average": 0.0588,
+          "minimum": 0.0517,
+          "maximum": 0.0623,
+          "average": 0.057,
           "largest_absolute_percent_change": 0.2608
         },
         {
@@ -1425,9 +1425,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 38051.5,
-          "maximum": 46112.28,
-          "average": 42081.89,
+          "minimum": 44366.87,
+          "maximum": 50159.3,
+          "average": 47263.085,
           "largest_absolute_percent_change": 0.2405
         }
       ],
@@ -1477,9 +1477,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 36484.17,
-          "maximum": 36718.37,
-          "average": 36601.27,
+          "minimum": 35001.53,
+          "maximum": 40409.72,
+          "average": 37705.625,
           "largest_absolute_percent_change": 0.2888
         }
       ],
@@ -1530,9 +1530,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 194.0,
-          "maximum": 236.0,
-          "average": 215.0,
+          "minimum": 196.0,
+          "maximum": 223.0,
+          "average": 209.5,
           "largest_absolute_percent_change": 0.1429
         },
         {
@@ -1541,9 +1541,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 39243.05,
-          "maximum": 48569.13,
-          "average": 43906.09,
+          "minimum": 38507.13,
+          "maximum": 54749.8,
+          "average": 46628.465,
           "largest_absolute_percent_change": 0.2272
         }
       ],
@@ -1593,9 +1593,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0624,
-          "maximum": 0.0624,
-          "average": 0.0624,
+          "minimum": 0.0508,
+          "maximum": 0.0508,
+          "average": 0.0508,
           "largest_absolute_percent_change": 0.1643
         }
       ],
@@ -1640,9 +1640,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0263,
-          "maximum": 0.0482,
-          "average": 0.0372,
+          "minimum": 0.0303,
+          "maximum": 0.0468,
+          "average": 0.0386,
           "largest_absolute_percent_change": 1.5914
         },
         {
@@ -1651,9 +1651,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 236.31,
-          "maximum": 308.89,
-          "average": 272.6,
+          "minimum": 234.99,
+          "maximum": 311.17,
+          "average": 273.08,
           "largest_absolute_percent_change": 0.498
         },
         {
@@ -1662,9 +1662,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 30921.83,
-          "maximum": 33015.25,
-          "average": 31968.54,
+          "minimum": 31629.44,
+          "maximum": 33624.5,
+          "average": 32626.97,
           "largest_absolute_percent_change": 0.3673
         },
         {
@@ -1673,9 +1673,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 264.0,
+          "minimum": 274.0,
           "maximum": 284.0,
-          "average": 274.0,
+          "average": 279.0,
           "largest_absolute_percent_change": 0.3023
         },
         {
@@ -1786,9 +1786,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 37023.04,
-          "maximum": 37093.28,
-          "average": 37058.16,
+          "minimum": 33010.03,
+          "maximum": 35349.82,
+          "average": 34179.925,
           "largest_absolute_percent_change": 0.2489
         }
       ],
@@ -1841,9 +1841,9 @@
             "revenue_drop"
           ],
           "event_count": 4,
-          "minimum": 39203.73,
-          "maximum": 59389.39,
-          "average": 48840.273,
+          "minimum": 33504.76,
+          "maximum": 55208.18,
+          "average": 44440.761,
           "largest_absolute_percent_change": 0.2644
         },
         {
@@ -1853,8 +1853,8 @@
           ],
           "event_count": 7,
           "minimum": 0.0,
-          "maximum": 74.0,
-          "average": 43.8,
+          "maximum": 75.0,
+          "average": 42.8,
           "largest_absolute_percent_change": 23.4103
         },
         {
@@ -1863,9 +1863,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 195.0,
-          "maximum": 262.0,
-          "average": 235.7,
+          "minimum": 197.0,
+          "maximum": 272.0,
+          "average": 239.5,
           "largest_absolute_percent_change": 0.1995
         },
         {
@@ -1874,9 +1874,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0546,
-          "maximum": 0.0691,
-          "average": 0.0595,
+          "minimum": 0.0506,
+          "maximum": 0.0637,
+          "average": 0.0545,
           "largest_absolute_percent_change": 0.2089
         },
         {
@@ -1884,8 +1884,8 @@
           "anomaly_types": [],
           "event_count": 0,
           "minimum": 0.0,
-          "maximum": 96.0,
-          "average": 57.7,
+          "maximum": 92.0,
+          "average": 46.7,
           "largest_absolute_percent_change": null
         }
       ],
@@ -1896,7 +1896,7 @@
       ],
       "supporting_evidence": [
         "Inventory shortage and revenue drop anomalies overlapped from 2025-08-11 to 2025-08-20.",
-        "Lost sales units reached 96.00 during the incident."
+        "Lost sales units reached 92.00 during the incident."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -2036,9 +2036,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0171,
-          "maximum": 0.0217,
-          "average": 0.0194,
+          "minimum": 0.0186,
+          "maximum": 0.0187,
+          "average": 0.0186,
           "largest_absolute_percent_change": 0.1947
         },
         {
@@ -2047,9 +2047,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 35949.95,
-          "maximum": 44679.89,
-          "average": 40314.92,
+          "minimum": 38672.95,
+          "maximum": 50847.77,
+          "average": 44760.36,
           "largest_absolute_percent_change": 0.2913
         }
       ],
@@ -2099,9 +2099,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 40033.92,
-          "maximum": 40033.92,
-          "average": 40033.92,
+          "minimum": 35711.86,
+          "maximum": 35711.86,
+          "average": 35711.86,
           "largest_absolute_percent_change": 0.2137
         }
       ],
@@ -2146,9 +2146,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0506,
-          "maximum": 0.0636,
-          "average": 0.0564,
+          "minimum": 0.0487,
+          "maximum": 0.06,
+          "average": 0.0565,
           "largest_absolute_percent_change": 0.1851
         },
         {
@@ -2157,9 +2157,9 @@
             "latency_spike"
           ],
           "event_count": 2,
-          "minimum": 203.91,
-          "maximum": 213.91,
-          "average": 209.27,
+          "minimum": 200.01,
+          "maximum": 210.6,
+          "average": 207.194,
           "largest_absolute_percent_change": 0.0407
         },
         {
@@ -2168,9 +2168,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 44130.03,
-          "maximum": 65142.48,
-          "average": 54397.582,
+          "minimum": 38084.11,
+          "maximum": 64032.3,
+          "average": 49364.292,
           "largest_absolute_percent_change": 0.1594
         },
         {
@@ -2179,9 +2179,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 192.0,
-          "maximum": 261.0,
-          "average": 222.6,
+          "minimum": 201.0,
+          "maximum": 223.0,
+          "average": 213.8,
           "largest_absolute_percent_change": 0.2395
         }
       ],
@@ -2268,9 +2268,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 43316.08,
-          "maximum": 60344.53,
-          "average": 52350.8875,
+          "minimum": 33367.6,
+          "maximum": 60787.09,
+          "average": 46044.42,
           "largest_absolute_percent_change": 0.2139
         },
         {
@@ -2279,9 +2279,9 @@
             "support_ticket_spike"
           ],
           "event_count": 3,
-          "minimum": 264.0,
-          "maximum": 318.0,
-          "average": 291.25,
+          "minimum": 259.0,
+          "maximum": 329.0,
+          "average": 298.75,
           "largest_absolute_percent_change": 0.4654
         },
         {
@@ -2290,18 +2290,18 @@
             "shipping_delay_spike"
           ],
           "event_count": 2,
-          "minimum": 0.0564,
-          "maximum": 0.0721,
-          "average": 0.0653,
+          "minimum": 0.0545,
+          "maximum": 0.0675,
+          "average": 0.064,
           "largest_absolute_percent_change": 0.2815
         },
         {
           "metric": "delivery_complaints",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 82.0,
+          "minimum": 79.0,
           "maximum": 101.0,
-          "average": 92.75,
+          "average": 85.75,
           "largest_absolute_percent_change": null
         }
       ],
@@ -2311,7 +2311,7 @@
       ],
       "supporting_evidence": [
         "Shipping delay anomalies occurred from 2025-09-15 to 2025-09-18.",
-        "Delivery complaints reached 101.00 versus a prior average of 22.93."
+        "Delivery complaints reached 101.00 versus a prior average of 21.36."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -2393,9 +2393,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 42386.16,
-          "maximum": 42386.16,
-          "average": 42386.16,
+          "minimum": 40116.25,
+          "maximum": 40116.25,
+          "average": 40116.25,
           "largest_absolute_percent_change": 0.2575
         }
       ],
@@ -2441,9 +2441,9 @@
             "revenue_drop"
           ],
           "event_count": 10,
-          "minimum": 30539.98,
-          "maximum": 73220.04,
-          "average": 48413.5694,
+          "minimum": 22658.2,
+          "maximum": 75335.86,
+          "average": 45825.9219,
           "largest_absolute_percent_change": 0.4592
         },
         {
@@ -2452,9 +2452,9 @@
             "latency_spike"
           ],
           "event_count": 4,
-          "minimum": 199.8,
-          "maximum": 660.19,
-          "average": 284.495,
+          "minimum": 201.16,
+          "maximum": 655.44,
+          "average": 284.4656,
           "largest_absolute_percent_change": 1.8631
         },
         {
@@ -2463,8 +2463,8 @@
             "checkout_failure_spike"
           ],
           "event_count": 4,
-          "minimum": 0.0149,
-          "maximum": 0.1491,
+          "minimum": 0.0152,
+          "maximum": 0.1503,
           "average": 0.04,
           "largest_absolute_percent_change": 4.9695
         },
@@ -2474,9 +2474,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0477,
-          "maximum": 0.0645,
-          "average": 0.0551,
+          "minimum": 0.0461,
+          "maximum": 0.0629,
+          "average": 0.0529,
           "largest_absolute_percent_change": 0.1809
         },
         {
@@ -2485,9 +2485,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 196.0,
-          "maximum": 387.0,
-          "average": 255.0625,
+          "minimum": 190.0,
+          "maximum": 401.0,
+          "average": 253.375,
           "largest_absolute_percent_change": 0.8354
         },
         {
@@ -2734,9 +2734,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 42294.8,
-          "maximum": 46696.69,
-          "average": 44495.745,
+          "minimum": 55520.37,
+          "maximum": 65719.68,
+          "average": 60620.025,
           "largest_absolute_percent_change": 0.2611
         }
       ],
@@ -2788,9 +2788,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0488,
-          "maximum": 0.0666,
-          "average": 0.0567,
+          "minimum": 0.0509,
+          "maximum": 0.0675,
+          "average": 0.0566,
           "largest_absolute_percent_change": 0.2524
         },
         {
@@ -2799,9 +2799,9 @@
             "revenue_drop"
           ],
           "event_count": 4,
-          "minimum": 36601.88,
-          "maximum": 69079.86,
-          "average": 54759.25,
+          "minimum": 47369.5,
+          "maximum": 78295.31,
+          "average": 66125.218,
           "largest_absolute_percent_change": 0.3664
         },
         {
@@ -2810,9 +2810,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 198.0,
-          "maximum": 261.0,
-          "average": 228.6,
+          "minimum": 196.0,
+          "maximum": 228.0,
+          "average": 213.0,
           "largest_absolute_percent_change": 0.1745
         }
       ],
@@ -2906,9 +2906,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 42869.95,
-          "maximum": 68204.68,
-          "average": 54116.458,
+          "minimum": 50122.48,
+          "maximum": 79838.69,
+          "average": 66519.652,
           "largest_absolute_percent_change": 0.2371
         },
         {
@@ -2917,9 +2917,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.05,
-          "maximum": 0.0648,
-          "average": 0.0558,
+          "minimum": 0.0515,
+          "maximum": 0.0584,
+          "average": 0.0552,
           "largest_absolute_percent_change": 0.1638
         },
         {
@@ -2928,9 +2928,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 204.33,
-          "maximum": 216.54,
-          "average": 208.196,
+          "minimum": 208.31,
+          "maximum": 212.57,
+          "average": 211.05,
           "largest_absolute_percent_change": 0.0471
         }
       ],
@@ -3000,9 +3000,9 @@
             "inventory_shortage_period"
           ],
           "event_count": 14,
-          "minimum": 90.0,
-          "maximum": 124.0,
-          "average": 111.7143,
+          "minimum": 92.0,
+          "maximum": 134.0,
+          "average": 117.0,
           "largest_absolute_percent_change": 14.5701
         },
         {
@@ -3011,9 +3011,9 @@
             "revenue_drop"
           ],
           "event_count": 6,
-          "minimum": 32557.83,
-          "maximum": 58574.79,
-          "average": 45890.5393,
+          "minimum": 28434.33,
+          "maximum": 61170.31,
+          "average": 41587.5243,
           "largest_absolute_percent_change": 0.3803
         },
         {
@@ -3022,18 +3022,18 @@
             "support_ticket_spike"
           ],
           "event_count": 5,
-          "minimum": 243.0,
-          "maximum": 312.0,
-          "average": 283.7857,
+          "minimum": 263.0,
+          "maximum": 306.0,
+          "average": 287.1429,
           "largest_absolute_percent_change": 0.3309
         },
         {
           "metric": "lost_sales_units",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 111.0,
-          "maximum": 201.0,
-          "average": 159.8571,
+          "minimum": 100.0,
+          "maximum": 190.0,
+          "average": 153.2143,
           "largest_absolute_percent_change": null
         }
       ],
@@ -3044,7 +3044,7 @@
       ],
       "supporting_evidence": [
         "Inventory shortage and revenue drop anomalies overlapped from 2025-12-03 to 2025-12-16.",
-        "Lost sales units reached 201.00 during the incident."
+        "Lost sales units reached 190.00 during the incident."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -3270,9 +3270,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0639,
-          "maximum": 0.0639,
-          "average": 0.0639,
+          "minimum": 0.0497,
+          "maximum": 0.0497,
+          "average": 0.0497,
           "largest_absolute_percent_change": 0.1771
         }
       ],
@@ -3315,9 +3315,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 216.89,
-          "maximum": 216.89,
-          "average": 216.89,
+          "minimum": 210.96,
+          "maximum": 210.96,
+          "average": 210.96,
           "largest_absolute_percent_change": 0.0506
         },
         {
@@ -3326,9 +3326,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 50518.39,
-          "maximum": 50518.39,
-          "average": 50518.39,
+          "minimum": 58149.45,
+          "maximum": 58149.45,
+          "average": 58149.45,
           "largest_absolute_percent_change": 0.1728
         }
       ],
@@ -3380,9 +3380,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 51703.76,
-          "maximum": 51703.76,
-          "average": 51703.76,
+          "minimum": 55343.67,
+          "maximum": 55343.67,
+          "average": 55343.67,
           "largest_absolute_percent_change": 0.1564
         },
         {
@@ -3391,9 +3391,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 237.0,
-          "maximum": 237.0,
-          "average": 237.0,
+          "minimum": 235.0,
+          "maximum": 235.0,
+          "average": 235.0,
           "largest_absolute_percent_change": 0.1293
         }
       ],
@@ -3443,9 +3443,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 44396.01,
-          "maximum": 44396.01,
-          "average": 44396.01,
+          "minimum": 53386.07,
+          "maximum": 53386.07,
+          "average": 53386.07,
           "largest_absolute_percent_change": 0.2632
         }
       ],
@@ -3491,9 +3491,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 2,
-          "minimum": 0.0157,
-          "maximum": 0.0711,
-          "average": 0.0314,
+          "minimum": 0.0176,
+          "maximum": 0.075,
+          "average": 0.0315,
           "largest_absolute_percent_change": 3.0153
         },
         {
@@ -3502,9 +3502,9 @@
             "latency_spike"
           ],
           "event_count": 2,
-          "minimum": 202.62,
-          "maximum": 407.37,
-          "average": 255.2775,
+          "minimum": 204.23,
+          "maximum": 398.61,
+          "average": 254.325,
           "largest_absolute_percent_change": 0.9705
         },
         {
@@ -3513,9 +3513,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 43233.91,
-          "maximum": 82763.0,
-          "average": 60310.9637,
+          "minimum": 42119.47,
+          "maximum": 73025.67,
+          "average": 60486.2125,
           "largest_absolute_percent_change": 0.2815
         },
         {
@@ -3524,9 +3524,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 199.0,
-          "maximum": 305.0,
-          "average": 227.5,
+          "minimum": 195.0,
+          "maximum": 312.0,
+          "average": 234.125,
           "largest_absolute_percent_change": 0.3779
         },
         {
@@ -3535,9 +3535,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 2,
-          "minimum": 0.0472,
-          "maximum": 0.0632,
-          "average": 0.0555,
+          "minimum": 0.0495,
+          "maximum": 0.0631,
+          "average": 0.0552,
           "largest_absolute_percent_change": 0.1566
         },
         {
@@ -3691,9 +3691,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 5,
-          "minimum": 0.0898,
-          "maximum": 0.0989,
-          "average": 0.0939,
+          "minimum": 0.0876,
+          "maximum": 0.1013,
+          "average": 0.0923,
           "largest_absolute_percent_change": 0.8171
         },
         {
@@ -3702,9 +3702,9 @@
             "support_ticket_spike"
           ],
           "event_count": 7,
-          "minimum": 360.0,
-          "maximum": 409.0,
-          "average": 373.0,
+          "minimum": 349.0,
+          "maximum": 397.0,
+          "average": 375.7778,
           "largest_absolute_percent_change": 0.6416
         },
         {
@@ -3713,18 +3713,18 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 47860.47,
-          "maximum": 93772.02,
-          "average": 61222.7767,
+          "minimum": 45078.65,
+          "maximum": 77069.6,
+          "average": 58123.1022,
           "largest_absolute_percent_change": 0.2548
         },
         {
           "metric": "delivery_complaints",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 133.0,
-          "maximum": 163.0,
-          "average": 146.3333,
+          "minimum": 149.0,
+          "maximum": 170.0,
+          "average": 156.2222,
           "largest_absolute_percent_change": null
         }
       ],
@@ -3734,7 +3734,7 @@
       ],
       "supporting_evidence": [
         "Shipping delay anomalies occurred from 2026-02-09 to 2026-02-17.",
-        "Delivery complaints reached 163.00 versus a prior average of 22.43."
+        "Delivery complaints reached 170.00 versus a prior average of 23.93."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -3880,9 +3880,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 49075.3,
-          "maximum": 49075.3,
-          "average": 49075.3,
+          "minimum": 63766.89,
+          "maximum": 63766.89,
+          "average": 63766.89,
           "largest_absolute_percent_change": 0.2346
         }
       ],
@@ -3923,9 +3923,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 49100.34,
-          "maximum": 49100.34,
-          "average": 49100.34,
+          "minimum": 48293.97,
+          "maximum": 48293.97,
+          "average": 48293.97,
           "largest_absolute_percent_change": 0.2186
         }
       ],
@@ -3968,9 +3968,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 52828.81,
-          "maximum": 57697.56,
-          "average": 55263.185,
+          "minimum": 63140.24,
+          "maximum": 68683.17,
+          "average": 65911.705,
           "largest_absolute_percent_change": 0.171
         },
         {
@@ -3979,9 +3979,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 218.0,
-          "maximum": 255.0,
-          "average": 236.5,
+          "minimum": 193.0,
+          "maximum": 225.0,
+          "average": 209.0,
           "largest_absolute_percent_change": 0.1924
         }
       ],
@@ -4040,9 +4040,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 49153.93,
-          "maximum": 49153.93,
-          "average": 49153.93,
+          "minimum": 64817.0,
+          "maximum": 64817.0,
+          "average": 64817.0,
           "largest_absolute_percent_change": 0.2496
         }
       ],
@@ -4083,9 +4083,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 53444.37,
-          "maximum": 53444.37,
-          "average": 53444.37,
+          "minimum": 56332.76,
+          "maximum": 56332.76,
+          "average": 56332.76,
           "largest_absolute_percent_change": 0.2106
         }
       ],
@@ -4126,9 +4126,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 55834.78,
-          "maximum": 55834.78,
-          "average": 55834.78,
+          "minimum": 66348.87,
+          "maximum": 66348.87,
+          "average": 66348.87,
           "largest_absolute_percent_change": 0.1684
         }
       ],
@@ -4173,9 +4173,9 @@
             "latency_spike"
           ],
           "event_count": 6,
-          "minimum": 209.79,
-          "maximum": 725.77,
-          "average": 488.5011,
+          "minimum": 202.99,
+          "maximum": 733.8,
+          "average": 488.28,
           "largest_absolute_percent_change": 2.1038
         },
         {
@@ -4184,9 +4184,9 @@
             "revenue_drop"
           ],
           "event_count": 6,
-          "minimum": 29512.52,
-          "maximum": 76474.18,
-          "average": 50309.7833,
+          "minimum": 22240.78,
+          "maximum": 92473.3,
+          "average": 51368.5422,
           "largest_absolute_percent_change": 0.5431
         },
         {
@@ -4195,9 +4195,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 5,
-          "minimum": 0.0166,
-          "maximum": 0.1724,
-          "average": 0.099,
+          "minimum": 0.0163,
+          "maximum": 0.1728,
+          "average": 0.0982,
           "largest_absolute_percent_change": 7.4514
         },
         {
@@ -4206,9 +4206,9 @@
             "support_ticket_spike"
           ],
           "event_count": 5,
-          "minimum": 184.0,
-          "maximum": 442.0,
-          "average": 304.5556,
+          "minimum": 207.0,
+          "maximum": 434.0,
+          "average": 314.5556,
           "largest_absolute_percent_change": 0.8136
         },
         {
@@ -4447,9 +4447,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0676,
-          "maximum": 0.0676,
-          "average": 0.0676,
+          "minimum": 0.0578,
+          "maximum": 0.0578,
+          "average": 0.0578,
           "largest_absolute_percent_change": 0.2456
         }
       ],
@@ -4490,9 +4490,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 48601.74,
-          "maximum": 48601.74,
-          "average": 48601.74,
+          "minimum": 62606.93,
+          "maximum": 62606.93,
+          "average": 62606.93,
           "largest_absolute_percent_change": 0.2643
         }
       ],
@@ -4538,9 +4538,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 3,
-          "minimum": 0.0152,
-          "maximum": 0.0212,
-          "average": 0.0186,
+          "minimum": 0.0158,
+          "maximum": 0.0202,
+          "average": 0.0182,
           "largest_absolute_percent_change": 0.1768
         },
         {
@@ -4549,9 +4549,9 @@
             "revenue_drop"
           ],
           "event_count": 6,
-          "minimum": 50269.24,
-          "maximum": 82965.41,
-          "average": 66804.67,
+          "minimum": 47213.13,
+          "maximum": 84665.69,
+          "average": 65440.8938,
           "largest_absolute_percent_change": 0.2837
         },
         {
@@ -4560,9 +4560,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 180.0,
-          "maximum": 296.0,
-          "average": 244.4762,
+          "minimum": 185.0,
+          "maximum": 289.0,
+          "average": 235.2857,
           "largest_absolute_percent_change": 0.3368
         },
         {
@@ -4572,8 +4572,8 @@
           ],
           "event_count": 11,
           "minimum": 0.0,
-          "maximum": 116.0,
-          "average": 51.381,
+          "maximum": 125.0,
+          "average": 55.381,
           "largest_absolute_percent_change": 13.9767
         },
         {
@@ -4582,8 +4582,8 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0463,
-          "maximum": 0.0645,
+          "minimum": 0.045,
+          "maximum": 0.0653,
           "average": 0.0547,
           "largest_absolute_percent_change": 0.1747
         },
@@ -4592,8 +4592,8 @@
           "anomaly_types": [],
           "event_count": 0,
           "minimum": 0.0,
-          "maximum": 122.0,
-          "average": 51.9048,
+          "maximum": 130.0,
+          "average": 51.8571,
           "largest_absolute_percent_change": null
         }
       ],
@@ -4604,7 +4604,7 @@
       ],
       "supporting_evidence": [
         "Inventory shortage and revenue drop anomalies overlapped from 2026-05-10 to 2026-05-30.",
-        "Lost sales units reached 122.00 during the incident."
+        "Lost sales units reached 130.00 during the incident."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -4830,9 +4830,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 53844.41,
-          "maximum": 53844.41,
-          "average": 53844.41,
+          "minimum": 64253.64,
+          "maximum": 64253.64,
+          "average": 64253.64,
           "largest_absolute_percent_change": 0.2339
         }
       ],
@@ -4873,9 +4873,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 57413.57,
-          "maximum": 60460.32,
-          "average": 58936.945,
+          "minimum": 60182.65,
+          "maximum": 68437.91,
+          "average": 64310.28,
           "largest_absolute_percent_change": 0.2204
         }
       ],
@@ -4928,9 +4928,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0173,
-          "maximum": 0.0194,
-          "average": 0.0181,
+          "minimum": 0.0165,
+          "maximum": 0.0206,
+          "average": 0.0185,
           "largest_absolute_percent_change": 0.1214
         },
         {
@@ -4939,9 +4939,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 6,
-          "minimum": 0.0455,
-          "maximum": 0.1093,
-          "average": 0.0859,
+          "minimum": 0.0491,
+          "maximum": 0.1083,
+          "average": 0.0874,
           "largest_absolute_percent_change": 0.7707
         },
         {
@@ -4950,9 +4950,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 215.0,
-          "maximum": 330.0,
-          "average": 281.4,
+          "minimum": 160.0,
+          "maximum": 329.0,
+          "average": 279.8,
           "largest_absolute_percent_change": 0.5385
         },
         {
@@ -4961,18 +4961,18 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 52260.42,
-          "maximum": 91085.28,
-          "average": 73105.793,
+          "minimum": 49521.87,
+          "maximum": 96140.81,
+          "average": 74472.776,
           "largest_absolute_percent_change": 0.2705
         },
         {
           "metric": "delivery_complaints",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 22.0,
-          "maximum": 125.0,
-          "average": 83.3,
+          "minimum": 17.0,
+          "maximum": 108.0,
+          "average": 76.4,
           "largest_absolute_percent_change": null
         }
       ],
@@ -4982,7 +4982,7 @@
       ],
       "supporting_evidence": [
         "Shipping delay anomalies occurred from 2026-06-20 to 2026-06-29.",
-        "Delivery complaints reached 125.00 versus a prior average of 22.50."
+        "Delivery complaints reached 108.00 versus a prior average of 23.64."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -5114,9 +5114,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 57787.97,
-          "maximum": 75655.33,
-          "average": 66880.5175,
+          "minimum": 65669.1,
+          "maximum": 102746.43,
+          "average": 78326.1525,
           "largest_absolute_percent_change": 0.2108
         },
         {
@@ -5125,9 +5125,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0173,
-          "maximum": 0.0191,
-          "average": 0.0181,
+          "minimum": 0.016,
+          "maximum": 0.0181,
+          "average": 0.0175,
           "largest_absolute_percent_change": 0.0726
         }
       ],
@@ -5186,9 +5186,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 56640.91,
-          "maximum": 56640.91,
-          "average": 56640.91,
+          "minimum": 57601.79,
+          "maximum": 57601.79,
+          "average": 57601.79,
           "largest_absolute_percent_change": 0.1984
         }
       ],
@@ -5232,9 +5232,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0155,
-          "maximum": 0.0214,
-          "average": 0.0183,
+          "minimum": 0.0174,
+          "maximum": 0.0191,
+          "average": 0.0181,
           "largest_absolute_percent_change": 0.1889
         },
         {
@@ -5243,9 +5243,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 60407.31,
-          "maximum": 95882.71,
-          "average": 74447.9312,
+          "minimum": 55466.06,
+          "maximum": 109564.07,
+          "average": 78149.3425,
           "largest_absolute_percent_change": 0.172
         },
         {
@@ -5254,9 +5254,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0485,
-          "maximum": 0.0676,
-          "average": 0.0553,
+          "minimum": 0.0506,
+          "maximum": 0.0606,
+          "average": 0.055,
           "largest_absolute_percent_change": 0.2676
         }
       ],
@@ -5335,9 +5335,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 2,
-          "minimum": 0.018,
-          "maximum": 0.1065,
-          "average": 0.0524,
+          "minimum": 0.0162,
+          "maximum": 0.1013,
+          "average": 0.0511,
           "largest_absolute_percent_change": 3.942
         },
         {
@@ -5346,9 +5346,9 @@
             "latency_spike"
           ],
           "event_count": 2,
-          "minimum": 209.36,
-          "maximum": 512.1,
-          "average": 330.6475,
+          "minimum": 207.95,
+          "maximum": 509.74,
+          "average": 331.2825,
           "largest_absolute_percent_change": 1.332
         },
         {
@@ -5357,9 +5357,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 40202.62,
-          "maximum": 70078.59,
-          "average": 53674.2875,
+          "minimum": 37153.12,
+          "maximum": 65913.9,
+          "average": 51430.795,
           "largest_absolute_percent_change": 0.4536
         },
         {
@@ -5368,9 +5368,9 @@
             "support_ticket_spike"
           ],
           "event_count": 2,
-          "minimum": 218.0,
+          "minimum": 203.0,
           "maximum": 327.0,
-          "average": 272.5,
+          "average": 263.25,
           "largest_absolute_percent_change": 0.4739
         },
         {
@@ -5505,9 +5505,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 60843.45,
-          "maximum": 60843.45,
-          "average": 60843.45,
+          "minimum": 68309.62,
+          "maximum": 68309.62,
+          "average": 68309.62,
           "largest_absolute_percent_change": 0.1689
         }
       ],
@@ -5550,9 +5550,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0553,
-          "maximum": 0.0666,
-          "average": 0.0596,
+          "minimum": 0.0449,
+          "maximum": 0.0647,
+          "average": 0.0549,
           "largest_absolute_percent_change": 0.2196
         },
         {
@@ -5561,9 +5561,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 54449.52,
-          "maximum": 96878.63,
-          "average": 73404.36,
+          "minimum": 50088.55,
+          "maximum": 88595.9,
+          "average": 71026.828,
           "largest_absolute_percent_change": 0.2363
         }
       ],
@@ -5621,9 +5621,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 59374.81,
-          "maximum": 59374.81,
-          "average": 59374.81,
+          "minimum": 81280.14,
+          "maximum": 81280.14,
+          "average": 81280.14,
           "largest_absolute_percent_change": 0.201
         }
       ],
@@ -5668,9 +5668,9 @@
             "revenue_drop"
           ],
           "event_count": 6,
-          "minimum": 49573.3,
-          "maximum": 93627.89,
-          "average": 65170.7329,
+          "minimum": 32242.51,
+          "maximum": 79740.26,
+          "average": 51200.4547,
           "largest_absolute_percent_change": 0.311
         },
         {
@@ -5680,8 +5680,8 @@
           ],
           "event_count": 15,
           "minimum": 0.0,
-          "maximum": 138.0,
-          "average": 105.4118,
+          "maximum": 143.0,
+          "average": 108.4706,
           "largest_absolute_percent_change": 21.7073
         },
         {
@@ -5690,9 +5690,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 199.0,
-          "maximum": 301.0,
-          "average": 271.1765,
+          "minimum": 193.0,
+          "maximum": 307.0,
+          "average": 272.5294,
           "largest_absolute_percent_change": 0.3623
         },
         {
@@ -5701,9 +5701,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 199.75,
-          "maximum": 217.6,
-          "average": 207.8018,
+          "minimum": 196.93,
+          "maximum": 214.7,
+          "average": 207.0112,
           "largest_absolute_percent_change": 0.0503
         },
         {
@@ -5711,8 +5711,8 @@
           "anomaly_types": [],
           "event_count": 0,
           "minimum": 0.0,
-          "maximum": 179.0,
-          "average": 115.4706,
+          "maximum": 178.0,
+          "average": 116.5882,
           "largest_absolute_percent_change": null
         }
       ],
@@ -5723,7 +5723,7 @@
       ],
       "supporting_evidence": [
         "Inventory shortage and revenue drop anomalies overlapped from 2026-09-07 to 2026-09-23.",
-        "Lost sales units reached 179.00 during the incident."
+        "Lost sales units reached 178.00 during the incident."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -5961,9 +5961,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0161,
-          "maximum": 0.0205,
-          "average": 0.0178,
+          "minimum": 0.0166,
+          "maximum": 0.0197,
+          "average": 0.0181,
           "largest_absolute_percent_change": 0.1317
         },
         {
@@ -5972,9 +5972,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 9,
-          "minimum": 0.0494,
-          "maximum": 0.1631,
-          "average": 0.1205,
+          "minimum": 0.0517,
+          "maximum": 0.1682,
+          "average": 0.1229,
           "largest_absolute_percent_change": 1.9597
         },
         {
@@ -5983,9 +5983,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 61769.81,
-          "maximum": 115107.58,
-          "average": 79074.5564,
+          "minimum": 44608.19,
+          "maximum": 95497.0,
+          "average": 68414.8871,
           "largest_absolute_percent_change": 0.2147
         },
         {
@@ -5994,18 +5994,18 @@
             "support_ticket_spike"
           ],
           "event_count": 6,
-          "minimum": 212.0,
-          "maximum": 372.0,
-          "average": 300.7143,
+          "minimum": 200.0,
+          "maximum": 374.0,
+          "average": 299.7143,
           "largest_absolute_percent_change": 0.544
         },
         {
           "metric": "delivery_complaints",
           "anomaly_types": [],
           "event_count": 0,
-          "minimum": 22.0,
-          "maximum": 146.0,
-          "average": 93.7143,
+          "minimum": 21.0,
+          "maximum": 161.0,
+          "average": 95.9286,
           "largest_absolute_percent_change": null
         }
       ],
@@ -6015,7 +6015,7 @@
       ],
       "supporting_evidence": [
         "Shipping delay anomalies occurred from 2026-09-30 to 2026-10-13.",
-        "Delivery complaints reached 146.00 versus a prior average of 23.14."
+        "Delivery complaints reached 161.00 versus a prior average of 24.79."
       ],
       "deployment_events": [],
       "anomaly_events": [
@@ -6193,9 +6193,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0216,
-          "maximum": 0.0216,
-          "average": 0.0216,
+          "minimum": 0.0175,
+          "maximum": 0.0175,
+          "average": 0.0175,
           "largest_absolute_percent_change": 0.2048
         }
       ],
@@ -6236,9 +6236,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 66322.31,
-          "maximum": 66322.31,
-          "average": 66322.31,
+          "minimum": 54860.75,
+          "maximum": 54860.75,
+          "average": 54860.75,
           "largest_absolute_percent_change": 0.1531
         }
       ],
@@ -6281,9 +6281,9 @@
             "revenue_drop"
           ],
           "event_count": 3,
-          "minimum": 59463.83,
-          "maximum": 90596.78,
-          "average": 69259.525,
+          "minimum": 63076.86,
+          "maximum": 94612.37,
+          "average": 79272.86,
           "largest_absolute_percent_change": 0.2181
         },
         {
@@ -6292,9 +6292,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0449,
-          "maximum": 0.0647,
-          "average": 0.0555,
+          "minimum": 0.0493,
+          "maximum": 0.059,
+          "average": 0.055,
           "largest_absolute_percent_change": 0.2274
         }
       ],
@@ -6360,9 +6360,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 53565.65,
-          "maximum": 53565.65,
-          "average": 53565.65,
+          "minimum": 67805.4,
+          "maximum": 67805.4,
+          "average": 67805.4,
           "largest_absolute_percent_change": 0.2688
         }
       ],
@@ -6407,9 +6407,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 4,
-          "minimum": 0.0832,
-          "maximum": 0.1328,
-          "average": 0.1148,
+          "minimum": 0.086,
+          "maximum": 0.148,
+          "average": 0.1217,
           "largest_absolute_percent_change": 5.156
         },
         {
@@ -6418,9 +6418,9 @@
             "latency_spike"
           ],
           "event_count": 4,
-          "minimum": 449.05,
-          "maximum": 628.11,
-          "average": 563.025,
+          "minimum": 445.12,
+          "maximum": 631.56,
+          "average": 561.43,
           "largest_absolute_percent_change": 1.7204
         },
         {
@@ -6429,9 +6429,9 @@
             "revenue_drop"
           ],
           "event_count": 4,
-          "minimum": 45106.36,
-          "maximum": 53223.63,
-          "average": 48024.535,
+          "minimum": 44661.09,
+          "maximum": 56544.32,
+          "average": 49736.84,
           "largest_absolute_percent_change": 0.4141
         },
         {
@@ -6440,9 +6440,9 @@
             "support_ticket_spike"
           ],
           "event_count": 4,
-          "minimum": 318.0,
-          "maximum": 374.0,
-          "average": 347.5,
+          "minimum": 329.0,
+          "maximum": 401.0,
+          "average": 363.75,
           "largest_absolute_percent_change": 0.6206
         },
         {
@@ -6633,9 +6633,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 60698.91,
-          "maximum": 60698.91,
-          "average": 60698.91,
+          "minimum": 77299.31,
+          "maximum": 77299.31,
+          "average": 77299.31,
           "largest_absolute_percent_change": 0.1809
         }
       ],
@@ -6676,9 +6676,9 @@
             "revenue_drop"
           ],
           "event_count": 1,
-          "minimum": 61676.47,
-          "maximum": 61676.47,
-          "average": 61676.47,
+          "minimum": 87613.24,
+          "maximum": 87613.24,
+          "average": 87613.24,
           "largest_absolute_percent_change": 0.1681
         }
       ],
@@ -6722,9 +6722,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 61897.73,
-          "maximum": 64628.37,
-          "average": 63263.05,
+          "minimum": 86185.24,
+          "maximum": 93529.71,
+          "average": 89857.475,
           "largest_absolute_percent_change": 0.2347
         },
         {
@@ -6733,9 +6733,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.018,
-          "maximum": 0.0211,
-          "average": 0.0195,
+          "minimum": 0.0162,
+          "maximum": 0.0162,
+          "average": 0.0162,
           "largest_absolute_percent_change": 0.1764
         },
         {
@@ -6744,9 +6744,9 @@
             "latency_spike"
           ],
           "event_count": 1,
-          "minimum": 209.79,
-          "maximum": 216.36,
-          "average": 213.075,
+          "minimum": 202.93,
+          "maximum": 203.71,
+          "average": 203.32,
           "largest_absolute_percent_change": 0.0396
         }
       ],
@@ -6813,9 +6813,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0609,
-          "maximum": 0.0609,
-          "average": 0.0609,
+          "minimum": 0.0531,
+          "maximum": 0.0531,
+          "average": 0.0531,
           "largest_absolute_percent_change": 0.1266
         }
       ],
@@ -6856,9 +6856,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0617,
-          "maximum": 0.0617,
-          "average": 0.0617,
+          "minimum": 0.055,
+          "maximum": 0.055,
+          "average": 0.055,
           "largest_absolute_percent_change": 0.1314
         }
       ],
@@ -6902,9 +6902,9 @@
             "revenue_drop"
           ],
           "event_count": 2,
-          "minimum": 62626.81,
-          "maximum": 75625.24,
-          "average": 70198.2167,
+          "minimum": 78900.95,
+          "maximum": 93494.36,
+          "average": 87524.1033,
           "largest_absolute_percent_change": 0.2716
         },
         {
@@ -6913,9 +6913,9 @@
             "shipping_delay_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0447,
-          "maximum": 0.0759,
-          "average": 0.0599,
+          "minimum": 0.0541,
+          "maximum": 0.0577,
+          "average": 0.0553,
           "largest_absolute_percent_change": 0.349
         },
         {
@@ -6924,9 +6924,9 @@
             "support_ticket_spike"
           ],
           "event_count": 1,
-          "minimum": 194.0,
-          "maximum": 231.0,
-          "average": 212.6667,
+          "minimum": 217.0,
+          "maximum": 224.0,
+          "average": 219.6667,
           "largest_absolute_percent_change": 0.1167
         }
       ],
@@ -6993,9 +6993,9 @@
             "checkout_failure_spike"
           ],
           "event_count": 1,
-          "minimum": 0.0211,
-          "maximum": 0.0211,
-          "average": 0.0211,
+          "minimum": 0.0166,
+          "maximum": 0.0166,
+          "average": 0.0166,
           "largest_absolute_percent_change": 0.1258
         }
       ],

@@ -28,6 +28,7 @@ from src.forecasting.train_forecasting_models import BASE_FEATURE_COLUMNS, FEATU
 
 
 LOGGER = logging.getLogger(__name__)
+DATE_FEATURE_COLUMNS = {"day_of_week", "month", "quarter", "is_weekend"}
 
 
 def configure_logging() -> None:
@@ -52,6 +53,7 @@ def build_next_feature_row(history: pd.DataFrame, target_kpi: str, feature_colum
     values = history[target_kpi].astype(float)
     if len(values) < 14:
         raise ForecastingError(f"At least 14 history rows are required to forecast {target_kpi}")
+    forecast_date = pd.to_datetime(history["date"], errors="raise").max().normalize() + pd.Timedelta(days=1)
 
     features = {
         "previous_day_value": values.iloc[-1],
@@ -60,10 +62,14 @@ def build_next_feature_row(history: pd.DataFrame, target_kpi: str, feature_colum
         "rolling_avg_14d": values.iloc[-14:].mean(),
         "lag_7d": values.iloc[-7],
         "lag_14d": values.iloc[-14],
+        "day_of_week": forecast_date.dayofweek,
+        "month": forecast_date.month,
+        "quarter": forecast_date.quarter,
+        "is_weekend": int(forecast_date.dayofweek >= 5),
     }
     latest_row = history.iloc[-1]
     for column in selected_columns:
-        if column in BASE_FEATURE_COLUMNS:
+        if column in BASE_FEATURE_COLUMNS or column in DATE_FEATURE_COLUMNS:
             continue
         if column not in history.columns:
             raise ForecastingError(f"Training history missing feature column for forecasting: {column}")
@@ -105,6 +111,8 @@ def generate_forecast_for_kpi(artifact: dict[str, object], horizon_days: int = 7
         next_history_row = history.iloc[-1].copy()
         next_history_row["date"] = forecast_date
         next_history_row[target_kpi] = prediction
+        for column in DATE_FEATURE_COLUMNS.intersection(next_history_row.index).intersection(feature_row.columns):
+            next_history_row[column] = feature_row.iloc[0][column]
         history = pd.concat(
             [history, pd.DataFrame([next_history_row])],
             ignore_index=True,

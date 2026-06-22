@@ -262,14 +262,18 @@ def date_features(dates: pd.DatetimeIndex) -> pd.DataFrame:
     day_index = np.arange(len(dates))
     weekend = day_of_week >= 5
     weekly_seasonality = 1.0 + 0.12 * np.sin(2 * np.pi * day_index / 7)
+    monthly_seasonality = 1.0 + 0.08 * np.sin(2 * np.pi * (dates.month.to_numpy() - 1) / 12)
     trend = 1.0 + 0.0015 * day_index
 
     return pd.DataFrame(
         {
             "date": dates.date,
             "day_of_week": day_of_week,
+            "month": dates.month.to_numpy(),
+            "quarter": dates.quarter.to_numpy(),
             "is_weekend": weekend,
             "weekly_seasonality": weekly_seasonality,
+            "monthly_seasonality": monthly_seasonality,
             "trend": trend,
         }
     )
@@ -283,19 +287,31 @@ def generate_sales_metrics(
     features = date_features(dates)
     deployment_effect = deployment_severity(dates, incidents, normalize=True)
     inventory_effect = inventory_severity(dates, incidents)
+    shipping_effect = shipping_severity(dates, incidents)
+    operational_incident_effect = deployment_effect + inventory_effect + 0.35 * shipping_effect
 
-    expected_sessions = 10_500 * features["trend"] * features["weekly_seasonality"]
-    expected_sessions *= np.where(features["is_weekend"], 1.18, 1.0)
-    sessions = rng.poisson(expected_sessions).astype(int)
+    expected_visitors = 11_200 * features["trend"] * features["weekly_seasonality"] * features["monthly_seasonality"]
+    expected_visitors *= np.where(features["is_weekend"], 1.18, 1.0)
+    expected_visitors *= np.where(features["month"].isin([11, 12]), 1.16, 1.0)
+    expected_visitors *= np.clip(1.0 - 0.025 * operational_incident_effect, 0.88, None)
+    website_visitors = rng.poisson(expected_visitors).astype(int)
 
     conversion_rate = rng.normal(0.043, 0.003, len(dates))
     conversion_rate -= 0.012 * deployment_effect
     conversion_rate -= 0.006 * inventory_effect
+    conversion_rate -= 0.004 * shipping_effect
     conversion_rate = np.clip(conversion_rate, 0.015, 0.07)
 
-    orders = rng.poisson(sessions * conversion_rate).astype(int)
+    checkout_failure_rate = rng.normal(0.018, 0.003, len(dates))
+    checkout_failure_rate += 0.085 * deployment_effect
+    checkout_failure_rate = np.clip(checkout_failure_rate, 0.003, 0.24)
+
+    active_customers = rng.poisson(website_visitors * rng.normal(0.62, 0.025, len(dates))).astype(int)
+    orders = rng.poisson(website_visitors * conversion_rate * (1.0 - checkout_failure_rate)).astype(int)
     average_order_value = rng.normal(86.0, 5.5, len(dates))
     average_order_value -= 7.0 * deployment_effect
+    average_order_value += np.where(features["month"].isin([11, 12]), 6.0, 0.0)
+    average_order_value += np.where(features["quarter"] == 1, 2.0, 0.0)
     average_order_value = np.clip(average_order_value, 45.0, None)
 
     units_per_order = rng.normal(1.75, 0.12, len(dates))
@@ -305,15 +321,33 @@ def generate_sales_metrics(
         np.round(rng.integers(70, 150, len(dates)) * inventory_effect),
         0,
     ).astype(int)
-    gross_revenue = orders * average_order_value
-    net_revenue = gross_revenue * rng.normal(0.972, 0.006, len(dates))
+    refund_rate = rng.normal(0.035, 0.004, len(dates))
+    refund_rate += 0.014 * deployment_effect
+    refund_rate += 0.010 * shipping_effect
+    refund_rate += 0.006 * inventory_effect
+    refund_rate = np.clip(refund_rate, 0.01, 0.12)
 
-    incident_type = incident_type_for_days(dates, deployment_effect=deployment_effect, inventory_effect=inventory_effect)
+    gross_revenue = orders * average_order_value
+    lost_sales_penalty = lost_sales_units * average_order_value * rng.normal(0.42, 0.035, len(dates))
+    stockout_penalty = inventory_effect * average_order_value * rng.normal(38.0, 4.0, len(dates))
+    incident_penalty = gross_revenue * np.clip(0.018 * operational_incident_effect, 0, 0.12)
+    net_revenue = gross_revenue * (1.0 - refund_rate) - lost_sales_penalty - stockout_penalty - incident_penalty
+    net_revenue += rng.normal(0, 950, len(dates))
+    net_revenue = np.clip(net_revenue, 0, None)
+
+    incident_type = incident_type_for_days(
+        dates,
+        deployment_effect=deployment_effect,
+        inventory_effect=inventory_effect,
+        shipping_effect=shipping_effect,
+    )
 
     return pd.DataFrame(
         {
             "date": dates.date,
-            "sessions": sessions,
+            "sessions": website_visitors,
+            "website_visitors": website_visitors,
+            "active_customers": active_customers,
             "orders": orders,
             "units_sold": units_sold,
             "gross_revenue": np.round(gross_revenue, 2),
@@ -321,6 +355,12 @@ def generate_sales_metrics(
             "conversion_rate": np.round(conversion_rate, 4),
             "average_order_value": np.round(average_order_value, 2),
             "lost_sales_units": lost_sales_units,
+            "expected_refund_rate": np.round(refund_rate, 4),
+            "expected_checkout_failure_rate": np.round(checkout_failure_rate, 4),
+            "day_of_week": features["day_of_week"].astype(int),
+            "month": features["month"].astype(int),
+            "quarter": features["quarter"].astype(int),
+            "is_weekend": features["is_weekend"].astype(bool),
             "incident_flag": incident_type != "normal",
             "incident_type": incident_type,
         }

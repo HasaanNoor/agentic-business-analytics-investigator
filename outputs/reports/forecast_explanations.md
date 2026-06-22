@@ -7,14 +7,14 @@ This report explains the selected deterministic forecasting models using SHAP wh
 - Predicted KPI: `net_revenue`
 - Selected model: `linear_regression`
 - Explanation method: SHAP LinearExplainer
-- Most recent forecast explained: 2027-01-07, forecast value `66788.517977`
-- Features that mattered most: `lag_7d`, `lag_14d`, `conversion_rate`
+- Most recent forecast explained: 2027-01-07, forecast value `101628.634690`
+- Features that mattered most: `website_visitors`, `conversion_rate`, `average_order_value`
 - SHAP summary plot: `outputs/figures/shap_summary_net_revenue.png`
 
 Prediction-level influence:
-- `rolling_avg_7d` increased the forecast by about 3660.8523 model units (feature value: 75611.3709).
-- `lag_7d` increased the forecast by about 3543.9582 model units (feature value: 72232.8500).
-- `conversion_rate` decreased the forecast by about 3346.7180 model units (feature value: 0.0383).
+- `website_visitors` increased the forecast by about 33673.9117 model units (feature value: 28691.0000).
+- `average_order_value` increased the forecast by about 6817.4361 model units (feature value: 97.6700).
+- `conversion_rate` decreased the forecast by about 4519.4064 model units (feature value: 0.0383).
 
 Limitations: SHAP attributions explain model behavior, not guaranteed real-world causality.
 
@@ -23,29 +23,29 @@ Limitations: SHAP attributions explain model behavior, not guaranteed real-world
 - Predicted KPI: `support_ticket_count`
 - Selected model: `random_forest`
 - Explanation method: SHAP TreeExplainer
-- Most recent forecast explained: 2027-01-07, forecast value `215.493560`
-- Features that mattered most: `previous_day_value`, `shipping_delay_rate`, `checkout_failure_rate`
+- Most recent forecast explained: 2027-01-07, forecast value `214.241878`
+- Features that mattered most: `previous_day_value`, `shipping_delay_rate`, `avg_api_latency_ms`
 - SHAP summary plot: `outputs/figures/shap_summary_support_ticket_count.png`
 
 Prediction-level influence:
-- `previous_day_value` decreased the forecast by about 9.7585 model units (feature value: 214.8033).
-- `shipping_delay_rate` decreased the forecast by about 1.7527 model units (feature value: 0.0535).
-- `avg_api_latency_ms` decreased the forecast by about 0.9297 model units (feature value: 202.1900).
+- `previous_day_value` decreased the forecast by about 10.0815 model units (feature value: 212.8649).
+- `shipping_delay_rate` decreased the forecast by about 1.6946 model units (feature value: 0.0665).
+- `avg_api_latency_ms` decreased the forecast by about 1.5255 model units (feature value: 205.8900).
 
 Limitations: SHAP attributions explain model behavior, not guaranteed real-world causality.
 
 ### shipping_delay_rate
 
 - Predicted KPI: `shipping_delay_rate`
-- Selected model: `linear_regression`
-- Explanation method: SHAP LinearExplainer
-- Most recent forecast explained: 2027-01-07, forecast value `0.057052`
-- Features that mattered most: `shipping_disruption_flag`, `delivery_complaints`, `previous_day_value`
+- Selected model: `random_forest`
+- Explanation method: SHAP TreeExplainer
+- Most recent forecast explained: 2027-01-07, forecast value `0.053737`
+- Features that mattered most: `delivery_complaints`, `rolling_avg_3d`, `previous_day_value`
 - SHAP summary plot: `outputs/figures/shap_summary_shipping_delay_rate.png`
 
 Prediction-level influence:
-- `delivery_complaints` increased the forecast by about 0.0011 model units (feature value: 35.0000).
-- `shipping_disruption_flag` decreased the forecast by about 0.0008 model units (feature value: 0.0000).
-- `rolling_avg_7d` decreased the forecast by about 0.0004 model units (feature value: 0.0562).
+- `delivery_complaints` decreased the forecast by about 0.0025 model units (feature value: 20.0000).
+- `lag_7d` decreased the forecast by about 0.0015 model units (feature value: 0.0665).
+- `rolling_avg_7d` increased the forecast by about 0.0008 model units (feature value: 0.0566).
 
 Limitations: SHAP attributions explain model behavior, not guaranteed real-world causality.

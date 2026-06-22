@@ -40,6 +40,11 @@ def test_explainability_outputs_are_created_and_complete(tmp_path):
     assert not importance.empty
     assert set(importance["kpi"]) == set(TARGET_KPIS)
     assert importance.groupby("kpi").size().ge(1).all()
+    assert {
+        "website_visitors",
+        "active_customers",
+        "average_order_value",
+    }.issubset(set(importance.loc[importance["kpi"] == "net_revenue", "feature"]))
     for target_kpi in TARGET_KPIS:
         assert f"### {target_kpi}" in report_text
         assert (figures_dir / f"shap_summary_{target_kpi}.png").exists()

@@ -28,10 +28,17 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["date"].max() == pd.Timestamp("2026-12-31")
     assert summary["date"].is_monotonic_increasing
     assert summary["net_revenue"].gt(0).all()
+    assert summary["website_visitors"].gt(0).all()
+    assert summary["active_customers"].gt(0).all()
+    assert summary["average_order_value"].gt(0).all()
     assert summary["conversion_rate"].between(0, 1).all()
     assert summary["refund_rate"].between(0, 1).all()
     assert summary["checkout_failure_rate"].between(0, 1).all()
     assert summary["shipping_delay_rate"].between(0, 1).all()
+    assert summary["day_of_week"].between(0, 6).all()
+    assert summary["month"].between(1, 12).all()
+    assert summary["quarter"].between(1, 4).all()
+    assert summary["is_weekend"].isin([0, 1]).all()
     assert summary["deployment_event_flag"].isin([0, 1]).all()
     assert summary["inventory_shortage_flag"].isin([0, 1]).all()
     assert summary["shipping_disruption_flag"].isin([0, 1]).all()
@@ -65,6 +72,9 @@ def test_kpi_summary_aggregates_hourly_and_entity_data_correctly(tmp_path):
     assert first_day["avg_api_latency_ms"] == round(expected_latency, 2)
     assert first_day["checkout_failure_rate"] == round(expected_checkout_rate, 4)
     assert first_day["stockout_units"] == expected_stockouts
+    assert first_day["website_visitors"] == datasets["sales"].loc[0, "website_visitors"]
+    assert first_day["active_customers"] == datasets["sales"].loc[0, "active_customers"]
+    assert first_day["average_order_value"] == datasets["sales"].loc[0, "average_order_value"]
 
 
 def test_run_kpi_monitor_writes_csv_and_plots(tmp_path):

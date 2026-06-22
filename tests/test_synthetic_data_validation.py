@@ -46,6 +46,25 @@ def test_validate_generated_synthetic_data_passes_and_profiles(tmp_path):
     assert "shipping_disruption" in report
 
 
+def test_generated_sales_data_includes_revenue_driver_fields():
+    sales = generate_all_datasets(seed=42)["sales_metrics_daily"]
+
+    assert {
+        "website_visitors",
+        "active_customers",
+        "average_order_value",
+        "expected_refund_rate",
+        "expected_checkout_failure_rate",
+        "day_of_week",
+        "month",
+        "quarter",
+        "is_weekend",
+    }.issubset(sales.columns)
+    assert sales["website_visitors"].gt(0).all()
+    assert sales["active_customers"].gt(0).all()
+    assert sales["average_order_value"].gt(0).all()
+
+
 def test_validation_reports_missing_required_file(tmp_path):
     data_dir = tmp_path / "synthetic"
     write_default_synthetic_data(data_dir)

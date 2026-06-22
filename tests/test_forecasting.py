@@ -34,6 +34,13 @@ def test_forecasting_dataset_uses_required_lag_features(tmp_path):
         "rolling_avg_14d",
         "lag_7d",
         "lag_14d",
+        "website_visitors",
+        "active_customers",
+        "average_order_value",
+        "day_of_week",
+        "month",
+        "quarter",
+        "is_weekend",
         "avg_api_latency_ms",
         "checkout_failure_rate",
         "support_ticket_count",
@@ -44,6 +51,11 @@ def test_forecasting_dataset_uses_required_lag_features(tmp_path):
         "refund_rate",
     }.issubset(dataset.columns)
     assert set(get_feature_columns("net_revenue")).issubset(dataset.columns)
+    assert {
+        "website_visitors",
+        "active_customers",
+        "average_order_value",
+    }.issubset(set(get_feature_columns("net_revenue")))
     assert dataset["previous_day_value"].notna().all()
     assert dataset["date"].is_monotonic_increasing
 

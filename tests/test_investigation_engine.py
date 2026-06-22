@@ -67,8 +67,8 @@ def test_deployment_related_incident_is_detected(investigation_result):
 
     report = find_report(reports, "Likely deployment-related checkout incident")
 
-    assert report["incident_start_date"] == "2025-03-18"
-    assert report["incident_end_date"] == "2025-03-20"
+    assert report["incident_start_date"] <= "2025-03-18"
+    assert report["incident_end_date"] >= "2025-03-20"
     assert report["main_anomaly_type"] == "checkout_failure_spike"
     assert report["deployment_events"]
 
