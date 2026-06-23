@@ -19,6 +19,12 @@ from src.agents.logistics_agent import analyze_logistics
 from src.agents.platform_agent import analyze_platform
 from src.agents.revenue_agent import analyze_revenue
 from src.agents.support_agent import analyze_support
+from src.rag.retrieve_incidents import (
+    IncidentRetrievalError,
+    load_embedding_model,
+    load_knowledge_base,
+    retrieve_similar_incidents,
+)
 
 
 LOGGER = logging.getLogger(__name__)
@@ -80,17 +86,45 @@ def run_agent_reviews(
     incidents: list[dict[str, object]],
     kpis: pd.DataFrame,
     deployments: pd.DataFrame,
+    retrieved_by_incident: dict[str, list[dict[str, object]]] | None = None,
 ) -> dict[str, list[dict[str, object]]]:
     findings_by_incident: dict[str, list[dict[str, object]]] = {}
     for incident in incidents:
         incident_id = str(incident.get("incident_id"))
+        retrieved_incidents = (retrieved_by_incident or {}).get(incident_id, [])
         findings_by_incident[incident_id] = [
-            analyze_revenue(incident, kpis),
-            analyze_support(incident, kpis),
-            analyze_logistics(incident, kpis),
-            analyze_platform(incident, kpis, deployments),
+            analyze_revenue(incident, kpis, retrieved_incidents),
+            analyze_support(incident, kpis, retrieved_incidents),
+            analyze_logistics(incident, kpis, retrieved_incidents),
+            analyze_platform(incident, kpis, deployments, retrieved_incidents),
         ]
     return findings_by_incident
+
+
+def retrieve_context_for_incidents(
+    incidents: list[dict[str, object]],
+    knowledge_base_path: Path,
+    top_k: int = 3,
+) -> dict[str, list[dict[str, object]]]:
+    if not knowledge_base_path.exists():
+        LOGGER.warning("Skipping historical retrieval because knowledge base is missing: %s", knowledge_base_path)
+        return {}
+    knowledge_base = load_knowledge_base(knowledge_base_path)
+    model = load_embedding_model(str(knowledge_base.get("model_name")), local_files_only=True)
+    retrieved_by_incident: dict[str, list[dict[str, object]]] = {}
+    for incident in incidents:
+        incident_id = str(incident.get("incident_id"))
+        try:
+            retrieved_by_incident[incident_id] = retrieve_similar_incidents(
+                current_incident=incident,
+                knowledge_base_path=knowledge_base_path,
+                top_k=top_k,
+                model=model,
+            )
+        except IncidentRetrievalError as exc:
+            LOGGER.warning("Skipping historical retrieval for %s: %s", incident_id, exc)
+            retrieved_by_incident[incident_id] = []
+    return retrieved_by_incident
 
 
 def write_json_report(reports: list[dict[str, object]], output_path: Path) -> None:
@@ -128,6 +162,14 @@ def write_markdown_summary(reports: list[dict[str, object]], output_path: Path) 
         )
         for finding in report["agent_findings"]:
             lines.append(f"- **{finding['agent']}:** {finding['summary']} Confidence: {finding['confidence']}.")
+        if report.get("retrieved_historical_incidents"):
+            lines.extend(["", "### Retrieved Historical Incidents", ""])
+            for item in report["retrieved_historical_incidents"][:3]:
+                metadata = item["metadata"]
+                lines.append(
+                    f"- **{metadata.get('incident_id')} - {metadata.get('incident_type')}:** "
+                    f"similarity score {item['similarity_score']}; root cause: {metadata.get('root_cause')}."
+                )
         lines.extend(["", "### Supporting Evidence", ""])
         lines.extend(f"- {item}" for item in report["supporting_evidence"][:12])
         lines.extend(["", "### Recommended Next Steps", ""])
@@ -147,6 +189,7 @@ def run_multi_agent_investigation(
     shap_path: Path,
     json_output_path: Path,
     markdown_output_path: Path,
+    knowledge_base_path: Path | None = None,
 ) -> list[dict[str, object]]:
     incidents, kpis, deployments, forecasts, shap_importance = load_inputs(
         investigation_path=investigation_path,
@@ -155,12 +198,14 @@ def run_multi_agent_investigation(
         forecast_path=forecast_path,
         shap_path=shap_path,
     )
-    findings_by_incident = run_agent_reviews(incidents, kpis, deployments)
+    retrieved_by_incident = retrieve_context_for_incidents(incidents, knowledge_base_path) if knowledge_base_path else {}
+    findings_by_incident = run_agent_reviews(incidents, kpis, deployments, retrieved_by_incident)
     reports = build_final_reports(
         incidents=incidents,
         findings_by_incident=findings_by_incident,
         forecasts=forecasts,
         shap_importance=shap_importance,
+        retrieved_by_incident=retrieved_by_incident,
     )
     write_json_report(reports, json_output_path)
     write_markdown_summary(reports, markdown_output_path)
@@ -180,6 +225,7 @@ def parse_args(args: Iterable[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--markdown-output-path", type=Path, default=Path("outputs/reports/multi_agent_investigation_summary.md")
     )
+    parser.add_argument("--knowledge-base-path", type=Path, default=Path("outputs/rag/incident_knowledge_base.pkl"))
     return parser.parse_args(args)
 
 
@@ -194,6 +240,7 @@ def main(args: Iterable[str] | None = None) -> None:
         shap_path=parsed.shap_path,
         json_output_path=parsed.json_output_path,
         markdown_output_path=parsed.markdown_output_path,
+        knowledge_base_path=parsed.knowledge_base_path,
     )
 
 

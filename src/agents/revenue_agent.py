@@ -41,7 +41,29 @@ def _window_stats(kpis: pd.DataFrame, metric: str, start_date: pd.Timestamp, end
     }
 
 
-def analyze_revenue(incident: dict[str, object], kpis: pd.DataFrame) -> dict[str, object]:
+def _historical_context(retrieved_incidents: list[dict[str, object]] | None) -> list[dict[str, object]]:
+    context: list[dict[str, object]] = []
+    for item in retrieved_incidents or []:
+        metadata = item.get("metadata", {}) if isinstance(item, dict) else {}
+        if not isinstance(metadata, dict):
+            continue
+        context.append(
+            {
+                "incident_id": metadata.get("incident_id"),
+                "incident_type": metadata.get("incident_type"),
+                "similarity_score": item.get("similarity_score"),
+                "root_cause": metadata.get("root_cause"),
+                "recommendations": item.get("recommendations_used_previously", []),
+            }
+        )
+    return context
+
+
+def analyze_revenue(
+    incident: dict[str, object],
+    kpis: pd.DataFrame,
+    retrieved_incidents: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     """Review whether an incident likely affected sales."""
     start_date = pd.Timestamp(incident["incident_start_date"])
     end_date = pd.Timestamp(incident["incident_end_date"])
@@ -95,12 +117,23 @@ def analyze_revenue(incident: dict[str, object], kpis: pd.DataFrame) -> dict[str
         recommendations = ["Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident."]
         confidence = "low"
 
+    historical_context = _historical_context(retrieved_incidents)
+    if historical_context:
+        closest = historical_context[0]
+        evidence.append(
+            "Historical context: similar incident "
+            f"{closest['incident_id']} had root cause '{closest['root_cause']}' "
+            f"with similarity score {closest['similarity_score']}."
+        )
+        recommendations.append("Compare revenue recovery against the closest retrieved historical incident.")
+
     return {
         "agent": "Revenue Agent",
         "finding_type": "revenue",
         "summary": summary,
         "sales_affected": sales_affected,
         "metrics": metrics,
+        "historical_incident_context": historical_context,
         "supporting_evidence": evidence,
         "recommended_next_steps": recommendations,
         "confidence": confidence,

@@ -1,0 +1,2 @@
+"""Local incident retrieval utilities."""
+

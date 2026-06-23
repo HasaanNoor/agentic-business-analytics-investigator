@@ -21,7 +21,8 @@ The project is built in stages. Most stages are deterministic, which means they 
 │   ├── explainability/             # SHAP forecast explanations
 │   ├── forecasting/                # Forecast model training and prediction
 │   ├── ingestion/                  # Synthetic data generation and validation
-│   └── investigation/              # Incident grouping and first-pass investigation
+│   ├── investigation/              # Incident grouping and first-pass investigation
+│   └── rag/                        # Local search over past incident reports
 ├── tests/
 ├── README.md
 └── requirements.txt
@@ -41,6 +42,7 @@ Generate synthetic data
   -> Explain forecast drivers with SHAP
   -> Write incident and operations reports
   -> Review each incident with focused deterministic agents
+  -> Search past incidents before making recommendations
 ```
 
 ## Phase 1: Synthetic Data And Validation
@@ -353,6 +355,59 @@ Outputs:
 
 No OpenAI calls, RAG, CrewAI, LangChain, AutoGen, or other agent framework is used in Phase 9.
 
+## Phase 10: Historical Incident Search
+
+**Before:** The agents only looked at the current incident.
+
+**After:** The agents can now search past incidents and reuse information from similar situations when making recommendations.
+
+**What is stored:** Phase 10 builds a local file at:
+
+```text
+outputs/rag/incident_knowledge_base.pkl
+```
+
+That file stores:
+
+- Short text summaries of past incidents
+- Local embeddings for those summaries
+- Metadata for each incident, including incident id, incident type, date range, anomaly types, root cause, recommendations, confidence level, and source report file
+
+The knowledge base is built from:
+
+- `outputs/reports/investigation_reports.json`
+- `outputs/reports/multi_agent_investigation_reports.json`
+
+**How retrieval works:** The current incident is turned into the same kind of short text summary. The project embeds that text with `sentence-transformers/all-MiniLM-L6-v2`, compares it with the stored incident embeddings, and returns the three closest past incidents. Each result includes a similarity score, the past incident summary, and the recommendations used before.
+
+**Why it helps:** A new checkout problem can be compared with older checkout and revenue incidents. A new shipping delay can be compared with older logistics incidents. The agents still use the current evidence, but they can also see what helped in similar past situations.
+
+Build the knowledge base:
+
+```bash
+python3 src/rag/build_knowledge_base.py
+```
+
+Generate retrieval examples:
+
+```bash
+python3 src/rag/retrieve_incidents.py
+```
+
+Output:
+
+```text
+outputs/reports/rag_retrieval_examples.md
+```
+
+Run the multi-agent investigation with historical incident context:
+
+```bash
+python3 src/agents/multi_agent_investigation.py
+```
+
+The final multi-agent report now includes retrieved historical incidents and labels reused recommendations as historical precedent.
+
 ## Run The Full Local Pipeline
 
 ```bash
@@ -366,6 +421,8 @@ python3 src/forecasting/generate_forecasts.py
 python3 src/explainability/explain_forecasts.py
 python3 src/agents/executive_report_agent.py
 python3 src/agents/multi_agent_investigation.py
+python3 src/rag/build_knowledge_base.py
+python3 src/rag/retrieve_incidents.py
 python3 -m pytest
 ```
 
@@ -377,12 +434,21 @@ python3 -m pytest
 python3 -m py_compile src/agents/multi_agent_investigation.py
 ```
 
+## Phase 10 Checks
+
+```bash
+python3 src/rag/build_knowledge_base.py
+python3 src/rag/retrieve_incidents.py
+python3 -m pytest
+python3 -m py_compile src/rag/build_knowledge_base.py
+python3 -m py_compile src/rag/retrieve_incidents.py
+```
+
 ## Roadmap
 
 - Add a dashboard for exploring KPIs, anomalies, incidents, forecasts, and reports.
 - Add API endpoints for generated outputs.
 - Add human review states for incident reports and recommendations.
-- Add RAG only after the deterministic incident and report structure is stable.
 - Add LLM reasoning where it can improve explanation quality without replacing tested analytics.
 
 ## Tech Stack
@@ -395,6 +461,7 @@ python3 -m py_compile src/agents/multi_agent_investigation.py
 - Matplotlib
 - pytest
 - OpenAI API for optional narrative reporting
+- sentence-transformers for local historical incident search
 
 ## Development Principles
 

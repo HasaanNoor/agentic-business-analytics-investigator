@@ -16,18 +16,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-010 - Revenue Drop:** similarity score 0.968; root cause: No known deterministic root-cause pattern matched.
+- **INC-017 - Revenue Drop:** similarity score 0.967; root cause: No known deterministic root-cause pattern matched.
+- **INC-020 - Revenue Drop:** similarity score 0.9656; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-01-10 to 2025-01-16.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44114.9443 during the incident versus 41833.1578 before it.
 - Conversion rate changed -0.2304% versus the prior baseline.
+- Historical context: similar incident INC-010 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.968.
 - Support tickets averaged 127.2857 during the incident versus 125.8889 before it.
 - billing issue tickets increased 16.4838% versus the prior baseline.
+- Historical context: similar incident INC-010 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.968.
 - Shipping delay rate averaged 0.0638 during the incident versus 0.0592 before it.
 - Warehouse backlog changed 1.7606% versus the prior baseline.
 - Delivery complaints changed 3.795% versus the prior baseline.
-- API latency averaged 207.0471 ms during the incident versus 206.8233 ms before it.
-- Checkout failure rate changed 3.3333% versus the prior baseline.
+- Historical context: similar incident INC-010 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.968.
 
 ### Recommended Next Steps
 
@@ -35,10 +43,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-002: Revenue Drop
 
@@ -53,18 +63,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-020 - Revenue Drop:** similarity score 0.9878; root cause: No known deterministic root-cause pattern matched.
+- **INC-024 - Revenue Drop:** similarity score 0.9822; root cause: No known deterministic root-cause pattern matched.
+- **INC-032 - Revenue Drop:** similarity score 0.9821; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-01-20 to 2025-01-20.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 32182.47 during the incident versus 42971.6707 before it.
 - Conversion rate changed -0.2315% versus the prior baseline.
 - Refund rate increased 43.4783% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9878.
 - Support tickets averaged 114.0 during the incident versus 128.3571 before it.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9878.
 - Shipping delay rate averaged 0.0654 during the incident versus 0.0625 before it.
 - Warehouse backlog changed 5.6998% versus the prior baseline.
 - Delivery complaints changed -17.6469% versus the prior baseline.
-- API latency averaged 209.01 ms during the incident versus 206.1621 ms before it.
-- Checkout failure rate changed -3.8674% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9878.
 
 ### Recommended Next Steps
 
@@ -72,8 +90,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-003: Checkout Failure Spike
@@ -89,17 +110,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-034 - Checkout Failure Spike:** similarity score 0.9778; root cause: No known deterministic root-cause pattern matched.
+- **INC-050 - Checkout Failure Spike:** similarity score 0.9739; root cause: No known deterministic root-cause pattern matched.
+- **INC-037 - Deployment-related checkout incident:** similarity score 0.8662; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - 4 anomaly event(s) across 3 anomaly type(s) were grouped within 2025-01-25 to 2025-01-29.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 41147.874 during the incident versus 43503.6557 before it.
 - Conversion rate changed -2.9545% versus the prior baseline.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9778.
 - Support tickets averaged 129.2 during the incident versus 129.2857 before it.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9778.
 - Shipping delay rate averaged 0.0621 during the incident versus 0.0628 before it.
 - Warehouse backlog changed 3.105% versus the prior baseline.
 - Delivery complaints changed 7.76% versus the prior baseline.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9778.
 - API latency averaged 205.744 ms during the incident versus 205.6307 ms before it.
-- Checkout failure rate changed 3.8462% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -107,11 +137,12 @@ Total incidents: **64**
 - Confirm checkout failure rate and revenue have returned to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-004: Logistics disruption incident
 
@@ -126,19 +157,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-014 - Logistics disruption incident:** similarity score 0.9936; root cause: Likely logistics disruption incident.
+- **INC-013 - Logistics disruption incident:** similarity score 0.9858; root cause: Likely logistics disruption incident.
+- **INC-026 - Logistics disruption incident:** similarity score 0.9839; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2025-02-03 to 2025-02-10.
 - Delivery complaints reached 39.00 versus a prior average of 24.14.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 45844.8125 during the incident versus 43790.2393 before it.
 - Conversion rate changed -3.908% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.9936.
 - Support tickets averaged 141.0 during the incident versus 135.7143 before it.
 - billing issue tickets increased 16.3873% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.9936.
 - Shipping delay rate averaged 0.0655 during the incident versus 0.0612 before it.
 - Warehouse backlog changed 5.6757% versus the prior baseline.
 - Delivery complaints changed 10.7986% versus the prior baseline.
-- API latency averaged 209.5312 ms during the incident versus 205.6157 ms before it.
-- Checkout failure rate changed 2.1739% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -147,11 +185,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-005: Revenue Drop
 
@@ -166,18 +204,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-025 - Revenue Drop:** similarity score 0.9798; root cause: No known deterministic root-cause pattern matched.
+- **INC-015 - Revenue Drop:** similarity score 0.975; root cause: No known deterministic root-cause pattern matched.
+- **INC-022 - Revenue Drop:** similarity score 0.9679; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-02-17 to 2025-02-18.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 36152.305 during the incident versus 47793.5193 before it.
 - Conversion rate changed -2.6005% versus the prior baseline.
 - Refund rate increased 26.5101% versus the prior baseline.
+- Historical context: similar incident INC-025 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 - Support tickets averaged 122.0 during the incident versus 140.9286 before it.
+- Historical context: similar incident INC-025 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 - Shipping delay rate averaged 0.0668 during the incident versus 0.0641 before it.
 - Warehouse backlog changed 9.2468% versus the prior baseline.
 - Delivery complaints changed -18.085% versus the prior baseline.
-- API latency averaged 207.705 ms during the incident versus 208.565 ms before it.
-- Checkout failure rate changed 4.9451% versus the prior baseline.
+- Historical context: similar incident INC-025 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 
 ### Recommended Next Steps
 
@@ -185,10 +231,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-006: Revenue Drop
 
@@ -203,17 +251,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-016 - Revenue Drop:** similarity score 0.9941; root cause: No known deterministic root-cause pattern matched.
+- **INC-060 - Revenue Drop:** similarity score 0.9851; root cause: No known deterministic root-cause pattern matched.
+- **INC-024 - Revenue Drop:** similarity score 0.9753; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-02-23 to 2025-02-25.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 38372.6833 during the incident versus 48247.9871 before it.
 - Conversion rate changed -5.8685% versus the prior baseline.
+- Historical context: similar incident INC-016 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - Support tickets averaged 133.0 during the incident versus 139.1429 before it.
+- Historical context: similar incident INC-016 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - Shipping delay rate averaged 0.0645 during the incident versus 0.0624 before it.
 - Warehouse backlog changed 10.1653% versus the prior baseline.
 - Delivery complaints changed 2.3171% versus the prior baseline.
+- Historical context: similar incident INC-016 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - API latency averaged 207.51 ms during the incident versus 205.6879 ms before it.
-- Checkout failure rate changed 1.1111% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -221,8 +278,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-007: Support Ticket Spike
@@ -238,20 +298,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-035 - Support Ticket Spike:** similarity score 0.9765; root cause: No known deterministic root-cause pattern matched.
+- **INC-044 - Support Ticket Spike:** similarity score 0.9726; root cause: No known deterministic root-cause pattern matched.
+- **INC-035 - Support Ticket Spike:** similarity score 0.8595; root cause: Likely customer-impact incident.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-03-02 to 2025-03-02.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44563.22 during the incident versus 47047.9264 before it.
 - Conversion rate changed -0.2336% versus the prior baseline.
 - Refund rate increased 20.9964% versus the prior baseline.
+- Historical context: similar incident INC-035 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9765.
 - Support tickets averaged 180.0 during the incident versus 139.7143 before it.
 - general support tickets increased 32.1386% versus the prior baseline.
 - account access tickets increased 39.1027% versus the prior baseline.
 - shipping complaint tickets increased 15.4257% versus the prior baseline.
+- Historical context: similar incident INC-035 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9765.
 - Shipping delay rate averaged 0.0662 during the incident versus 0.0614 before it.
-- Warehouse backlog changed -4.1151% versus the prior baseline.
-- Delivery complaints changed 15.4257% versus the prior baseline.
-- API latency averaged 204.91 ms during the incident versus 206.1729 ms before it.
 
 ### Recommended Next Steps
 
@@ -259,10 +325,12 @@ Total incidents: **64**
 - Confirm ticket volume returns to baseline after remediation.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-008: Latency Spike
 
@@ -277,18 +345,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-063 - Latency Spike:** similarity score 0.959; root cause: No known deterministic root-cause pattern matched.
+- **INC-047 - Latency Spike:** similarity score 0.9531; root cause: No known deterministic root-cause pattern matched.
+- **INC-064 - Latency Spike:** similarity score 0.95; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-03-10 to 2025-03-13.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 50259.05 during the incident versus 49756.7271 before it.
 - Conversion rate changed -3.211% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.959.
 - Support tickets averaged 140.75 during the incident versus 150.8571 before it.
 - billing issue tickets increased 19.8627% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.959.
 - Shipping delay rate averaged 0.0604 during the incident versus 0.0624 before it.
 - Warehouse backlog changed -2.0321% versus the prior baseline.
 - Delivery complaints changed -13.7559% versus the prior baseline.
-- API latency averaged 207.5 ms during the incident versus 206.5336 ms before it.
-- Checkout failure rate changed 0.0% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.959.
 
 ### Recommended Next Steps
 
@@ -296,11 +372,12 @@ Total incidents: **64**
 - Confirm latency has returned to its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-009: Deployment-related checkout incident
 
@@ -315,20 +392,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-028 - Deployment-related checkout incident:** similarity score 0.9735; root cause: Likely deployment-related checkout incident.
+- **INC-058 - Deployment-related checkout incident:** similarity score 0.9689; root cause: Likely deployment-related checkout incident.
+- **INC-021 - Deployment-related checkout incident:** similarity score 0.9688; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2025-03-17 to 2025-03-21.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 33845.644 during the incident versus 52840.9493 before it.
 - Conversion rate changed -21.1628% versus the prior baseline.
 - Refund rate increased 103.5256% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9735.
 - Support tickets averaged 232.0 during the incident versus 150.8571 before it.
 - checkout issue tickets increased 278.8998% versus the prior baseline.
 - account access tickets increased 90.4324% versus the prior baseline.
 - general support tickets increased 22.5791% versus the prior baseline.
-- Shipping delay rate averaged 0.0644 during the incident versus 0.0624 before it.
-- Warehouse backlog changed -9.8415% versus the prior baseline.
-- Delivery complaints changed -9.3916% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9735.
 
 ### Recommended Next Steps
 
@@ -337,11 +420,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-010: Revenue Drop
 
@@ -356,17 +439,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-020 - Revenue Drop:** similarity score 0.9874; root cause: No known deterministic root-cause pattern matched.
+- **INC-040 - Revenue Drop:** similarity score 0.9864; root cause: No known deterministic root-cause pattern matched.
+- **INC-041 - Revenue Drop:** similarity score 0.9792; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-04-01 to 2025-04-01.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 37943.25 during the incident versus 46638.8329 before it.
 - Conversion rate changed -1.519% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9874.
 - Support tickets averaged 139.0 during the incident versus 182.0714 before it.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9874.
 - Shipping delay rate averaged 0.0624 during the incident versus 0.0632 before it.
 - Warehouse backlog changed 10.369% versus the prior baseline.
 - Delivery complaints changed 6.3291% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9874.
 - API latency averaged 206.3 ms during the incident versus 281.0893 ms before it.
-- Checkout failure rate changed -56.8123% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -374,8 +466,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-011: Inventory shortage incident
@@ -391,20 +486,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-033 - Inventory shortage incident:** similarity score 0.9828; root cause: Likely inventory shortage incident.
+- **INC-023 - Inventory shortage incident:** similarity score 0.9774; root cause: Likely inventory shortage incident.
+- **INC-046 - Inventory shortage incident:** similarity score 0.9719; root cause: Likely inventory shortage incident.
+
 ### Supporting Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-04-07 to 2025-04-20.
 - Lost sales units reached 113.00 during the incident.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 38492.545 during the incident versus 50613.1964 before it.
 - Conversion rate changed -12.7059% versus the prior baseline.
 - Lost sales units reached 113.0 during the incident window.
 - Stockout units reached 109.0 during the incident window.
 - Refund rate increased 37.0229% versus the prior baseline.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.9828.
 - Support tickets averaged 158.5 during the incident versus 149.6429 before it.
 - general support tickets increased 8.3878% versus the prior baseline.
 - billing issue tickets increased 27.004% versus the prior baseline.
-- Shipping delay rate averaged 0.0634 during the incident versus 0.0613 before it.
-- Warehouse backlog changed 4.5788% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -413,11 +514,11 @@ Total incidents: **64**
 - Track lost sales and net revenue until inventory availability recovers.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-012: Logistics disruption incident
 
@@ -432,19 +533,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-014 - Logistics disruption incident:** similarity score 0.988; root cause: Likely logistics disruption incident.
+- **INC-013 - Logistics disruption incident:** similarity score 0.9858; root cause: Likely logistics disruption incident.
+- **INC-042 - Logistics disruption incident:** similarity score 0.9851; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2025-04-25 to 2025-04-27.
 - Delivery complaints reached 46.00 versus a prior average of 27.14.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 57074.4233 during the incident versus 40688.2886 before it.
 - Conversion rate changed 11.2565% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.988.
 - Support tickets averaged 165.0 during the incident versus 158.1429 before it.
 - shipping complaint tickets increased 42.456% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.988.
 - Shipping delay rate averaged 0.0643 during the incident versus 0.0627 before it.
 - Warehouse backlog changed 1.0704% versus the prior baseline.
 - Delivery complaints changed 42.456% versus the prior baseline.
-- API latency averaged 209.29 ms during the incident versus 206.3629 ms before it.
-- Checkout failure rate changed 1.1236% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -452,12 +560,12 @@ Total incidents: **64**
 - Notify affected customers and prioritize delayed deliveries.
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-013: Logistics disruption incident
 
@@ -472,20 +580,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-014 - Logistics disruption incident:** similarity score 0.9902; root cause: Likely logistics disruption incident.
+- **INC-012 - Logistics disruption incident:** similarity score 0.9858; root cause: Likely logistics disruption incident.
+- **INC-004 - Logistics disruption incident:** similarity score 0.9858; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2025-05-05 to 2025-05-14.
 - Delivery complaints reached 128.00 versus a prior average of 29.21.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44677.321 during the incident versus 53972.4957 before it.
 - Conversion rate changed -11.1628% versus the prior baseline.
 - Refund rate increased 90.5882% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.9902.
 - Support tickets averaged 250.8 during the incident versus 150.7857 before it.
 - shipping complaint tickets increased 311.1% versus the prior baseline.
 - billing issue tickets increased 41.8022% versus the prior baseline.
 - general support tickets increased 8.6313% versus the prior baseline.
-- Shipping delay rate averaged 0.1491 during the incident versus 0.0628 before it.
-- Warehouse backlog changed 116.6987% versus the prior baseline.
-- Delivery complaints changed 311.1% versus the prior baseline.
+- Historical context: similar incident INC-014 had root cause 'Likely logistics disruption incident' with similarity score 0.9902.
 
 ### Recommended Next Steps
 
@@ -494,11 +608,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-014: Logistics disruption incident
 
@@ -513,19 +627,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-004 - Logistics disruption incident:** similarity score 0.9936; root cause: Likely logistics disruption incident.
+- **INC-013 - Logistics disruption incident:** similarity score 0.9902; root cause: Likely logistics disruption incident.
+- **INC-012 - Logistics disruption incident:** similarity score 0.988; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2025-06-02 to 2025-06-05.
 - Delivery complaints reached 41.00 versus a prior average of 25.21.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 54223.6925 during the incident versus 51353.9371 before it.
 - Conversion rate changed 11.2941% versus the prior baseline.
+- Historical context: similar incident INC-004 had root cause 'Likely logistics disruption incident' with similarity score 0.9936.
 - Support tickets averaged 152.25 during the incident versus 151.0714 before it.
 - shipping complaint tickets increased 30.8781% versus the prior baseline.
+- Historical context: similar incident INC-004 had root cause 'Likely logistics disruption incident' with similarity score 0.9936.
 - Shipping delay rate averaged 0.0671 during the incident versus 0.0584 before it.
 - Warehouse backlog changed 5.9046% versus the prior baseline.
 - Delivery complaints changed 30.8781% versus the prior baseline.
-- API latency averaged 208.7825 ms during the incident versus 206.3814 ms before it.
-- Checkout failure rate changed 5.7143% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -533,12 +654,12 @@ Total incidents: **64**
 - Notify affected customers and prioritize delayed deliveries.
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-015: Revenue Drop
 
@@ -553,17 +674,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-051 - Revenue Drop:** similarity score 0.9855; root cause: No known deterministic root-cause pattern matched.
+- **INC-053 - Revenue Drop:** similarity score 0.9804; root cause: No known deterministic root-cause pattern matched.
+- **INC-025 - Revenue Drop:** similarity score 0.9762; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-06-09 to 2025-06-10.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 43426.38 during the incident versus 53266.9936 before it.
 - Conversion rate changed -5.5427% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9855.
 - Support tickets averaged 148.0 during the incident versus 151.7857 before it.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9855.
 - Shipping delay rate averaged 0.0678 during the incident versus 0.0621 before it.
 - Warehouse backlog changed -3.3098% versus the prior baseline.
 - Delivery complaints changed 12.1358% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9855.
 - API latency averaged 204.895 ms during the incident versus 207.2514 ms before it.
-- Checkout failure rate changed -8.6022% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -571,8 +701,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-016: Revenue Drop
@@ -588,17 +721,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-006 - Revenue Drop:** similarity score 0.9941; root cause: No known deterministic root-cause pattern matched.
+- **INC-060 - Revenue Drop:** similarity score 0.9886; root cause: No known deterministic root-cause pattern matched.
+- **INC-024 - Revenue Drop:** similarity score 0.9783; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-06-16 to 2025-06-16.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44903.32 during the incident versus 53489.9336 before it.
 - Conversion rate changed -6.2937% versus the prior baseline.
+- Historical context: similar incident INC-006 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - Support tickets averaged 135.0 during the incident versus 155.2143 before it.
+- Historical context: similar incident INC-006 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - Shipping delay rate averaged 0.0554 during the incident versus 0.0633 before it.
 - Warehouse backlog changed 9.2322% versus the prior baseline.
 - Delivery complaints changed -55.5556% versus the prior baseline.
+- Historical context: similar incident INC-006 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9941.
 - API latency averaged 207.59 ms during the incident versus 208.1214 ms before it.
-- Checkout failure rate changed -0.5464% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -606,8 +748,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-017: Revenue Drop
@@ -623,18 +768,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-036 - Revenue Drop:** similarity score 0.9775; root cause: No known deterministic root-cause pattern matched.
+- **INC-027 - Revenue Drop:** similarity score 0.9754; root cause: No known deterministic root-cause pattern matched.
+- **INC-054 - Revenue Drop:** similarity score 0.9729; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-06-24 to 2025-06-26.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 49526.1367 during the incident versus 54606.0693 before it.
 - Conversion rate changed -5.3488% versus the prior baseline.
+- Historical context: similar incident INC-036 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9775.
 - Support tickets averaged 149.0 during the incident versus 152.8571 before it.
 - account access tickets increased 19.1191% versus the prior baseline.
+- Historical context: similar incident INC-036 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9775.
 - Shipping delay rate averaged 0.0638 during the incident versus 0.0611 before it.
 - Warehouse backlog changed 2.809% versus the prior baseline.
 - Delivery complaints changed -13.5366% versus the prior baseline.
-- API latency averaged 208.2867 ms during the incident versus 206.5857 ms before it.
-- Checkout failure rate changed -1.1236% versus the prior baseline.
+- Historical context: similar incident INC-036 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9775.
 
 ### Recommended Next Steps
 
@@ -642,10 +795,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-018: Revenue Drop
 
@@ -660,20 +815,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-022 - Revenue Drop:** similarity score 0.9704; root cause: No known deterministic root-cause pattern matched.
+- **INC-038 - Revenue Drop:** similarity score 0.9673; root cause: No known deterministic root-cause pattern matched.
+- **INC-005 - Revenue Drop:** similarity score 0.9632; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 4 anomaly event(s) across 3 anomaly type(s) were grouped within 2025-06-30 to 2025-07-01.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 37705.625 during the incident versus 56394.6243 before it.
 - Conversion rate changed -13.2723% versus the prior baseline.
 - Refund rate increased 25.2874% versus the prior baseline.
+- Historical context: similar incident INC-022 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9704.
 - Support tickets averaged 156.5 during the incident versus 154.3571 before it.
 - account access tickets increased 24.4444% versus the prior baseline.
 - shipping complaint tickets increased 21.5788% versus the prior baseline.
+- Historical context: similar incident INC-022 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9704.
 - Shipping delay rate averaged 0.0706 during the incident versus 0.0619 before it.
 - Warehouse backlog changed 6.6136% versus the prior baseline.
-- Delivery complaints changed 21.5788% versus the prior baseline.
-- API latency averaged 205.935 ms during the incident versus 206.4914 ms before it.
-- Checkout failure rate changed 11.236% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -681,12 +842,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-019: Shipping Delay Spike
 
@@ -701,17 +862,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-029 - Shipping Delay Spike:** similarity score 0.9825; root cause: No known deterministic root-cause pattern matched.
+- **INC-059 - Shipping Delay Spike:** similarity score 0.9809; root cause: No known deterministic root-cause pattern matched.
+- **INC-030 - Shipping Delay Spike:** similarity score 0.978; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 3 anomaly type(s) were grouped within 2025-07-07 to 2025-07-08.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 46628.465 during the incident versus 53709.6521 before it.
 - Conversion rate changed -1.6393% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9825.
 - Support tickets averaged 132.5 during the incident versus 158.0 before it.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9825.
 - Shipping delay rate averaged 0.0659 during the incident versus 0.0633 before it.
 - Warehouse backlog changed 7.8044% versus the prior baseline.
 - Delivery complaints changed -35.5932% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9825.
 - API latency averaged 210.88 ms during the incident versus 206.9321 ms before it.
-- Checkout failure rate changed 2.2222% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -719,11 +889,12 @@ Total incidents: **64**
 - Notify affected customers and monitor delivery complaints.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-020: Revenue Drop
 
@@ -738,19 +909,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-024 - Revenue Drop:** similarity score 0.9883; root cause: No known deterministic root-cause pattern matched.
+- **INC-040 - Revenue Drop:** similarity score 0.988; root cause: No known deterministic root-cause pattern matched.
+- **INC-002 - Revenue Drop:** similarity score 0.9878; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-07-15 to 2025-07-15.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 42934.3 during the incident versus 53150.4071 before it.
 - Conversion rate changed 0.2353% versus the prior baseline.
 - Refund rate increased 20.7143% versus the prior baseline.
+- Historical context: similar incident INC-024 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9883.
 - Support tickets averaged 135.0 during the incident versus 151.7857 before it.
 - general support tickets increased 8.7837% versus the prior baseline.
+- Historical context: similar incident INC-024 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9883.
 - Shipping delay rate averaged 0.0622 during the incident versus 0.062 before it.
 - Warehouse backlog changed -6.4854% versus the prior baseline.
 - Delivery complaints changed -19.5821% versus the prior baseline.
-- API latency averaged 206.22 ms during the incident versus 207.5071 ms before it.
-- Checkout failure rate changed -1.6667% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -758,10 +936,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-021: Deployment-related checkout incident
 
@@ -776,20 +956,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-028 - Deployment-related checkout incident:** similarity score 0.9872; root cause: Likely deployment-related checkout incident.
+- **INC-037 - Deployment-related checkout incident:** similarity score 0.9831; root cause: Likely deployment-related checkout incident.
+- **INC-052 - Deployment-related checkout incident:** similarity score 0.9828; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2025-07-19 to 2025-07-23.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44112.26 during the incident versus 51911.6171 before it.
 - Conversion rate changed -6.4593% versus the prior baseline.
 - Refund rate increased 47.6534% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9872.
 - Support tickets averaged 177.6 during the incident versus 148.5714 before it.
 - checkout issue tickets increased 90.5393% versus the prior baseline.
 - shipping complaint tickets increased 17.6471% versus the prior baseline.
 - billing issue tickets increased 27.8535% versus the prior baseline.
-- Shipping delay rate averaged 0.0614 during the incident versus 0.0613 before it.
-- Warehouse backlog changed 4.0301% versus the prior baseline.
-- Delivery complaints changed 17.6471% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9872.
 
 ### Recommended Next Steps
 
@@ -798,11 +984,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-022: Revenue Drop
 
@@ -817,17 +1003,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-020 - Revenue Drop:** similarity score 0.9788; root cause: No known deterministic root-cause pattern matched.
+- **INC-024 - Revenue Drop:** similarity score 0.9768; root cause: No known deterministic root-cause pattern matched.
+- **INC-032 - Revenue Drop:** similarity score 0.976; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-07-28 to 2025-07-31.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 44177.77 during the incident versus 50081.41 before it.
 - Conversion rate changed -3.3654% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9788.
 - Support tickets averaged 150.75 during the incident versus 160.8571 before it.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9788.
 - Shipping delay rate averaged 0.0647 during the incident versus 0.0608 before it.
 - Warehouse backlog changed 5.9672% versus the prior baseline.
 - Delivery complaints changed -3.1913% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9788.
 - API latency averaged 209.7625 ms during the incident versus 216.3221 ms before it.
-- Checkout failure rate changed -13.1455% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -835,10 +1030,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-023: Inventory shortage incident
 
@@ -853,20 +1050,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-033 - Inventory shortage incident:** similarity score 0.9862; root cause: Likely inventory shortage incident.
+- **INC-011 - Inventory shortage incident:** similarity score 0.9774; root cause: Likely inventory shortage incident.
+- **INC-046 - Inventory shortage incident:** similarity score 0.9664; root cause: Likely inventory shortage incident.
+
 ### Supporting Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-08-11 to 2025-08-18.
 - Lost sales units reached 92.00 during the incident.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 43151.6775 during the incident versus 52566.2536 before it.
 - Conversion rate changed -5.6206% versus the prior baseline.
 - Lost sales units reached 92.0 during the incident window.
 - Stockout units reached 88.0 during the incident window.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.9862.
 - Support tickets averaged 162.625 during the incident versus 156.5 before it.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.9862.
 - Shipping delay rate averaged 0.0644 during the incident versus 0.0623 before it.
 - Warehouse backlog changed -1.4002% versus the prior baseline.
-- Delivery complaints changed 9.4848% versus the prior baseline.
-- API latency averaged 208.0387 ms during the incident versus 209.7136 ms before it.
-- Checkout failure rate changed 1.6667% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -875,9 +1078,11 @@ Total incidents: **64**
 - Track lost sales and net revenue until inventory availability recovers.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-024: Revenue Drop
 
@@ -892,18 +1097,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-020 - Revenue Drop:** similarity score 0.9883; root cause: No known deterministic root-cause pattern matched.
+- **INC-027 - Revenue Drop:** similarity score 0.9863; root cause: No known deterministic root-cause pattern matched.
+- **INC-032 - Revenue Drop:** similarity score 0.9854; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-08-26 to 2025-08-26.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 38672.95 during the incident versus 48070.8814 before it.
 - Conversion rate changed -3.8186% versus the prior baseline.
 - Refund rate increased 47.7612% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9883.
 - Support tickets averaged 139.0 during the incident versus 162.6429 before it.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9883.
 - Shipping delay rate averaged 0.0608 during the incident versus 0.0633 before it.
 - Warehouse backlog changed 5.1064% versus the prior baseline.
 - Delivery complaints changed 0.2236% versus the prior baseline.
-- API latency averaged 210.22 ms during the incident versus 209.1643 ms before it.
-- Checkout failure rate changed 1.6304% versus the prior baseline.
+- Historical context: similar incident INC-020 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9883.
 
 ### Recommended Next Steps
 
@@ -911,8 +1124,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-025: Revenue Drop
@@ -928,18 +1144,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-005 - Revenue Drop:** similarity score 0.9798; root cause: No known deterministic root-cause pattern matched.
+- **INC-054 - Revenue Drop:** similarity score 0.9777; root cause: No known deterministic root-cause pattern matched.
+- **INC-015 - Revenue Drop:** similarity score 0.9762; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 5 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-09-01 to 2025-09-09.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 47907.0133 during the incident versus 50305.9464 before it.
 - Conversion rate changed -0.7092% versus the prior baseline.
+- Historical context: similar incident INC-005 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 - Support tickets averaged 159.7778 during the incident versus 153.9286 before it.
 - general support tickets increased 11.894% versus the prior baseline.
+- Historical context: similar incident INC-005 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 - Shipping delay rate averaged 0.0622 during the incident versus 0.0624 before it.
 - Warehouse backlog changed 1.5718% versus the prior baseline.
 - Delivery complaints changed -6.8831% versus the prior baseline.
-- API latency averaged 209.5567 ms during the incident versus 208.7857 ms before it.
-- Checkout failure rate changed 0.5495% versus the prior baseline.
+- Historical context: similar incident INC-005 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9798.
 
 ### Recommended Next Steps
 
@@ -947,10 +1171,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-026: Logistics disruption incident
 
@@ -965,20 +1191,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-056 - Logistics disruption incident:** similarity score 0.9891; root cause: Likely logistics disruption incident.
+- **INC-014 - Logistics disruption incident:** similarity score 0.9868; root cause: Likely logistics disruption incident.
+- **INC-013 - Logistics disruption incident:** similarity score 0.9854; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2025-09-15 to 2025-09-22.
 - Delivery complaints reached 69.00 versus a prior average of 31.29.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 48712.14 during the incident versus 51823.5643 before it.
 - Conversion rate changed -1.8779% versus the prior baseline.
 - Refund rate increased 26.1168% versus the prior baseline.
+- Historical context: similar incident INC-056 had root cause 'Likely logistics disruption incident' with similarity score 0.9891.
 - Support tickets averaged 189.0 during the incident versus 163.3571 before it.
 - shipping complaint tickets increased 55.822% versus the prior baseline.
 - billing issue tickets increased 24.2365% versus the prior baseline.
+- Historical context: similar incident INC-056 had root cause 'Likely logistics disruption incident' with similarity score 0.9891.
 - Shipping delay rate averaged 0.0704 during the incident versus 0.0633 before it.
-- Warehouse backlog changed 9.2837% versus the prior baseline.
-- Delivery complaints changed 55.822% versus the prior baseline.
-- Regional disruption flags were active for: west.
 
 ### Recommended Next Steps
 
@@ -987,11 +1219,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-027: Revenue Drop
 
@@ -1006,19 +1238,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-024 - Revenue Drop:** similarity score 0.9863; root cause: No known deterministic root-cause pattern matched.
+- **INC-020 - Revenue Drop:** similarity score 0.9847; root cause: No known deterministic root-cause pattern matched.
+- **INC-057 - Revenue Drop:** similarity score 0.9836; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-10-01 to 2025-10-01.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 40306.91 during the incident versus 51394.2714 before it.
 - Conversion rate changed -11.5566% versus the prior baseline.
 - Refund rate increased 25.8503% versus the prior baseline.
+- Historical context: similar incident INC-024 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9863.
 - Support tickets averaged 170.0 during the incident versus 167.9286 before it.
 - general support tickets increased 19.9583% versus the prior baseline.
+- Historical context: similar incident INC-024 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9863.
 - Shipping delay rate averaged 0.0561 during the incident versus 0.0635 before it.
 - Warehouse backlog changed -23.3488% versus the prior baseline.
 - Delivery complaints changed 3.1578% versus the prior baseline.
-- API latency averaged 201.16 ms during the incident versus 208.7829 ms before it.
-- Checkout failure rate changed -1.0638% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1026,10 +1265,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-028: Deployment-related checkout incident
 
@@ -1044,20 +1285,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-021 - Deployment-related checkout incident:** similarity score 0.9872; root cause: Likely deployment-related checkout incident.
+- **INC-058 - Deployment-related checkout incident:** similarity score 0.9835; root cause: Likely deployment-related checkout incident.
+- **INC-037 - Deployment-related checkout incident:** similarity score 0.9781; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2025-10-05 to 2025-10-11.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 36544.0186 during the incident versus 53482.2636 before it.
 - Conversion rate changed -21.3953% versus the prior baseline.
 - Refund rate increased 144.7761% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9872.
 - Support tickets averaged 262.1429 during the incident versus 158.0714 before it.
 - checkout issue tickets increased 276.9558% versus the prior baseline.
 - account access tickets increased 91.8156% versus the prior baseline.
 - general support tickets increased 26.0776% versus the prior baseline.
-- Shipping delay rate averaged 0.0619 during the incident versus 0.0595 before it.
-- Warehouse backlog changed 8.1182% versus the prior baseline.
-- Delivery complaints changed -0.2518% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9872.
 
 ### Recommended Next Steps
 
@@ -1066,11 +1313,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-029: Shipping Delay Spike
 
@@ -1085,29 +1332,39 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-059 - Shipping Delay Spike:** similarity score 0.9922; root cause: No known deterministic root-cause pattern matched.
+- **INC-030 - Shipping Delay Spike:** similarity score 0.9892; root cause: No known deterministic root-cause pattern matched.
+- **INC-062 - Shipping Delay Spike:** similarity score 0.9826; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-10-17 to 2025-10-17.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 52355.78 during the incident versus 46883.7586 before it.
 - Conversion rate changed 4.6272% versus the prior baseline.
+- Historical context: similar incident INC-059 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 - Support tickets averaged 154.0 during the incident versus 213.8571 before it.
 - shipping complaint tickets increased 17.2414% versus the prior baseline.
+- Historical context: similar incident INC-059 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 - Shipping delay rate averaged 0.0724 during the incident versus 0.0621 before it.
 - Warehouse backlog changed 7.8645% versus the prior baseline.
 - Delivery complaints changed 17.2414% versus the prior baseline.
-- API latency averaged 212.13 ms during the incident versus 295.5493 ms before it.
-- Checkout failure rate changed -57.8089% versus the prior baseline.
+- Historical context: similar incident INC-059 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 
 ### Recommended Next Steps
 
 - Review carrier performance and delayed shipment queues.
 - Notify affected customers and monitor delivery complaints.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-030: Shipping Delay Spike
 
@@ -1122,26 +1379,38 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-029 - Shipping Delay Spike:** similarity score 0.9892; root cause: No known deterministic root-cause pattern matched.
+- **INC-031 - Shipping Delay Spike:** similarity score 0.9858; root cause: No known deterministic root-cause pattern matched.
+- **INC-059 - Shipping Delay Spike:** similarity score 0.9849; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-10-28 to 2025-10-28.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 52698.6 during the incident versus 52671.9671 before it.
 - Conversion rate changed 7.9518% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9892.
 - Support tickets averaged 140.0 during the incident versus 155.7857 before it.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9892.
 - Shipping delay rate averaged 0.0727 during the incident versus 0.0637 before it.
 - Warehouse backlog changed 1.4117% versus the prior baseline.
 - Delivery complaints changed -7.5795% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9892.
 - API latency averaged 210.68 ms during the incident versus 209.3093 ms before it.
-- Checkout failure rate changed 0.5525% versus the prior baseline.
 
 ### Recommended Next Steps
 
 - Review carrier performance and delayed shipment queues.
 - Notify affected customers and monitor delivery complaints.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-031: Shipping Delay Spike
@@ -1157,18 +1426,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-030 - Shipping Delay Spike:** similarity score 0.9858; root cause: No known deterministic root-cause pattern matched.
+- **INC-029 - Shipping Delay Spike:** similarity score 0.982; root cause: No known deterministic root-cause pattern matched.
+- **INC-059 - Shipping Delay Spike:** similarity score 0.9774; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 5 anomaly event(s) across 4 anomaly type(s) were grouped within 2025-11-10 to 2025-11-17.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 64691.4362 during the incident versus 63822.1557 before it.
 - Conversion rate changed -5.3613% versus the prior baseline.
+- Historical context: similar incident INC-030 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9858.
 - Support tickets averaged 168.625 during the incident versus 161.2143 before it.
 - billing issue tickets increased 15.9187% versus the prior baseline.
+- Historical context: similar incident INC-030 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9858.
 - Shipping delay rate averaged 0.0663 during the incident versus 0.0661 before it.
 - Warehouse backlog changed 7.6189% versus the prior baseline.
 - Delivery complaints changed -1.1364% versus the prior baseline.
-- API latency averaged 208.195 ms during the incident versus 207.9457 ms before it.
-- Checkout failure rate changed 0.5556% versus the prior baseline.
+- Historical context: similar incident INC-030 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9858.
 
 ### Recommended Next Steps
 
@@ -1176,12 +1453,12 @@ Total incidents: **64**
 - Notify affected customers and monitor delivery complaints.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-032: Revenue Drop
 
@@ -1196,18 +1473,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-043 - Revenue Drop:** similarity score 0.9866; root cause: No known deterministic root-cause pattern matched.
+- **INC-020 - Revenue Drop:** similarity score 0.9859; root cause: No known deterministic root-cause pattern matched.
+- **INC-024 - Revenue Drop:** similarity score 0.9854; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2025-11-25 to 2025-11-25.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 50122.48 during the incident versus 66435.2257 before it.
 - Conversion rate changed -10.6383% versus the prior baseline.
 - Refund rate increased 31.5126% versus the prior baseline.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Support tickets averaged 174.0 during the incident versus 168.3571 before it.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Shipping delay rate averaged 0.0672 during the incident versus 0.0661 before it.
 - Warehouse backlog changed 6.1011% versus the prior baseline.
 - Delivery complaints changed 1.8181% versus the prior baseline.
-- API latency averaged 208.31 ms during the incident versus 207.6021 ms before it.
-- Checkout failure rate changed -5.0562% versus the prior baseline.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 
 ### Recommended Next Steps
 
@@ -1215,8 +1500,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-033: Inventory shortage incident
@@ -1232,20 +1520,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-023 - Inventory shortage incident:** similarity score 0.9862; root cause: Likely inventory shortage incident.
+- **INC-011 - Inventory shortage incident:** similarity score 0.9828; root cause: Likely inventory shortage incident.
+- **INC-046 - Inventory shortage incident:** similarity score 0.978; root cause: Likely inventory shortage incident.
+
 ### Supporting Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2025-12-01 to 2025-12-16.
 - Lost sales units reached 190.00 during the incident.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 43789.6631 during the incident versus 66982.7307 before it.
 - Conversion rate changed -19.1943% versus the prior baseline.
 - Lost sales units reached 190.0 during the incident window.
 - Stockout units reached 135.0 during the incident window.
 - Refund rate increased 46.4286% versus the prior baseline.
+- Historical context: similar incident INC-023 had root cause 'Likely inventory shortage incident' with similarity score 0.9862.
 - Support tickets averaged 178.75 during the incident versus 166.7857 before it.
 - general support tickets increased 9.8214% versus the prior baseline.
 - billing issue tickets increased 19.4712% versus the prior baseline.
-- Shipping delay rate averaged 0.0661 during the incident versus 0.0669 before it.
-- Warehouse backlog changed -3.1917% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1254,11 +1548,11 @@ Total incidents: **64**
 - Track lost sales and net revenue until inventory availability recovers.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-034: Checkout Failure Spike
 
@@ -1273,17 +1567,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-050 - Checkout Failure Spike:** similarity score 0.981; root cause: No known deterministic root-cause pattern matched.
+- **INC-003 - Checkout Failure Spike:** similarity score 0.9778; root cause: No known deterministic root-cause pattern matched.
+- **INC-018 - Revenue Drop:** similarity score 0.877; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 5 anomaly event(s) across 2 anomaly type(s) were grouped within 2025-12-30 to 2026-01-06.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 66354.95 during the incident versus 73779.7357 before it.
 - Conversion rate changed 4.8544% versus the prior baseline.
+- Historical context: similar incident INC-050 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - Support tickets averaged 166.625 during the incident versus 166.1429 before it.
+- Historical context: similar incident INC-050 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - Shipping delay rate averaged 0.0664 during the incident versus 0.0668 before it.
 - Warehouse backlog changed -6.4603% versus the prior baseline.
 - Delivery complaints changed -2.0152% versus the prior baseline.
+- Historical context: similar incident INC-050 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - API latency averaged 205.2375 ms during the incident versus 206.3907 ms before it.
-- Checkout failure rate changed 0.5495% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1291,10 +1594,12 @@ Total incidents: **64**
 - Confirm checkout failure rate and revenue have returned to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-035: Support Ticket Spike
 
@@ -1309,17 +1614,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-044 - Support Ticket Spike:** similarity score 0.9861; root cause: No known deterministic root-cause pattern matched.
+- **INC-007 - Support Ticket Spike:** similarity score 0.9765; root cause: No known deterministic root-cause pattern matched.
+- **INC-044 - Support Ticket Spike:** similarity score 0.8684; root cause: Likely customer-impact incident.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 2 anomaly type(s) were grouped within 2026-01-12 to 2026-01-14.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 60090.8033 during the incident versus 66701.6064 before it.
 - Conversion rate changed 5.6075% versus the prior baseline.
+- Historical context: similar incident INC-044 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9861.
 - Support tickets averaged 164.3333 during the incident versus 166.5714 before it.
+- Historical context: similar incident INC-044 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9861.
 - Shipping delay rate averaged 0.0658 during the incident versus 0.0649 before it.
 - Warehouse backlog changed 9.7083% versus the prior baseline.
 - Delivery complaints changed 3.5898% versus the prior baseline.
+- Historical context: similar incident INC-044 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9861.
 - API latency averaged 207.11 ms during the incident versus 205.215 ms before it.
-- Checkout failure rate changed -4.3478% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1327,10 +1641,12 @@ Total incidents: **64**
 - Confirm ticket volume returns to baseline after remediation.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-036: Revenue Drop
 
@@ -1345,20 +1661,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-017 - Revenue Drop:** similarity score 0.9775; root cause: No known deterministic root-cause pattern matched.
+- **INC-016 - Revenue Drop:** similarity score 0.9757; root cause: No known deterministic root-cause pattern matched.
+- **INC-006 - Revenue Drop:** similarity score 0.9739; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 2 anomaly type(s) were grouped within 2026-01-19 to 2026-01-20.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 56188.425 during the incident versus 65374.2593 before it.
 - Conversion rate changed -0.4651% versus the prior baseline.
 - Refund rate increased 44.1558% versus the prior baseline.
+- Historical context: similar incident INC-017 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9775.
 - Support tickets averaged 175.0 during the incident versus 163.2857 before it.
 - general support tickets increased 12.7369% versus the prior baseline.
 - billing issue tickets increased 29.5376% versus the prior baseline.
+- Historical context: similar incident INC-017 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9775.
 - Shipping delay rate averaged 0.063 during the incident versus 0.0638 before it.
 - Warehouse backlog changed -6.4061% versus the prior baseline.
-- Delivery complaints changed -1.8099% versus the prior baseline.
-- API latency averaged 202.385 ms during the incident versus 207.2121 ms before it.
-- Checkout failure rate changed 0.5525% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1366,10 +1688,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-037: Deployment-related checkout incident
 
@@ -1384,20 +1708,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-021 - Deployment-related checkout incident:** similarity score 0.9831; root cause: Likely deployment-related checkout incident.
+- **INC-028 - Deployment-related checkout incident:** similarity score 0.9781; root cause: Likely deployment-related checkout incident.
+- **INC-052 - Deployment-related checkout incident:** similarity score 0.9778; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2026-01-26 to 2026-01-28.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 45110.5667 during the incident versus 67250.1114 before it.
 - Conversion rate changed -9.3677% versus the prior baseline.
 - Refund rate increased 42.562% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9831.
 - Support tickets averaged 239.0 during the incident versus 168.1429 before it.
 - checkout issue tickets increased 186.3207% versus the prior baseline.
 - general support tickets increased 25.2262% versus the prior baseline.
 - account access tickets increased 58.0248% versus the prior baseline.
-- Shipping delay rate averaged 0.0626 during the incident versus 0.0636 before it.
-- Warehouse backlog changed -4.3279% versus the prior baseline.
-- Delivery complaints changed 13.2585% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9831.
 
 ### Recommended Next Steps
 
@@ -1406,11 +1736,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-038: Revenue Drop
 
@@ -1425,17 +1755,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-043 - Revenue Drop:** similarity score 0.9797; root cause: No known deterministic root-cause pattern matched.
+- **INC-040 - Revenue Drop:** similarity score 0.9783; root cause: No known deterministic root-cause pattern matched.
+- **INC-032 - Revenue Drop:** similarity score 0.978; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-02-03 to 2026-02-03.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 54284.91 during the incident versus 64208.5007 before it.
 - Conversion rate changed -1.4218% versus the prior baseline.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9797.
 - Support tickets averaged 149.0 during the incident versus 184.7857 before it.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9797.
 - Shipping delay rate averaged 0.0642 during the incident versus 0.0626 before it.
 - Warehouse backlog changed 2.9909% versus the prior baseline.
 - Delivery complaints changed 1.762% versus the prior baseline.
+- Historical context: similar incident INC-043 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9797.
 - API latency averaged 209.12 ms during the incident versus 233.965 ms before it.
-- Checkout failure rate changed -27.451% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1443,8 +1782,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-039: Logistics disruption incident
@@ -1460,20 +1802,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-049 - Logistics disruption incident:** similarity score 0.9892; root cause: Likely logistics disruption incident.
+- **INC-026 - Logistics disruption incident:** similarity score 0.9845; root cause: Likely logistics disruption incident.
+- **INC-013 - Logistics disruption incident:** similarity score 0.9844; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2026-02-09 to 2026-02-18.
 - Delivery complaints reached 153.00 versus a prior average of 33.86.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 57915.594 during the incident versus 64377.425 before it.
 - Conversion rate changed -8.2547% versus the prior baseline.
 - Refund rate increased 76.1317% versus the prior baseline.
+- Historical context: similar incident INC-049 had root cause 'Likely logistics disruption incident' with similarity score 0.9892.
 - Support tickets averaged 278.8 during the incident versus 181.2143 before it.
 - shipping complaint tickets increased 255.3169% versus the prior baseline.
 - general support tickets increased 16.8286% versus the prior baseline.
 - billing issue tickets increased 55.0372% versus the prior baseline.
-- Shipping delay rate averaged 0.1159 during the incident versus 0.0628 before it.
-- Warehouse backlog changed 76.2436% versus the prior baseline.
-- Delivery complaints changed 255.3169% versus the prior baseline.
+- Historical context: similar incident INC-049 had root cause 'Likely logistics disruption incident' with similarity score 0.9892.
 
 ### Recommended Next Steps
 
@@ -1482,11 +1830,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-040: Revenue Drop
 
@@ -1501,18 +1849,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-041 - Revenue Drop:** similarity score 0.9919; root cause: No known deterministic root-cause pattern matched.
+- **INC-020 - Revenue Drop:** similarity score 0.988; root cause: No known deterministic root-cause pattern matched.
+- **INC-010 - Revenue Drop:** similarity score 0.9864; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-03-02 to 2026-03-03.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 50960.09 during the incident versus 68157.0829 before it.
 - Conversion rate changed -4.6005% versus the prior baseline.
+- Historical context: similar incident INC-041 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9919.
 - Support tickets averaged 165.0 during the incident versus 198.6429 before it.
 - account access tickets increased 22.0708% versus the prior baseline.
+- Historical context: similar incident INC-041 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9919.
 - Shipping delay rate averaged 0.0626 during the incident versus 0.081 before it.
 - Warehouse backlog changed -12.4362% versus the prior baseline.
 - Delivery complaints changed -54.3103% versus the prior baseline.
-- API latency averaged 210.215 ms during the incident versus 206.2836 ms before it.
-- Checkout failure rate changed -1.0929% versus the prior baseline.
+- Historical context: similar incident INC-041 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9919.
 
 ### Recommended Next Steps
 
@@ -1520,10 +1876,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-041: Revenue Drop
 
@@ -1538,19 +1896,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-040 - Revenue Drop:** similarity score 0.9919; root cause: No known deterministic root-cause pattern matched.
+- **INC-043 - Revenue Drop:** similarity score 0.9859; root cause: No known deterministic root-cause pattern matched.
+- **INC-051 - Revenue Drop:** similarity score 0.9841; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-03-09 to 2026-03-09.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 58848.77 during the incident versus 71147.4007 before it.
 - Conversion rate changed 3.0952% versus the prior baseline.
+- Historical context: similar incident INC-040 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9919.
 - Support tickets averaged 154.0 during the incident versus 159.0714 before it.
 - account access tickets increased 20.4302% versus the prior baseline.
 - checkout issue tickets increased 29.3174% versus the prior baseline.
+- Historical context: similar incident INC-040 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9919.
 - Shipping delay rate averaged 0.0589 during the incident versus 0.0627 before it.
 - Warehouse backlog changed 5.5513% versus the prior baseline.
 - Delivery complaints changed -11.3924% versus the prior baseline.
-- API latency averaged 200.65 ms during the incident versus 206.2929 ms before it.
-- Checkout failure rate changed -8.7912% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1558,10 +1923,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-042: Logistics disruption incident
 
@@ -1576,20 +1943,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-012 - Logistics disruption incident:** similarity score 0.9851; root cause: Likely logistics disruption incident.
+- **INC-014 - Logistics disruption incident:** similarity score 0.985; root cause: Likely logistics disruption incident.
+- **INC-026 - Logistics disruption incident:** similarity score 0.9849; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2026-03-13 to 2026-03-17.
 - Delivery complaints reached 44.00 versus a prior average of 27.71.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 77161.184 during the incident versus 71678.3321 before it.
 - Conversion rate changed 5.4245% versus the prior baseline.
+- Historical context: similar incident INC-012 had root cause 'Likely logistics disruption incident' with similarity score 0.9851.
 - Support tickets averaged 171.0 during the incident versus 158.2143 before it.
 - shipping complaint tickets increased 24.8453% versus the prior baseline.
 - checkout issue tickets increased 26.5274% versus the prior baseline.
+- Historical context: similar incident INC-012 had root cause 'Likely logistics disruption incident' with similarity score 0.9851.
 - Shipping delay rate averaged 0.0607 during the incident versus 0.0626 before it.
 - Warehouse backlog changed 2.1373% versus the prior baseline.
-- Delivery complaints changed 24.8453% versus the prior baseline.
-- API latency averaged 206.286 ms during the incident versus 206.3636 ms before it.
-- Checkout failure rate changed 1.6575% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1597,12 +1970,12 @@ Total incidents: **64**
 - Notify affected customers and prioritize delayed deliveries.
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-043: Revenue Drop
 
@@ -1617,17 +1990,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-032 - Revenue Drop:** similarity score 0.9866; root cause: No known deterministic root-cause pattern matched.
+- **INC-041 - Revenue Drop:** similarity score 0.9859; root cause: No known deterministic root-cause pattern matched.
+- **INC-053 - Revenue Drop:** similarity score 0.9853; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-03-23 to 2026-03-23.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 56966.96 during the incident versus 74306.8 before it.
 - Conversion rate changed -0.4598% versus the prior baseline.
+- Historical context: similar incident INC-032 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Support tickets averaged 142.0 during the incident versus 168.6429 before it.
+- Historical context: similar incident INC-032 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Shipping delay rate averaged 0.055 during the incident versus 0.0624 before it.
 - Warehouse backlog changed 3.115% versus the prior baseline.
 - Delivery complaints changed -4.9773% versus the prior baseline.
+- Historical context: similar incident INC-032 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - API latency averaged 207.23 ms during the incident versus 206.7286 ms before it.
-- Checkout failure rate changed -2.1858% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1635,8 +2017,11 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-044: Support Ticket Spike
@@ -1652,19 +2037,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-035 - Support Ticket Spike:** similarity score 0.9861; root cause: No known deterministic root-cause pattern matched.
+- **INC-007 - Support Ticket Spike:** similarity score 0.9726; root cause: No known deterministic root-cause pattern matched.
+- **INC-035 - Support Ticket Spike:** similarity score 0.8699; root cause: Likely customer-impact incident.
+
 ### Supporting Evidence
 
 - 4 anomaly event(s) across 2 anomaly type(s) were grouped within 2026-03-30 to 2026-04-02.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 60712.6225 during the incident versus 77504.1021 before it.
 - Conversion rate changed -5.9361% versus the prior baseline.
 - Refund rate increased 24.6575% versus the prior baseline.
+- Historical context: similar incident INC-035 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9861.
 - Support tickets averaged 179.5 during the incident versus 170.1429 before it.
 - billing issue tickets increased 20.4299% versus the prior baseline.
+- Historical context: similar incident INC-035 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9861.
 - Shipping delay rate averaged 0.0602 during the incident versus 0.063 before it.
 - Warehouse backlog changed -6.466% versus the prior baseline.
 - Delivery complaints changed 1.253% versus the prior baseline.
-- API latency averaged 206.3075 ms during the incident versus 206.7886 ms before it.
-- Checkout failure rate changed -8.2873% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1672,10 +2064,12 @@ Total incidents: **64**
 - Confirm ticket volume returns to baseline after remediation.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-045: Deployment-related checkout incident
 
@@ -1690,20 +2084,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-058 - Deployment-related checkout incident:** similarity score 0.9821; root cause: Likely deployment-related checkout incident.
+- **INC-052 - Deployment-related checkout incident:** similarity score 0.9818; root cause: Likely deployment-related checkout incident.
+- **INC-037 - Deployment-related checkout incident:** similarity score 0.9699; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2026-04-13 to 2026-04-21.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 45398.3344 during the incident versus 73794.7543 before it.
 - Conversion rate changed -26.2295% versus the prior baseline.
 - Refund rate increased 143.7209% versus the prior baseline.
+- Historical context: similar incident INC-058 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9821.
 - Support tickets averaged 293.7778 during the incident versus 170.9286 before it.
 - checkout issue tickets increased 341.8254% versus the prior baseline.
 - account access tickets increased 110.5797% versus the prior baseline.
 - general support tickets increased 28.2034% versus the prior baseline.
-- Shipping delay rate averaged 0.0631 during the incident versus 0.0628 before it.
-- Warehouse backlog changed 8.6223% versus the prior baseline.
-- Delivery complaints changed 4.3995% versus the prior baseline.
+- Historical context: similar incident INC-058 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9821.
 
 ### Recommended Next Steps
 
@@ -1712,11 +2112,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-046: Inventory shortage incident
 
@@ -1731,20 +2131,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-033 - Inventory shortage incident:** similarity score 0.978; root cause: Likely inventory shortage incident.
+- **INC-011 - Inventory shortage incident:** similarity score 0.9719; root cause: Likely inventory shortage incident.
+- **INC-023 - Inventory shortage incident:** similarity score 0.9664; root cause: Likely inventory shortage incident.
+
 ### Supporting Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2026-05-04 to 2026-05-30.
 - Lost sales units reached 130.00 during the incident.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 68093.4626 during the incident versus 75817.285 before it.
 - Conversion rate changed -3.2941% versus the prior baseline.
 - Lost sales units reached 130.0 during the incident window.
 - Stockout units reached 129.0 during the incident window.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.978.
 - Support tickets averaged 169.1481 during the incident versus 163.2143 before it.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.978.
 - Shipping delay rate averaged 0.0638 during the incident versus 0.0612 before it.
 - Warehouse backlog changed -1.2231% versus the prior baseline.
-- Delivery complaints changed 3.3393% versus the prior baseline.
-- API latency averaged 207.7707 ms during the incident versus 207.7929 ms before it.
-- Checkout failure rate changed 0.5495% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1753,11 +2159,11 @@ Total incidents: **64**
 - Track lost sales and net revenue until inventory availability recovers.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-047: Latency Spike
 
@@ -1772,25 +2178,37 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-063 - Latency Spike:** similarity score 0.9835; root cause: No known deterministic root-cause pattern matched.
+- **INC-064 - Latency Spike:** similarity score 0.9628; root cause: No known deterministic root-cause pattern matched.
+- **INC-008 - Latency Spike:** similarity score 0.9531; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-06-08 to 2026-06-08.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 64253.64 during the incident versus 68609.0436 before it.
 - Conversion rate changed 5.569% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9835.
 - Support tickets averaged 130.0 during the incident versus 172.2143 before it.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9835.
 - Shipping delay rate averaged 0.0606 during the incident versus 0.0621 before it.
 - Warehouse backlog changed -2.6469% versus the prior baseline.
 - Delivery complaints changed -16.7048% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9835.
 - API latency averaged 216.8 ms during the incident versus 205.6614 ms before it.
-- Checkout failure rate changed -10.6383% versus the prior baseline.
 
 ### Recommended Next Steps
 
 - Inspect service latency by endpoint and dependency.
 - Confirm latency has returned to its rolling baseline.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Review failed deployments, rollback timing, API latency, and checkout errors.
 - Add release checks for checkout failure rate and API latency before full rollout.
 
@@ -1807,20 +2225,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-026 - Logistics disruption incident:** similarity score 0.9834; root cause: Likely logistics disruption incident.
+- **INC-039 - Logistics disruption incident:** similarity score 0.981; root cause: Likely logistics disruption incident.
+- **INC-049 - Logistics disruption incident:** similarity score 0.9782; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2026-06-15 to 2026-06-16.
 - Delivery complaints reached 48.00 versus a prior average of 29.86.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 64310.28 during the incident versus 76558.9893 before it.
 - Conversion rate changed -3.1532% versus the prior baseline.
 - Refund rate increased 27.5132% versus the prior baseline.
+- Historical context: similar incident INC-026 had root cause 'Likely logistics disruption incident' with similarity score 0.9834.
 - Support tickets averaged 173.0 during the incident versus 164.5 before it.
 - shipping complaint tickets increased 49.0433% versus the prior baseline.
+- Historical context: similar incident INC-026 had root cause 'Likely logistics disruption incident' with similarity score 0.9834.
 - Shipping delay rate averaged 0.0711 during the incident versus 0.062 before it.
 - Warehouse backlog changed 15.6857% versus the prior baseline.
-- Delivery complaints changed 49.0433% versus the prior baseline.
-- API latency averaged 211.26 ms during the incident versus 207.1521 ms before it.
-- Checkout failure rate changed 1.0929% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1829,11 +2253,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-049: Logistics disruption incident
 
@@ -1848,20 +2272,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-039 - Logistics disruption incident:** similarity score 0.9892; root cause: Likely logistics disruption incident.
+- **INC-056 - Logistics disruption incident:** similarity score 0.9799; root cause: Likely logistics disruption incident.
+- **INC-042 - Logistics disruption incident:** similarity score 0.9797; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2026-06-21 to 2026-06-29.
 - Delivery complaints reached 117.00 versus a prior average of 31.43.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 72065.2167 during the incident versus 78089.9357 before it.
 - Conversion rate changed -7.0136% versus the prior baseline.
 - Refund rate increased 48.7047% versus the prior baseline.
+- Historical context: similar incident INC-039 had root cause 'Likely logistics disruption incident' with similarity score 0.9892.
 - Support tickets averaged 230.4444 during the incident versus 164.0714 before it.
 - shipping complaint tickets increased 169.0403% versus the prior baseline.
 - general support tickets increased 10.5221% versus the prior baseline.
 - billing issue tickets increased 32.994% versus the prior baseline.
-- Shipping delay rate averaged 0.1088 during the incident versus 0.0623 before it.
-- Warehouse backlog changed 68.9639% versus the prior baseline.
-- Delivery complaints changed 169.0403% versus the prior baseline.
+- Historical context: similar incident INC-039 had root cause 'Likely logistics disruption incident' with similarity score 0.9892.
 
 ### Recommended Next Steps
 
@@ -1870,11 +2300,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-050: Checkout Failure Spike
 
@@ -1889,17 +2319,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-034 - Checkout Failure Spike:** similarity score 0.981; root cause: No known deterministic root-cause pattern matched.
+- **INC-003 - Checkout Failure Spike:** similarity score 0.9739; root cause: No known deterministic root-cause pattern matched.
+- **INC-018 - Revenue Drop:** similarity score 0.8652; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 3 anomaly event(s) across 2 anomaly type(s) were grouped within 2026-07-11 to 2026-07-14.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 70331.2925 during the incident versus 77148.965 before it.
 - Conversion rate changed -0.4762% versus the prior baseline.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - Support tickets averaged 166.0 during the incident versus 179.6429 before it.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - Shipping delay rate averaged 0.0642 during the incident versus 0.0714 before it.
 - Warehouse backlog changed -12.8046% versus the prior baseline.
 - Delivery complaints changed -24.6059% versus the prior baseline.
+- Historical context: similar incident INC-034 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.981.
 - API latency averaged 206.7525 ms during the incident versus 206.8579 ms before it.
-- Checkout failure rate changed 5.1429% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -1907,10 +2346,12 @@ Total incidents: **64**
 - Confirm checkout failure rate and revenue have returned to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Continue monitoring ticket volume and category mix after the incident.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-051: Revenue Drop
 
@@ -1925,20 +2366,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-053 - Revenue Drop:** similarity score 0.9908; root cause: No known deterministic root-cause pattern matched.
+- **INC-057 - Revenue Drop:** similarity score 0.9866; root cause: No known deterministic root-cause pattern matched.
+- **INC-015 - Revenue Drop:** similarity score 0.9855; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-07-20 to 2026-07-21.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 60591.825 during the incident versus 78948.1414 before it.
 - Conversion rate changed -10.2506% versus the prior baseline.
 - Refund rate increased 32.973% versus the prior baseline.
+- Historical context: similar incident INC-053 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9908.
 - Support tickets averaged 171.0 during the incident versus 162.7857 before it.
 - account access tickets increased 19.0721% versus the prior baseline.
 - checkout issue tickets increased 25.6409% versus the prior baseline.
 - billing issue tickets increased 17.6228% versus the prior baseline.
+- Historical context: similar incident INC-053 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9908.
 - Shipping delay rate averaged 0.0662 during the incident versus 0.0631 before it.
-- Warehouse backlog changed -0.6707% versus the prior baseline.
-- Delivery complaints changed -1.9655% versus the prior baseline.
-- API latency averaged 205.33 ms during the incident versus 205.8586 ms before it.
 
 ### Recommended Next Steps
 
@@ -1946,10 +2393,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-052: Deployment-related checkout incident
 
@@ -1964,20 +2413,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-021 - Deployment-related checkout incident:** similarity score 0.9828; root cause: Likely deployment-related checkout incident.
+- **INC-045 - Deployment-related checkout incident:** similarity score 0.9818; root cause: Likely deployment-related checkout incident.
+- **INC-058 - Deployment-related checkout incident:** similarity score 0.9807; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2026-08-03 to 2026-08-04.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 37792.75 during the incident versus 76589.3729 before it.
 - Conversion rate changed -28.3019% versus the prior baseline.
 - Refund rate increased 140.5941% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9828.
 - Support tickets averaged 292.5 during the incident versus 164.7857 before it.
 - checkout issue tickets increased 379.8383% versus the prior baseline.
 - general support tickets increased 36.5146% versus the prior baseline.
 - account access tickets increased 84.9381% versus the prior baseline.
-- Shipping delay rate averaged 0.0633 during the incident versus 0.0639 before it.
-- Warehouse backlog changed 0.7544% versus the prior baseline.
-- Delivery complaints changed 16.0976% versus the prior baseline.
+- Historical context: similar incident INC-021 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9828.
 
 ### Recommended Next Steps
 
@@ -1986,11 +2441,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-053: Revenue Drop
 
@@ -2005,18 +2460,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-051 - Revenue Drop:** similarity score 0.9908; root cause: No known deterministic root-cause pattern matched.
+- **INC-057 - Revenue Drop:** similarity score 0.9854; root cause: No known deterministic root-cause pattern matched.
+- **INC-043 - Revenue Drop:** similarity score 0.9853; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-08-17 to 2026-08-18.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 54384.505 during the incident versus 69216.1257 before it.
 - Conversion rate changed -2.2059% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9908.
 - Support tickets averaged 166.0 during the incident versus 179.1429 before it.
 - general support tickets increased 10.0807% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9908.
 - Shipping delay rate averaged 0.0635 during the incident versus 0.0629 before it.
 - Warehouse backlog changed 4.5776% versus the prior baseline.
 - Delivery complaints changed -1.7544% versus the prior baseline.
-- API latency averaged 209.095 ms during the incident versus 242.2371 ms before it.
-- Checkout failure rate changed -38.7097% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9908.
 
 ### Recommended Next Steps
 
@@ -2024,10 +2487,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-054: Revenue Drop
 
@@ -2042,19 +2507,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-025 - Revenue Drop:** similarity score 0.9777; root cause: No known deterministic root-cause pattern matched.
+- **INC-017 - Revenue Drop:** similarity score 0.9729; root cause: No known deterministic root-cause pattern matched.
+- **INC-053 - Revenue Drop:** similarity score 0.9715; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 2 anomaly event(s) across 2 anomaly type(s) were grouped within 2026-08-24 to 2026-08-25.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 63171.7 during the incident versus 75530.0843 before it.
 - Conversion rate changed 3.5294% versus the prior baseline.
+- Historical context: similar incident INC-025 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9777.
 - Support tickets averaged 165.0 during the incident versus 161.5714 before it.
 - shipping complaint tickets increased 27.5949% versus the prior baseline.
 - general support tickets increased 9.4891% versus the prior baseline.
+- Historical context: similar incident INC-025 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9777.
 - Shipping delay rate averaged 0.059 during the incident versus 0.062 before it.
 - Warehouse backlog changed -4.6056% versus the prior baseline.
 - Delivery complaints changed 27.5949% versus the prior baseline.
-- API latency averaged 207.955 ms during the incident versus 206.5936 ms before it.
-- Checkout failure rate changed 0.0% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -2062,11 +2534,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-055: Inventory shortage incident
 
@@ -2081,20 +2554,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-033 - Inventory shortage incident:** similarity score 0.9547; root cause: Likely inventory shortage incident.
+- **INC-046 - Inventory shortage incident:** similarity score 0.9537; root cause: Likely inventory shortage incident.
+- **INC-011 - Inventory shortage incident:** similarity score 0.9498; root cause: Likely inventory shortage incident.
+
 ### Supporting Evidence
 
 - Inventory shortage and revenue drop anomalies overlapped from 2026-09-01 to 2026-09-24.
 - Lost sales units reached 178.00 during the incident.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 59179.59 during the incident versus 75854.1807 before it.
 - Conversion rate changed -9.5571% versus the prior baseline.
 - Lost sales units reached 178.0 during the incident window.
 - Stockout units reached 139.0 during the incident window.
 - Refund rate increased 40.0% versus the prior baseline.
+- Historical context: similar incident INC-033 had root cause 'Likely inventory shortage incident' with similarity score 0.9547.
 - Support tickets averaged 178.7083 during the incident versus 162.7143 before it.
 - general support tickets increased 16.0584% versus the prior baseline.
 - billing issue tickets increased 22.2564% versus the prior baseline.
-- Shipping delay rate averaged 0.064 during the incident versus 0.0602 before it.
-- Warehouse backlog changed 1.4843% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -2103,11 +2582,11 @@ Total incidents: **64**
 - Track lost sales and net revenue until inventory availability recovers.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-056: Logistics disruption incident
 
@@ -2122,20 +2601,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-026 - Logistics disruption incident:** similarity score 0.9891; root cause: Likely logistics disruption incident.
+- **INC-049 - Logistics disruption incident:** similarity score 0.9799; root cause: Likely logistics disruption incident.
+- **INC-014 - Logistics disruption incident:** similarity score 0.9781; root cause: Likely logistics disruption incident.
+
 ### Supporting Evidence
 
 - Shipping delay anomalies occurred from 2026-10-03 to 2026-10-14.
 - Delivery complaints reached 165.00 versus a prior average of 32.29.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 63679.7817 during the incident versus 67252.2207 before it.
 - Conversion rate changed -5.7072% versus the prior baseline.
 - Refund rate increased 62.1005% versus the prior baseline.
+- Historical context: similar incident INC-026 had root cause 'Likely logistics disruption incident' with similarity score 0.9891.
 - Support tickets averaged 277.1667 during the incident versus 165.5714 before it.
 - shipping complaint tickets increased 300.332% versus the prior baseline.
 - general support tickets increased 11.4125% versus the prior baseline.
 - billing issue tickets increased 32.2801% versus the prior baseline.
-- Shipping delay rate averaged 0.1817 during the incident versus 0.0641 before it.
-- Warehouse backlog changed 160.1672% versus the prior baseline.
-- Delivery complaints changed 300.332% versus the prior baseline.
+- Historical context: similar incident INC-026 had root cause 'Likely logistics disruption incident' with similarity score 0.9891.
 
 ### Recommended Next Steps
 
@@ -2144,11 +2629,11 @@ Total incidents: **64**
 - Monitor shipping delay rate and delivery complaints until both return to baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-057: Revenue Drop
 
@@ -2163,18 +2648,26 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-051 - Revenue Drop:** similarity score 0.9866; root cause: No known deterministic root-cause pattern matched.
+- **INC-053 - Revenue Drop:** similarity score 0.9854; root cause: No known deterministic root-cause pattern matched.
+- **INC-027 - Revenue Drop:** similarity score 0.9836; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-10-21 to 2026-10-21.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 54860.75 during the incident versus 66560.7121 before it.
 - Conversion rate changed -7.9487% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Support tickets averaged 181.0 during the incident versus 271.0 before it.
 - checkout issue tickets increased 39.442% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 - Shipping delay rate averaged 0.0545 during the incident versus 0.1725 before it.
 - Warehouse backlog changed -66.9754% versus the prior baseline.
 - Delivery complaints changed -76.5182% versus the prior baseline.
-- API latency averaged 205.24 ms during the incident versus 207.7 ms before it.
-- Checkout failure rate changed 1.0929% versus the prior baseline.
+- Historical context: similar incident INC-051 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9866.
 
 ### Recommended Next Steps
 
@@ -2182,10 +2675,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-058: Deployment-related checkout incident
 
@@ -2200,20 +2695,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: high.
 
+### Retrieved Historical Incidents
+
+- **INC-028 - Deployment-related checkout incident:** similarity score 0.9835; root cause: Likely deployment-related checkout incident.
+- **INC-045 - Deployment-related checkout incident:** similarity score 0.9821; root cause: Likely deployment-related checkout incident.
+- **INC-052 - Deployment-related checkout incident:** similarity score 0.9807; root cause: Likely deployment-related checkout incident.
+
 ### Supporting Evidence
 
 - Latency and checkout failure anomalies occurred together from 2026-11-06 to 2026-11-19.
 - 2 failed or rollback deployment event(s) occurred within the investigation window.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 85956.3293 during the incident versus 78004.1464 before it.
 - Conversion rate changed -5.8962% versus the prior baseline.
 - Refund rate increased 38.7097% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9835.
 - Support tickets averaged 223.4286 during the incident versus 165.3571 before it.
 - checkout issue tickets increased 145.3848% versus the prior baseline.
 - general support tickets increased 24.5745% versus the prior baseline.
 - account access tickets increased 44.9198% versus the prior baseline.
-- Shipping delay rate averaged 0.0683 during the incident versus 0.0615 before it.
-- Warehouse backlog changed 14.9082% versus the prior baseline.
-- Delivery complaints changed -0.4423% versus the prior baseline.
+- Historical context: similar incident INC-028 had root cause 'Likely deployment-related checkout incident' with similarity score 0.9835.
 
 ### Recommended Next Steps
 
@@ -2222,11 +2723,11 @@ Total incidents: **64**
 - Add deployment health gates for checkout latency and failure rate.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
-- Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
 
 ## INC-059: Shipping Delay Spike
 
@@ -2241,18 +2742,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-029 - Shipping Delay Spike:** similarity score 0.9922; root cause: No known deterministic root-cause pattern matched.
+- **INC-030 - Shipping Delay Spike:** similarity score 0.9849; root cause: No known deterministic root-cause pattern matched.
+- **INC-019 - Shipping Delay Spike:** similarity score 0.9809; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-11-23 to 2026-11-23.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 77299.31 during the incident versus 88295.4671 before it.
 - Conversion rate changed 2.963% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 - Support tickets averaged 156.0 during the incident versus 222.7857 before it.
 - shipping complaint tickets increased 32.7312% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 - Shipping delay rate averaged 0.0811 during the incident versus 0.0683 before it.
 - Warehouse backlog changed 16.9439% versus the prior baseline.
 - Delivery complaints changed 32.7312% versus the prior baseline.
-- API latency averaged 200.89 ms during the incident versus 306.985 ms before it.
-- Checkout failure rate changed -61.1345% versus the prior baseline.
+- Historical context: similar incident INC-029 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9922.
 
 ### Recommended Next Steps
 
@@ -2260,11 +2769,12 @@ Total incidents: **64**
 - Notify affected customers and monitor delivery complaints.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-060: Revenue Drop
 
@@ -2279,19 +2789,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-016 - Revenue Drop:** similarity score 0.9886; root cause: No known deterministic root-cause pattern matched.
+- **INC-006 - Revenue Drop:** similarity score 0.9851; root cause: No known deterministic root-cause pattern matched.
+- **INC-040 - Revenue Drop:** similarity score 0.9768; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-12-02 to 2026-12-02.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 75858.75 during the incident versus 93158.5371 before it.
 - Conversion rate changed -16.9856% versus the prior baseline.
+- Historical context: similar incident INC-016 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9886.
 - Support tickets averaged 178.0 during the incident versus 185.2857 before it.
 - shipping complaint tickets increased 21.7391% versus the prior baseline.
 - account access tickets increased 15.0234% versus the prior baseline.
+- Historical context: similar incident INC-016 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9886.
 - Shipping delay rate averaged 0.0684 during the incident versus 0.067 before it.
 - Warehouse backlog changed -2.7629% versus the prior baseline.
 - Delivery complaints changed 21.7391% versus the prior baseline.
-- API latency averaged 201.81 ms during the incident versus 253.5671 ms before it.
-- Checkout failure rate changed -43.6306% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -2299,11 +2816,12 @@ Total incidents: **64**
 - Monitor net revenue against its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-061: Shipping Delay Spike
 
@@ -2318,20 +2836,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-062 - Shipping Delay Spike:** similarity score 0.9937; root cause: No known deterministic root-cause pattern matched.
+- **INC-059 - Shipping Delay Spike:** similarity score 0.9774; root cause: No known deterministic root-cause pattern matched.
+- **INC-029 - Shipping Delay Spike:** similarity score 0.9773; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-12-07 to 2026-12-07.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 86185.24 during the incident versus 96569.4764 before it.
 - Conversion rate changed 0.0% versus the prior baseline.
 - Refund rate increased 27.044% versus the prior baseline.
+- Historical context: similar incident INC-062 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9937.
 - Support tickets averaged 177.0 during the incident versus 164.2857 before it.
 - general support tickets increased 16.0546% versus the prior baseline.
 - account access tickets increased 27.9779% versus the prior baseline.
+- Historical context: similar incident INC-062 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9937.
 - Shipping delay rate averaged 0.0773 during the incident versus 0.066 before it.
 - Warehouse backlog changed 7.7617% versus the prior baseline.
-- Delivery complaints changed 2.8079% versus the prior baseline.
-- API latency averaged 203.71 ms during the incident versus 206.1693 ms before it.
-- Checkout failure rate changed -8.4746% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -2339,11 +2863,12 @@ Total incidents: **64**
 - Notify affected customers and monitor delivery complaints.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
 
 ## INC-062: Shipping Delay Spike
 
@@ -2358,29 +2883,39 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: high.
 - **Platform Reliability Agent:** Platform signals did not show a clear software or reliability contribution. Confidence: low.
 
+### Retrieved Historical Incidents
+
+- **INC-061 - Shipping Delay Spike:** similarity score 0.9937; root cause: No known deterministic root-cause pattern matched.
+- **INC-029 - Shipping Delay Spike:** similarity score 0.9826; root cause: No known deterministic root-cause pattern matched.
+- **INC-059 - Shipping Delay Spike:** similarity score 0.98; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-12-12 to 2026-12-12.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 123088.55 during the incident versus 97342.6014 before it.
 - Conversion rate changed 10.0467% versus the prior baseline.
+- Historical context: similar incident INC-061 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9937.
 - Support tickets averaged 164.0 during the incident versus 166.3571 before it.
 - billing issue tickets increased 24.1132% versus the prior baseline.
+- Historical context: similar incident INC-061 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9937.
 - Shipping delay rate averaged 0.0849 during the incident versus 0.066 before it.
 - Warehouse backlog changed 17.499% versus the prior baseline.
 - Delivery complaints changed 0.6536% versus the prior baseline.
-- API latency averaged 205.21 ms during the incident versus 206.0814 ms before it.
-- Checkout failure rate changed 3.4286% versus the prior baseline.
+- Historical context: similar incident INC-061 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9937.
 
 ### Recommended Next Steps
 
 - Review carrier performance and delayed shipment queues.
 - Notify affected customers and monitor delivery complaints.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Continue monitoring API latency, checkout failures, and deployment events.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 
 ## INC-063: Latency Spike
 
@@ -2395,30 +2930,39 @@ Total incidents: **64**
 - **Logistics Agent:** Logistics signals did not show a clear contribution. Confidence: low.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-047 - Latency Spike:** similarity score 0.9835; root cause: No known deterministic root-cause pattern matched.
+- **INC-064 - Latency Spike:** similarity score 0.9741; root cause: No known deterministic root-cause pattern matched.
+- **INC-008 - Latency Spike:** similarity score 0.959; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 1 anomaly event(s) across 1 anomaly type(s) were grouped within 2026-12-16 to 2026-12-16.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 93779.41 during the incident versus 101576.7836 before it.
 - Conversion rate changed -3.8813% versus the prior baseline.
+- Historical context: similar incident INC-047 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9835.
 - Support tickets averaged 173.0 during the incident versus 171.0 before it.
 - account access tickets increased 25.3196% versus the prior baseline.
 - shipping complaint tickets increased 14.9898% versus the prior baseline.
+- Historical context: similar incident INC-047 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9835.
 - Shipping delay rate averaged 0.0641 during the incident versus 0.0685 before it.
 - Warehouse backlog changed 1.3205% versus the prior baseline.
 - Delivery complaints changed 14.9898% versus the prior baseline.
-- API latency averaged 212.02 ms during the incident versus 205.6221 ms before it.
-- Checkout failure rate changed 1.1561% versus the prior baseline.
 
 ### Recommended Next Steps
 
 - Inspect service latency by endpoint and dependency.
 - Confirm latency has returned to its rolling baseline.
 - Keep monitoring revenue, conversion rate, refunds, and lost sales after the incident.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Keep monitoring delay rate, backlog, carrier utilization, and delivery complaints.
+- Check whether carrier, warehouse, and region actions from the closest retrieved incident apply here.
 - Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.
 
 ## INC-064: Latency Spike
 
@@ -2433,17 +2977,26 @@ Total incidents: **64**
 - **Logistics Agent:** Shipping or fulfillment problems likely contributed to this incident. Confidence: medium.
 - **Platform Reliability Agent:** A software release or platform issue likely contributed to this incident. Confidence: medium.
 
+### Retrieved Historical Incidents
+
+- **INC-063 - Latency Spike:** similarity score 0.9741; root cause: No known deterministic root-cause pattern matched.
+- **INC-047 - Latency Spike:** similarity score 0.9628; root cause: No known deterministic root-cause pattern matched.
+- **INC-008 - Latency Spike:** similarity score 0.95; root cause: No known deterministic root-cause pattern matched.
+
 ### Supporting Evidence
 
 - 7 anomaly event(s) across 5 anomaly type(s) were grouped within 2026-12-21 to 2026-12-31.
+- 3 similar historical incident(s) were retrieved for recommendation context.
 - Net revenue averaged 97061.89 during the incident versus 106061.1436 before it.
 - Conversion rate changed -4.4843% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9741.
 - Support tickets averaged 172.8182 during the incident versus 168.2143 before it.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9741.
 - Shipping delay rate averaged 0.0694 during the incident versus 0.0695 before it.
 - Warehouse backlog changed -0.7282% versus the prior baseline.
 - Delivery complaints changed 7.9641% versus the prior baseline.
+- Historical context: similar incident INC-063 had root cause 'No known deterministic root-cause pattern matched' with similarity score 0.9741.
 - API latency averaged 207.2136 ms during the incident versus 206.0136 ms before it.
-- Checkout failure rate changed 5.814% versus the prior baseline.
 
 ### Recommended Next Steps
 
@@ -2451,9 +3004,9 @@ Total incidents: **64**
 - Confirm latency has returned to its rolling baseline.
 - Check whether conversion rate and revenue recovered after the incident.
 - Review refunds, stockouts, and lost sales for preventable revenue leakage.
+- Compare revenue recovery against the closest retrieved historical incident.
 - Review the fastest-growing ticket categories and tag a sample of conversations.
 - Prepare customer messaging for the dominant complaint type.
+- Reuse customer messaging patterns from the closest retrieved historical incident if the complaint mix matches.
 - Review delayed orders by carrier, warehouse, and affected region.
 - Reduce warehouse backlog and contact customers with delayed deliveries.
-- Review failed deployments, rollback timing, API latency, and checkout errors.
-- Add release checks for checkout failure rate and API latency before full rollout.

@@ -95,9 +95,12 @@ def coordinate_incident_report(
     findings: list[dict[str, object]],
     forecasts: pd.DataFrame,
     shap_importance: pd.DataFrame,
+    retrieved_incidents: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     """Build one clear report from the specialist agent findings."""
     evidence: list[str] = list(incident.get("supporting_evidence", []) or [])
+    if retrieved_incidents:
+        evidence.append(f"{len(retrieved_incidents)} similar historical incident(s) were retrieved for recommendation context.")
     for finding in findings:
         evidence.extend(finding.get("supporting_evidence", []) or [])
 
@@ -109,6 +112,11 @@ def coordinate_incident_report(
         for recommendation in finding.get("recommended_next_steps", []) or []:
             if recommendation not in recommendations:
                 recommendations.append(str(recommendation))
+    for item in retrieved_incidents or []:
+        for recommendation in item.get("recommendations_used_previously", []) or []:
+            historical_recommendation = f"Historical precedent: {recommendation}"
+            if historical_recommendation not in recommendations:
+                recommendations.append(historical_recommendation)
 
     return {
         "incident_id": incident.get("incident_id"),
@@ -122,6 +130,7 @@ def coordinate_incident_report(
         "likely_cause": _likely_cause(incident, findings),
         "agent_findings": findings,
         "supporting_evidence": evidence,
+        "retrieved_historical_incidents": retrieved_incidents or [],
         "forecast_context": _top_forecast_rows(forecasts),
         "model_driver_context": _top_shap_features(shap_importance),
         "recommended_next_steps": recommendations,
@@ -134,6 +143,7 @@ def build_final_reports(
     findings_by_incident: dict[str, list[dict[str, object]]],
     forecasts: pd.DataFrame,
     shap_importance: pd.DataFrame,
+    retrieved_by_incident: dict[str, list[dict[str, object]]] | None = None,
 ) -> list[dict[str, object]]:
     return [
         coordinate_incident_report(
@@ -141,6 +151,7 @@ def build_final_reports(
             findings=findings_by_incident.get(str(incident.get("incident_id")), []),
             forecasts=forecasts,
             shap_importance=shap_importance,
+            retrieved_incidents=(retrieved_by_incident or {}).get(str(incident.get("incident_id")), []),
         )
         for incident in incidents
     ]

@@ -13,3 +13,4 @@ matplotlib
 plotly
 pytest
 openai
+sentence-transformers
