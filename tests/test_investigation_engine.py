@@ -104,3 +104,21 @@ def test_reports_include_evidence_and_recommendations(investigation_result):
     assert "### Evidence" in markdown
     assert "### Affected KPIs" in markdown
     assert "### Recommended Next Steps" in markdown
+
+
+def test_phase_11_reports_include_enriched_incident_metadata(investigation_result):
+    reports, _, markdown_path = investigation_result
+    markdown = markdown_path.read_text(encoding="utf-8")
+
+    assert len(reports) >= 200
+    assert all(report["incident_severity"] in {"low", "medium", "high", "critical"} for report in reports)
+    assert all(report["affected_region"] for report in reports)
+    assert all(report["root_cause_category"] for report in reports)
+    assert all(report["business_impact_summary"] for report in reports)
+    assert all(report["resolution_action"] for report in reports)
+    assert all(isinstance(report["resolution_success"], bool) for report in reports)
+    assert all(isinstance(report["recovery_days"], int) and report["recovery_days"] > 0 for report in reports)
+    assert all(report["affected_metrics"] for report in reports)
+    assert "**Severity:**" in markdown
+    assert "**Business impact:**" in markdown
+    assert "**Resolution:**" in markdown

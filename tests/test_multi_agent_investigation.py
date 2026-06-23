@@ -85,6 +85,14 @@ def make_incident() -> dict[str, object]:
         "main_anomaly_type": "checkout_failure_spike",
         "related_anomaly_types": ["shipping_delay_spike", "support_ticket_spike", "revenue_drop"],
         "likely_cause": "Likely deployment-related checkout incident",
+        "incident_severity": "high",
+        "affected_region": "Northeast",
+        "root_cause_category": "platform reliability",
+        "business_impact_summary": "Checkout failures reduced conversion and raised support volume.",
+        "resolution_action": "Rolled back the checkout deployment.",
+        "resolution_success": True,
+        "recovery_days": 2,
+        "affected_metrics": ["checkout_failure_rate", "net_revenue", "support_ticket_count"],
         "supporting_evidence": ["Checkout failures and latency increased together."],
         "recommended_next_steps": ["Review the failed checkout deployment."],
     }
@@ -189,6 +197,9 @@ def test_coordinator_combines_findings_correctly():
 
     assert report["incident_title"] == "Deployment-related checkout incident"
     assert report["likely_cause"] == "Likely deployment-related checkout incident"
+    assert report["incident_severity"] == "high"
+    assert report["business_impact_summary"]
+    assert report["resolution_action"] == "Rolled back the checkout deployment."
     assert len(report["agent_findings"]) == 4
     assert report["recommended_next_steps"]
     assert report["confidence_level"] in {"medium", "high"}

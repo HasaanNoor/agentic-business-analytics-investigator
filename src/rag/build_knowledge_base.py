@@ -88,6 +88,14 @@ def _confidence(incident: dict[str, object]) -> str:
     return str(incident.get("confidence_level") or incident.get("confidence") or "not specified")
 
 
+def _outcome(incident: dict[str, object]) -> str:
+    success = incident.get("resolution_success")
+    recovery_days = incident.get("recovery_days")
+    if success is None and recovery_days is None:
+        return "not specified"
+    return f"success={success}, recovery_days={recovery_days}"
+
+
 def normalize_incident(incident: dict[str, object], source_path: Path) -> dict[str, object]:
     """Normalize first-pass and multi-agent incident reports into one record shape."""
     date_range = _date_range(incident)
@@ -101,7 +109,15 @@ def normalize_incident(incident: dict[str, object], source_path: Path) -> dict[s
         "incident_type": str(incident.get("incident_title") or incident.get("title") or incident.get("main_anomaly_type")),
         "date_range": date_range,
         "anomaly_types": anomaly_types,
+        "severity": str(incident.get("incident_severity") or "not specified"),
+        "region": str(incident.get("affected_region") or "not specified"),
         "root_cause": _root_cause(incident),
+        "root_cause_category": str(incident.get("root_cause_category") or "not specified"),
+        "business_impact_summary": str(incident.get("business_impact_summary") or "not specified"),
+        "affected_metrics": _string_list(incident.get("affected_metrics")),
+        "resolution": str(incident.get("resolution_action") or "not specified"),
+        "recovery_days": incident.get("recovery_days"),
+        "outcome": _outcome(incident),
         "recommendations": _recommendations(incident),
         "confidence_level": _confidence(incident),
         "source_path": str(source_path),
@@ -120,7 +136,15 @@ def build_incident_text(record: dict[str, object]) -> str:
             f"Incident {record.get('incident_id')}: {record.get('incident_type')}",
             f"Date range: {date_range.get('start')} to {date_range.get('end')}",
             f"Anomaly types: {', '.join(anomaly_types) if anomaly_types else 'not specified'}",
+            f"Severity: {record.get('severity')}",
+            f"Region: {record.get('region')}",
             f"Root cause: {record.get('root_cause')}",
+            f"Root cause category: {record.get('root_cause_category')}",
+            f"Business impact: {record.get('business_impact_summary')}",
+            "Affected metrics: " + (", ".join(_string_list(record.get("affected_metrics"))) or "not specified"),
+            f"Resolution: {record.get('resolution')}",
+            f"Recovery time: {record.get('recovery_days')} day(s)",
+            f"Outcome: {record.get('outcome')}",
             f"Confidence level: {record.get('confidence_level')}",
             "Recommendations: " + ("; ".join(recommendations) if recommendations else "none recorded"),
         ]

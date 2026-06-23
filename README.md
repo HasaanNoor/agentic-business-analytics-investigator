@@ -128,6 +128,7 @@ outputs/reports/anomaly_events.csv
 ```
 
 The detector looks for revenue drops, latency spikes, checkout failure spikes, support ticket spikes, inventory shortage periods, and shipping delay spikes.
+It also records generated incident markers so the historical record includes smaller known incidents that may not cross a rolling statistical threshold.
 
 ## Phase 3: Deterministic Investigation Engine
 
@@ -159,6 +160,7 @@ The investigation rules recognize examples such as:
 - Latency spike plus checkout failure spike plus a failed deployment means a likely deployment-related checkout incident.
 - Inventory shortage plus lost sales plus revenue drop means a likely inventory shortage incident.
 - Shipping delay spike plus delivery complaints means a likely logistics disruption incident.
+- Refund spikes, demand surges, warehouse backlog spikes, carrier outages, supplier delays, weather disruptions, fraud spikes, and API degradation are also labeled with severity, region, root cause category, business impact, resolution action, recovery days, and outcome.
 
 ## Phase 4: Forecasting
 
@@ -408,6 +410,38 @@ python3 src/agents/multi_agent_investigation.py
 
 The final multi-agent report now includes retrieved historical incidents and labels reused recommendations as historical precedent.
 
+## Phase 11: Incident Enrichment And Larger History
+
+**What was added:** The synthetic data now covers `2024-01-01` through `2026-12-31` by default. It creates more than 200 incident records across failed deployments, inventory shortages, supplier delays, warehouse staffing shortages, carrier outages, refund spikes, API degradation, marketing campaign surges, holiday demand surges, regional weather disruptions, and fraud spikes.
+
+**Why it was added:** Two years of data and a small set of repeated incident patterns made historical comparisons too thin. A larger record gives the investigation and retrieval steps more examples to compare.
+
+**How it improves recommendations:** The system now stores how past incidents were resolved and how long recovery took. Similar incidents can reuse those lessons when generating recommendations.
+
+Each incident report now includes:
+
+- `incident_severity`
+- `affected_region`
+- `root_cause_category`
+- `business_impact_summary`
+- `resolution_action`
+- `resolution_success`
+- `recovery_days`
+- `affected_metrics`
+
+The new incident types affect realistic business metrics:
+
+- Inventory shortages and supplier delays increase stockouts and lost sales, reduce revenue, and increase inventory complaints.
+- Warehouse staffing shortages increase backlog, shipping delays, and delivery complaints.
+- Carrier outages and regional weather disruptions increase shipping delays and logistics complaints.
+- Refund spikes and fraud spikes increase refunds, reduce revenue, and increase support tickets.
+- API degradation increases latency and checkout failures, which can reduce conversion and revenue.
+- Marketing and holiday demand surges increase visitors and orders, but may also increase support volume and fulfillment pressure.
+
+RAG records now store incident type, severity, region, root cause, affected metrics, resolution, recovery time, and outcome. Retrieval results show the similar incident, similarity score, root cause, resolution, and outcome.
+
+Actionable reports now include severity, likely business impact, historical comparisons, and previous successful resolutions. This makes recommendations more specific. For example, instead of only saying to review logistics, a report can say that a similar carrier outage recovered after rerouting shipments to backup carriers in three days.
+
 ## Run The Full Local Pipeline
 
 ```bash
@@ -420,11 +454,14 @@ python3 src/forecasting/train_forecasting_models.py
 python3 src/forecasting/generate_forecasts.py
 python3 src/explainability/explain_forecasts.py
 python3 src/agents/executive_report_agent.py
+python3 src/rag/build_knowledge_base.py
 python3 src/agents/multi_agent_investigation.py
 python3 src/rag/build_knowledge_base.py
 python3 src/rag/retrieve_incidents.py
 python3 -m pytest
 ```
+
+The first RAG build creates historical context from the first-pass investigation report. The multi-agent step then uses that context. The second RAG build refreshes the knowledge base with both first-pass and multi-agent incident records.
 
 ## Phase 9 Checks
 

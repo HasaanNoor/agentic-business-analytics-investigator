@@ -17,12 +17,28 @@ ANOMALY_PRIORITY = {
     "checkout_failure_spike": 6,
     "inventory_shortage_period": 5,
     "shipping_delay_spike": 4,
+    "warehouse_backlog_spike": 4,
     "latency_spike": 3,
+    "refund_spike": 3,
+    "visitor_surge": 3,
     "revenue_drop": 2,
     "support_ticket_spike": 1,
+    "inventory_shortage": 5,
+    "supplier_delay": 5,
+    "warehouse_staffing_shortage": 4,
+    "carrier_outage": 4,
+    "regional_weather_disruption": 4,
+    "refund_spike": 3,
+    "api_degradation": 6,
+    "marketing_campaign_surge": 3,
+    "holiday_demand_surge": 3,
+    "fraud_spike": 3,
+    "failed_deployment": 6,
+    "shipping_disruption": 4,
 }
 
-SEVERITY_PRIORITY = {"low": 1, "medium": 2, "high": 3}
+SEVERITY_PRIORITY = {"low": 1, "medium": 2, "high": 3, "critical": 4}
+SEVERITY_LABELS = {1: "low", 2: "medium", 3: "high", 4: "critical"}
 
 GENERIC_RECOMMENDATIONS = {
     "checkout_failure_spike": [
@@ -49,6 +65,141 @@ GENERIC_RECOMMENDATIONS = {
         "Review support ticket categories to identify the dominant customer issue.",
         "Confirm ticket volume returns to baseline after remediation.",
     ],
+    "refund_spike": [
+        "Review refund reasons and recent billing, fraud, and delivery changes.",
+        "Confirm refund rate and net revenue return to baseline.",
+    ],
+    "visitor_surge": [
+        "Review campaign, holiday, and capacity signals for demand pressure.",
+        "Confirm conversion rate and support coverage can handle the traffic increase.",
+    ],
+    "warehouse_backlog_spike": [
+        "Review staffing, picking queues, and carrier handoff capacity.",
+        "Prioritize aged orders until backlog returns to baseline.",
+    ],
+}
+
+ENRICHMENT_BY_ANOMALY = {
+    "failed_deployment": {
+        "root_cause_category": "platform release",
+        "business_impact_summary": "A failed deployment increased reliability risk and customer impact.",
+        "resolution_action": "Rolled back the failed deployment and validated checkout health after rollback.",
+        "recovery_days": 2,
+    },
+    "api_degradation": {
+        "root_cause_category": "platform reliability",
+        "business_impact_summary": "API latency rose, checkout failures increased, and conversion rate declined.",
+        "resolution_action": "Rolled back the slow dependency and added latency alerts for the checkout path.",
+        "recovery_days": 2,
+    },
+    "checkout_failure_spike": {
+        "root_cause_category": "platform reliability",
+        "business_impact_summary": "Checkout failures reduced conversion and increased customer contacts.",
+        "resolution_action": "Rolled back the risky checkout change and added checkout health checks.",
+        "recovery_days": 2,
+    },
+    "latency_spike": {
+        "root_cause_category": "platform reliability",
+        "business_impact_summary": "API latency slowed checkout and increased support volume.",
+        "resolution_action": "Reduced API latency by rolling back the slow dependency and scaling checkout workers.",
+        "recovery_days": 2,
+    },
+    "inventory_shortage": {
+        "root_cause_category": "inventory planning",
+        "business_impact_summary": "Stockouts created lost sales and customer complaints.",
+        "resolution_action": "Transferred inventory from another warehouse and expedited replenishment.",
+        "recovery_days": 3,
+    },
+    "inventory_shortage_period": {
+        "root_cause_category": "inventory planning",
+        "business_impact_summary": "Stockouts created lost sales and customer complaints.",
+        "resolution_action": "Transferred inventory from another warehouse and expedited replenishment.",
+        "recovery_days": 3,
+    },
+    "supplier_delay": {
+        "root_cause_category": "supplier operations",
+        "business_impact_summary": "Late inbound replenishment increased stockouts and lost sales.",
+        "resolution_action": "Expedited inbound freight and split the delayed order across receiving docks.",
+        "recovery_days": 5,
+    },
+    "shipping_disruption": {
+        "root_cause_category": "logistics",
+        "business_impact_summary": "Shipping disruption increased delivery delays and customer complaints.",
+        "resolution_action": "Rerouted affected orders through backup carriers and prioritized delayed deliveries.",
+        "recovery_days": 3,
+    },
+    "shipping_delay_spike": {
+        "root_cause_category": "logistics",
+        "business_impact_summary": "Shipping delays increased delivery complaints and delayed order completion.",
+        "resolution_action": "Rerouted affected orders through backup carriers and prioritized delayed deliveries.",
+        "recovery_days": 3,
+    },
+    "warehouse_backlog_spike": {
+        "root_cause_category": "warehouse labor",
+        "business_impact_summary": "Warehouse backlog slowed fulfillment and increased logistics pressure.",
+        "resolution_action": "Added temporary warehouse shifts and cleared aged outbound orders first.",
+        "recovery_days": 4,
+    },
+    "warehouse_staffing_shortage": {
+        "root_cause_category": "warehouse labor",
+        "business_impact_summary": "Warehouse staffing gaps increased backlog and delayed shipments.",
+        "resolution_action": "Added temporary warehouse shifts and cleared aged outbound orders first.",
+        "recovery_days": 4,
+    },
+    "carrier_outage": {
+        "root_cause_category": "carrier reliability",
+        "business_impact_summary": "Carrier capacity dropped, shipping delays increased, and delivery complaints rose.",
+        "resolution_action": "Rerouted affected shipments to backup carriers and upgraded priority orders.",
+        "recovery_days": 3,
+    },
+    "regional_weather_disruption": {
+        "root_cause_category": "weather",
+        "business_impact_summary": "Regional weather slowed deliveries and increased logistics complaints.",
+        "resolution_action": "Paused delivery promises in the affected region and rerouted shipments through nearby hubs.",
+        "recovery_days": 3,
+    },
+    "refund_spike": {
+        "root_cause_category": "returns and fraud",
+        "business_impact_summary": "Refunds increased and reduced net revenue.",
+        "resolution_action": "Audited refund reasons, fixed the highest-volume cause, and reviewed suspected fraud.",
+        "recovery_days": 2,
+    },
+    "visitor_surge": {
+        "root_cause_category": "demand surge",
+        "business_impact_summary": "Traffic increased quickly, creating capacity and support pressure.",
+        "resolution_action": "Added support coverage and monitored checkout capacity during the traffic surge.",
+        "recovery_days": 1,
+    },
+    "marketing_campaign_surge": {
+        "root_cause_category": "demand generation",
+        "business_impact_summary": "Marketing traffic increased quickly and raised support and capacity pressure.",
+        "resolution_action": "Kept the campaign active while adding support coverage and checkout monitoring.",
+        "recovery_days": 1,
+    },
+    "holiday_demand_surge": {
+        "root_cause_category": "seasonal demand",
+        "business_impact_summary": "Holiday demand increased orders, backlog, and support contacts.",
+        "resolution_action": "Opened holiday fulfillment lanes and moved high-demand SKUs closer to customers.",
+        "recovery_days": 4,
+    },
+    "fraud_spike": {
+        "root_cause_category": "fraud controls",
+        "business_impact_summary": "Fraud reviews and refund requests increased, reducing completed revenue.",
+        "resolution_action": "Tightened fraud rules, manually reviewed held orders, and refunded confirmed fraud cases.",
+        "recovery_days": 3,
+    },
+    "support_ticket_spike": {
+        "root_cause_category": "customer experience",
+        "business_impact_summary": "Customer contacts increased and required additional support review.",
+        "resolution_action": "Triaged the largest ticket category and published customer-facing updates.",
+        "recovery_days": 2,
+    },
+    "revenue_drop": {
+        "root_cause_category": "sales impact",
+        "business_impact_summary": "Net revenue fell below its normal range during the incident.",
+        "resolution_action": "Reviewed conversion, stockout, refund, and logistics signals before selecting remediation.",
+        "recovery_days": 3,
+    },
 }
 
 
@@ -200,6 +351,61 @@ def _main_anomaly_type(events: pd.DataFrame) -> str:
     return str(ranked.iloc[0]["anomaly_type"])
 
 
+def _incident_severity(events: pd.DataFrame) -> str:
+    rank = int(events["severity"].map(SEVERITY_PRIORITY).fillna(1).max())
+    distinct_types = int(events["anomaly_type"].nunique())
+    event_count = int(len(events))
+    if rank >= 3 and (event_count >= 8 or distinct_types >= 4):
+        return "critical"
+    if rank >= 3 or event_count >= 5 or distinct_types >= 3:
+        return "high"
+    if rank >= 2 or event_count >= 3:
+        return "medium"
+    return "low"
+
+
+def _affected_region(kpi_slice: pd.DataFrame) -> str:
+    region_columns = {
+        "east_region_disruption": "Northeast",
+        "west_region_disruption": "West",
+        "south_region_disruption": "Southeast",
+        "central_region_disruption": "Midwest",
+    }
+    scores = {
+        region: int(kpi_slice[column].sum())
+        for column, region in region_columns.items()
+        if column in kpi_slice.columns
+    }
+    if not scores or max(scores.values()) == 0:
+        return "All regions"
+    return sorted(scores, key=lambda region: (-scores[region], region))[0]
+
+
+def _enrichment_for_incident(
+    main_type: str,
+    events: pd.DataFrame,
+    kpi_slice: pd.DataFrame,
+    classification: dict[str, object],
+) -> dict[str, object]:
+    template = dict(ENRICHMENT_BY_ANOMALY.get(main_type, ENRICHMENT_BY_ANOMALY["support_ticket_spike"]))
+    affected_metrics = sorted(set(events["metric"].astype(str).tolist()))
+    for metric in ("net_revenue", "support_ticket_count", "refund_rate", "lost_sales_units", "delivery_complaints"):
+        if metric in kpi_slice.columns and metric not in affected_metrics:
+            affected_metrics.append(metric)
+    severity = _incident_severity(events)
+    recovery_days = int(template["recovery_days"]) + (1 if severity in {"high", "critical"} else 0)
+    return {
+        "incident_severity": severity,
+        "affected_region": _affected_region(kpi_slice),
+        "root_cause_category": template["root_cause_category"],
+        "business_impact_summary": template["business_impact_summary"],
+        "resolution_action": template["resolution_action"],
+        "resolution_success": severity != "critical",
+        "recovery_days": recovery_days,
+        "affected_metrics": affected_metrics,
+    }
+
+
 def _is_failed_deployment(deployment: dict[str, object]) -> bool:
     return deployment.get("status") in {"failed", "rollback_success"} or deployment.get("incident_type") == "failed_deployment"
 
@@ -281,7 +487,89 @@ def classify_incident(
             ],
         }
 
+    refunds = _kpi_signal(kpis, "refund_rate", start_date, end_date)
+    if "refund_spike" in types and refunds["maximum"] > max(refunds["baseline_average"] * 1.25, refunds["baseline_average"] + 0.01):
+        return {
+            "main_anomaly_type": "refund_spike",
+            "title": "Refund spike incident",
+            "likely_cause": "Likely refund, billing, or fraud incident",
+            "possible_contributing_factors": [
+                "Refund rate rose above baseline",
+                "Billing or fraud-related support contacts may have increased",
+                "Net revenue may be reduced by higher refunds",
+            ],
+            "supporting_evidence": [
+                f"Refund anomalies occurred from {start_date.date()} to {end_date.date()}.",
+                f"Refund rate reached {refunds['maximum']:.4f} versus a prior average of {refunds['baseline_average']:.4f}.",
+            ],
+            "recommended_next_steps": [
+                "Review refund reasons, billing changes, fraud decisions, and recent delivery problems.",
+                "Prioritize customer outreach for confirmed billing or fraud issues.",
+                "Monitor refund rate and net revenue until both recover.",
+            ],
+        }
+
+    visitors = _kpi_signal(kpis, "website_visitors", start_date, end_date)
+    if "visitor_surge" in types:
+        return {
+            "main_anomaly_type": "visitor_surge",
+            "title": "Demand surge incident",
+            "likely_cause": "Likely marketing campaign or holiday demand surge",
+            "possible_contributing_factors": [
+                "Website visitors rose above baseline",
+                "Support volume or fulfillment pressure may have increased",
+            ],
+            "supporting_evidence": [
+                f"Visitor surge anomalies occurred from {start_date.date()} to {end_date.date()}.",
+                f"Website visitors reached {visitors['maximum']:.2f} versus a prior average of "
+                f"{visitors['baseline_average']:.2f}.",
+            ],
+            "recommended_next_steps": [
+                "Confirm whether a campaign, holiday event, or promotion drove the traffic increase.",
+                "Add support coverage and monitor checkout, inventory, and fulfillment capacity.",
+                "Keep successful demand actions active only while service levels remain healthy.",
+            ],
+        }
+
+    backlog = _kpi_signal(kpis, "warehouse_backlog", start_date, end_date)
+    if "warehouse_backlog_spike" in types:
+        return {
+            "main_anomaly_type": "warehouse_backlog_spike",
+            "title": "Warehouse backlog incident",
+            "likely_cause": "Likely warehouse staffing or fulfillment capacity incident",
+            "possible_contributing_factors": [
+                "Warehouse backlog rose above baseline",
+                "Shipping delays or delivery complaints may have followed",
+            ],
+            "supporting_evidence": [
+                f"Warehouse backlog anomalies occurred from {start_date.date()} to {end_date.date()}.",
+                f"Warehouse backlog reached {backlog['maximum']:.2f} versus a prior average of "
+                f"{backlog['baseline_average']:.2f}.",
+            ],
+            "recommended_next_steps": [
+                "Add temporary warehouse coverage and clear the oldest outbound orders first.",
+                "Review carrier handoff capacity and staffing schedule gaps.",
+                "Monitor backlog, shipping delay rate, and delivery complaints until recovery.",
+            ],
+        }
+
     main_type = _main_anomaly_type(events)
+    if main_type in ENRICHMENT_BY_ANOMALY:
+        template = ENRICHMENT_BY_ANOMALY[main_type]
+        return {
+            "main_anomaly_type": main_type,
+            "title": main_type.replace("_", " ").title() + " Incident",
+            "likely_cause": f"Likely {template['root_cause_category']} incident",
+            "possible_contributing_factors": sorted(types),
+            "supporting_evidence": [
+                f"{len(events)} event(s) for {main_type} were grouped within {start_date.date()} to {end_date.date()}."
+            ],
+            "recommended_next_steps": [
+                str(template["resolution_action"]),
+                "Compare the current incident with similar historical incidents before finalizing recommendations.",
+                "Monitor affected metrics until recovery is confirmed.",
+            ],
+        }
     return {
         "main_anomaly_type": main_type,
         "title": main_type.replace("_", " ").title(),
@@ -301,7 +589,7 @@ def build_incident_reports(
     kpis: pd.DataFrame,
     anomalies: pd.DataFrame,
     deployments: pd.DataFrame,
-    window_days: int = 3,
+    window_days: int = 1,
 ) -> list[dict[str, object]]:
     reports: list[dict[str, object]] = []
     for incident_number, events in enumerate(group_anomalies_into_incidents(anomalies, window_days), start=1):
@@ -311,6 +599,7 @@ def build_incident_reports(
         deployment_records = _deployment_records(deployments, start_date, end_date)
         classification = classify_incident(events, kpis, deployment_records)
         main_type = str(classification["main_anomaly_type"])
+        enrichment = _enrichment_for_incident(main_type, events, kpi_slice, classification)
         related_types = sorted(set(events["anomaly_type"]) - {main_type})
         contextual_metrics: list[str] = []
         if classification["likely_cause"] == "Likely deployment-related checkout incident":
@@ -342,6 +631,7 @@ def build_incident_reports(
                 "main_anomaly_type": main_type,
                 "related_anomaly_types": related_types,
                 "likely_cause": classification["likely_cause"],
+                **enrichment,
                 "affected_kpis": _summarize_affected_kpis(events, kpi_slice, contextual_metrics),
                 "possible_contributing_factors": classification["possible_contributing_factors"],
                 "supporting_evidence": classification["supporting_evidence"],
@@ -379,7 +669,13 @@ def write_markdown_summary(reports: list[dict[str, object]], output_path: Path, 
                 f"## {report['incident_id']}: {report['title']}",
                 "",
                 f"- **Date range:** {report['incident_start_date']} to {report['incident_end_date']}",
+                f"- **Severity:** {report['incident_severity']}",
+                f"- **Affected region:** {report['affected_region']}",
                 f"- **Likely cause:** {report['likely_cause']}",
+                f"- **Root cause category:** {report['root_cause_category']}",
+                f"- **Business impact:** {report['business_impact_summary']}",
+                f"- **Resolution:** {report['resolution_action']}",
+                f"- **Outcome:** success {report['resolution_success']}, recovery {report['recovery_days']} day(s)",
                 f"- **Main anomaly:** `{report['main_anomaly_type']}`",
                 f"- **Related anomalies:** "
                 + (", ".join(f"`{item}`" for item in report["related_anomaly_types"]) or "None"),
@@ -410,7 +706,7 @@ def run_investigation(
     deployment_path: Path,
     json_output_path: Path,
     markdown_output_path: Path,
-    window_days: int = 3,
+    window_days: int = 1,
 ) -> list[dict[str, object]]:
     kpis, anomalies, deployments = load_inputs(kpi_path, anomaly_path, deployment_path)
     reports = build_incident_reports(kpis, anomalies, deployments, window_days=window_days)
@@ -426,7 +722,7 @@ def parse_args(args: Iterable[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--deployment-path", type=Path, default=Path("data/synthetic/deployment_events.csv"))
     parser.add_argument("--json-output-path", type=Path, default=Path("outputs/reports/investigation_reports.json"))
     parser.add_argument("--markdown-output-path", type=Path, default=Path("outputs/reports/investigation_summary.md"))
-    parser.add_argument("--window-days", type=int, default=3, help="Maximum gap between consecutive incident events.")
+    parser.add_argument("--window-days", type=int, default=1, help="Maximum gap between consecutive incident events.")
     return parser.parse_args(args)
 
 

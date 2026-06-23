@@ -23,8 +23,8 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     summary = build_daily_kpi_summary(load_synthetic_datasets(data_dir))
 
     assert list(summary.columns) == KPI_COLUMNS
-    assert len(summary) == 730
-    assert summary["date"].min() == pd.Timestamp("2025-01-01")
+    assert len(summary) == 1096
+    assert summary["date"].min() == pd.Timestamp("2024-01-01")
     assert summary["date"].max() == pd.Timestamp("2026-12-31")
     assert summary["date"].is_monotonic_increasing
     assert summary["net_revenue"].gt(0).all()
@@ -44,6 +44,9 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
     assert summary["deployment_event_flag"].isin([0, 1]).all()
     assert summary["inventory_shortage_flag"].isin([0, 1]).all()
     assert summary["shipping_disruption_flag"].isin([0, 1]).all()
+    assert summary["business_incident_flag"].isin([0, 1]).all()
+    assert summary["incident_signal"].isin([0, 1]).all()
+    assert summary["dominant_incident_type"].notna().all()
     assert summary["east_region_disruption"].isin([0, 1]).all()
     assert summary["west_region_disruption"].isin([0, 1]).all()
     assert summary["south_region_disruption"].isin([0, 1]).all()
@@ -56,7 +59,7 @@ def test_build_daily_kpi_summary_has_expected_columns_and_dates(tmp_path):
         "general_support_tickets",
     ]
     assert summary["support_ticket_count"].equals(summary[category_columns].sum(axis=1))
-    assert summary["deployment_event_flag"].sum() == 14
+    assert summary["deployment_event_flag"].sum() >= 14
     assert summary["inventory_shortage_flag"].sum() > 0
     assert summary["shipping_disruption_flag"].sum() > 0
 
@@ -86,9 +89,12 @@ def test_kpi_summary_aggregates_hourly_and_entity_data_correctly(tmp_path):
     assert first_day["avg_api_latency_ms"] == round(expected_latency, 2)
     assert first_day["checkout_failure_rate"] == round(expected_checkout_rate, 4)
     assert first_day["stockout_units"] == expected_stockouts
-    assert first_day["website_visitors"] == datasets["sales"].loc[0, "website_visitors"]
-    assert first_day["active_customers"] == datasets["sales"].loc[0, "active_customers"]
-    assert first_day["average_order_value"] == datasets["sales"].loc[0, "average_order_value"]
+    sales = datasets["sales"].copy()
+    sales["date"] = pd.to_datetime(sales["date"])
+    sales_day = sales[sales["date"] == pd.Timestamp("2025-01-01")].iloc[0]
+    assert first_day["website_visitors"] == sales_day["website_visitors"]
+    assert first_day["active_customers"] == sales_day["active_customers"]
+    assert first_day["average_order_value"] == sales_day["average_order_value"]
 
     support = datasets["support"].copy()
     support["date"] = pd.to_datetime(support["date"])

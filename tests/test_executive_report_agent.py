@@ -24,6 +24,14 @@ def write_phase8_inputs(root: Path) -> dict[str, Path]:
                 "main_anomaly_type": "shipping_delay_spike",
                 "related_anomaly_types": ["support_ticket_spike"],
                 "likely_cause": "Likely logistics disruption incident",
+                "incident_severity": "high",
+                "affected_region": "Northeast",
+                "root_cause_category": "logistics",
+                "business_impact_summary": "Shipping delays increased delivery complaints.",
+                "resolution_action": "Rerouted affected orders through backup carriers.",
+                "resolution_success": True,
+                "recovery_days": 3,
+                "affected_metrics": ["shipping_delay_rate", "delivery_complaints"],
                 "affected_kpis": [
                     {
                         "metric": "shipping_delay_rate",
@@ -193,6 +201,9 @@ def test_report_includes_incidents_forecasts_shap_drivers_and_recommendations(tm
     assert "warehouse_backlog" in report
     assert "shipping_delay_rate" in report
     assert "Review carrier performance and delayed shipment queues." in report
+    assert "Severity: high" in report
+    assert "Business impact: Shipping delays increased delivery complaints." in report
+    assert "Previous successful resolution: Rerouted affected orders through backup carriers." in report
     assert "Recommended Actions" in report
 
 

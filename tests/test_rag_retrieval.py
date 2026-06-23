@@ -48,6 +48,14 @@ def make_incidents() -> list[dict[str, object]]:
             "main_anomaly_type": "checkout_failure_spike",
             "related_anomaly_types": ["revenue_drop", "support_ticket_spike"],
             "likely_cause": "Likely deployment-related checkout incident",
+            "incident_severity": "high",
+            "affected_region": "Northeast",
+            "root_cause_category": "platform reliability",
+            "business_impact_summary": "Checkout failures reduced conversion and increased customer contacts.",
+            "resolution_action": "Rolled back the checkout deployment.",
+            "resolution_success": True,
+            "recovery_days": 2,
+            "affected_metrics": ["checkout_failure_rate", "net_revenue", "support_ticket_count"],
             "recommended_next_steps": ["Roll back the checkout deployment.", "Watch revenue recovery."],
         },
         {
@@ -100,6 +108,9 @@ def test_knowledge_base_builds_successfully(tmp_path):
     assert len(knowledge_base["text_chunks"]) == 3
     assert knowledge_base["embeddings"].shape[0] == 3
     assert knowledge_base["metadata"][0]["recommendations"]
+    assert knowledge_base["metadata"][0]["severity"] == "high"
+    assert knowledge_base["metadata"][0]["resolution"] == "Rolled back the checkout deployment."
+    assert knowledge_base["metadata"][0]["outcome"] == "success=True, recovery_days=2"
 
 
 def test_retrieval_returns_results_and_similarity_scores(tmp_path):
@@ -127,6 +138,9 @@ def test_retrieval_returns_results_and_similarity_scores(tmp_path):
     assert len(results) == 3
     assert all(isinstance(result["similarity_score"], float) for result in results)
     assert results[0]["metadata"]["incident_id"] == "INC-001"
+    assert results[0]["root_cause"]
+    assert results[0]["resolution"]
+    assert results[0]["outcome"]
     assert results[0]["recommendations_used_previously"]
 
 
@@ -164,4 +178,7 @@ def test_retrieval_examples_output_file_is_created(tmp_path):
     assert examples_path.exists()
     assert "Current incident" in markdown
     assert "Similarity score" in markdown
+    assert "Root cause" in markdown
+    assert "Resolution" in markdown
+    assert "Outcome" in markdown
     assert "Retrieved recommendations" in markdown

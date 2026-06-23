@@ -82,6 +82,14 @@ def summarize_incidents(payload: dict[str, object], max_incidents: int = 5) -> l
                 "date_range": f"{incident.get('incident_start_date')} to {incident.get('incident_end_date')}",
                 "main_anomaly_type": incident.get("main_anomaly_type"),
                 "related_anomaly_types": incident.get("related_anomaly_types", []),
+                "incident_severity": incident.get("incident_severity", "not specified"),
+                "affected_region": incident.get("affected_region", "not specified"),
+                "root_cause_category": incident.get("root_cause_category", "not specified"),
+                "business_impact_summary": incident.get("business_impact_summary", "not specified"),
+                "resolution_action": incident.get("resolution_action", "not specified"),
+                "resolution_success": incident.get("resolution_success"),
+                "recovery_days": incident.get("recovery_days"),
+                "affected_metrics": incident.get("affected_metrics", []),
                 "likely_cause": incident.get("likely_cause"),
                 "affected_kpis": [
                     {
@@ -298,7 +306,7 @@ def generate_fallback_report(evidence: dict[str, object]) -> str:
         "",
         f"The deterministic pipeline found {evidence.get('incident_count', 0)} grouped incident(s). "
         f"This report summarizes the top {len(incidents)} incident(s), the forecast outlook, model drivers, "
-        "and recommended actions from structured pipeline outputs only.",
+        "historical incident comparisons, and recommended actions from structured pipeline outputs only.",
         "",
         "## Key Incidents",
         "",
@@ -310,7 +318,12 @@ def generate_fallback_report(evidence: dict[str, object]) -> str:
                 f"### {incident['incident_id']}: {incident['title']}",
                 "",
                 f"- Date range: {incident['date_range']}",
+                f"- Severity: {incident.get('incident_severity')}",
+                f"- Affected region: {incident.get('affected_region')}",
                 f"- Likely cause: {incident['likely_cause']}",
+                f"- Business impact: {incident.get('business_impact_summary')}",
+                f"- Previous successful resolution: {incident.get('resolution_action')} "
+                f"(success {incident.get('resolution_success')}, recovery {incident.get('recovery_days')} day(s))",
                 f"- Main anomaly: `{incident['main_anomaly_type']}`",
                 f"- Affected KPIs: {_format_kpi_list(incident.get('affected_kpis', []))}",
                 "- Evidence: " + " ".join(str(item) for item in incident.get("supporting_evidence", []) or []),

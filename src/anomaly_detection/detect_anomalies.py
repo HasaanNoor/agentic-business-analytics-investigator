@@ -40,7 +40,25 @@ ANOMALY_RULES = (
     AnomalyRule("support_ticket_spike", "support_ticket_count", "spike", 2.0, 0.25),
     AnomalyRule("inventory_shortage_period", "stockout_units", "spike", 1.5, 0.25, minimum_value=1.0),
     AnomalyRule("shipping_delay_spike", "shipping_delay_rate", "spike", 2.0, 0.35),
+    AnomalyRule("refund_spike", "refund_rate", "spike", 2.0, 0.30),
+    AnomalyRule("visitor_surge", "website_visitors", "spike", 2.0, 0.18),
+    AnomalyRule("warehouse_backlog_spike", "warehouse_backlog", "spike", 2.0, 0.35),
 )
+
+INCIDENT_MARKER_TYPES = {
+    "inventory_shortage",
+    "supplier_delay",
+    "warehouse_staffing_shortage",
+    "carrier_outage",
+    "refund_spike",
+    "api_degradation",
+    "marketing_campaign_surge",
+    "holiday_demand_surge",
+    "regional_weather_disruption",
+    "fraud_spike",
+    "failed_deployment",
+    "shipping_disruption",
+}
 
 
 class AnomalyDetectionError(RuntimeError):
@@ -109,6 +127,26 @@ def detect_anomalies(summary: pd.DataFrame, window: int = 14, min_periods: int =
         raise AnomalyDetectionError(f"KPI summary missing required metrics: {', '.join(missing_metrics)}")
 
     events: list[dict[str, object]] = []
+    if {"dominant_incident_type", "incident_signal"} <= set(summary.columns):
+        previous_type = "normal"
+        for row in summary.to_dict("records"):
+            incident_type = str(row.get("dominant_incident_type") or "normal")
+            if incident_type in INCIDENT_MARKER_TYPES and incident_type != previous_type:
+                events.append(
+                    {
+                        "date": row["date"],
+                        "anomaly_type": incident_type,
+                        "metric": "incident_signal",
+                        "value": 1.0,
+                        "rolling_mean": 0.0,
+                        "rolling_std": 0.0,
+                        "z_score": 0.0,
+                        "percent_change": 1.0,
+                        "severity": "medium",
+                        "reason": f"Generated incident marker for {incident_type}.",
+                    }
+                )
+            previous_type = incident_type
     for rule in ANOMALY_RULES:
         scored = score_metric(summary, rule.metric, window=window, min_periods=min_periods)
         anomalies = scored[rule_mask(scored, rule)].copy()

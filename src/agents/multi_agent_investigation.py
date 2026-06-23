@@ -153,7 +153,13 @@ def write_markdown_summary(reports: list[dict[str, object]], output_path: Path) 
                 f"## {report['incident_id']}: {report['incident_title']}",
                 "",
                 f"- **Date range:** {report['date_range']['start']} to {report['date_range']['end']}",
+                f"- **Severity:** {report.get('incident_severity')}",
+                f"- **Affected region:** {report.get('affected_region')}",
                 f"- **Likely cause:** {report['likely_cause']}",
+                f"- **Root cause category:** {report.get('root_cause_category')}",
+                f"- **Business impact:** {report.get('business_impact_summary')}",
+                f"- **Resolution:** {report.get('resolution_action')}",
+                f"- **Outcome:** success {report.get('resolution_success')}, recovery {report.get('recovery_days')} day(s)",
                 f"- **Confidence level:** {report['confidence_level']}",
                 "",
                 "### Findings From Each Agent",
@@ -168,7 +174,8 @@ def write_markdown_summary(reports: list[dict[str, object]], output_path: Path) 
                 metadata = item["metadata"]
                 lines.append(
                     f"- **{metadata.get('incident_id')} - {metadata.get('incident_type')}:** "
-                    f"similarity score {item['similarity_score']}; root cause: {metadata.get('root_cause')}."
+                    f"similarity score {item['similarity_score']}; root cause: {metadata.get('root_cause')}; "
+                    f"resolution: {metadata.get('resolution')}; outcome: {metadata.get('outcome')}."
                 )
         lines.extend(["", "### Supporting Evidence", ""])
         lines.extend(f"- {item}" for item in report["supporting_evidence"][:12])

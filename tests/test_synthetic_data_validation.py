@@ -98,6 +98,26 @@ def test_generated_operational_data_includes_phase_7_drivers():
     assert shipping["warehouse_backlog"].ge(0).all()
 
 
+def test_generated_data_covers_three_years_and_new_incident_types():
+    datasets = generate_all_datasets(seed=42)
+    sales = datasets["sales_metrics_daily"]
+
+    assert str(sales["date"].min()) == "2024-01-01"
+    assert str(sales["date"].max()) == "2026-12-31"
+    assert {
+        "inventory_shortage",
+        "supplier_delay",
+        "warehouse_staffing_shortage",
+        "carrier_outage",
+        "refund_spike",
+        "api_degradation",
+        "marketing_campaign_surge",
+        "holiday_demand_surge",
+        "regional_weather_disruption",
+        "fraud_spike",
+    }.issubset(set(sales["incident_type"]))
+
+
 def test_validation_reports_missing_required_file(tmp_path):
     data_dir = tmp_path / "synthetic"
     write_default_synthetic_data(data_dir)

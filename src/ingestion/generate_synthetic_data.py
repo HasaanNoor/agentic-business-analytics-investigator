@@ -48,10 +48,26 @@ class ShippingIncident:
 
 
 @dataclass(frozen=True)
+class BusinessIncident:
+    start: pd.Timestamp
+    end: pd.Timestamp
+    incident_type: str
+    severity: float
+    affected_region: str
+    root_cause_category: str
+    business_impact_summary: str
+    resolution_action: str
+    resolution_success: bool
+    recovery_days: int
+    affected_metrics: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class IncidentCatalog:
     deployments: tuple[DeploymentIncident, ...]
     inventory_shortages: tuple[InventoryIncident, ...]
     shipping_disruptions: tuple[ShippingIncident, ...]
+    business_incidents: tuple[BusinessIncident, ...] = ()
 
 
 SKUS = (
@@ -70,6 +86,109 @@ REGION_DISRUPTION_COLUMNS = {
     "Midwest": "central_region_disruption",
 }
 CARRIERS = ("ShipFast", "ParcelPro", "Northline")
+
+
+INCIDENT_TYPE_DEFINITIONS = {
+    "inventory_shortage": {
+        "root_cause_category": "inventory planning",
+        "business_impact_summary": "Stockouts increased, revenue softened, and customers contacted support about unavailable products.",
+        "resolution_action": "Transferred inventory from another warehouse and raised the next purchase order.",
+        "affected_metrics": ("stockout_units", "lost_sales_units", "net_revenue", "inventory_complaints"),
+        "recovery_days": 3,
+    },
+    "supplier_delay": {
+        "root_cause_category": "supplier operations",
+        "business_impact_summary": "Inbound replenishment arrived late, increasing stockouts and lost sales.",
+        "resolution_action": "Expedited inbound freight and split the delayed order across two receiving docks.",
+        "affected_metrics": ("stockout_units", "lost_sales_units", "net_revenue", "support_ticket_count"),
+        "recovery_days": 5,
+    },
+    "warehouse_staffing_shortage": {
+        "root_cause_category": "warehouse labor",
+        "business_impact_summary": "Warehouse backlog increased, shipments slowed, and delivery complaints rose.",
+        "resolution_action": "Added temporary warehouse shifts and prioritized aged outbound orders.",
+        "affected_metrics": ("warehouse_backlog", "shipping_delay_rate", "delivery_complaints", "support_ticket_count"),
+        "recovery_days": 4,
+    },
+    "carrier_outage": {
+        "root_cause_category": "carrier reliability",
+        "business_impact_summary": "Carrier capacity dropped, shipping delays increased, and customers reported late deliveries.",
+        "resolution_action": "Rerouted affected shipments to backup carriers and upgraded service for priority orders.",
+        "affected_metrics": ("shipping_delay_rate", "carrier_capacity_utilization", "delivery_complaints"),
+        "recovery_days": 3,
+    },
+    "refund_spike": {
+        "root_cause_category": "returns and billing",
+        "business_impact_summary": "Refund requests rose and net revenue was reduced by higher returns.",
+        "resolution_action": "Audited refund reasons, fixed the billing rule, and contacted affected customers.",
+        "affected_metrics": ("refund_rate", "refund_requests", "net_revenue", "billing_issue_tickets"),
+        "recovery_days": 2,
+    },
+    "api_degradation": {
+        "root_cause_category": "platform reliability",
+        "business_impact_summary": "API latency rose, checkout failures increased, and conversion rate declined.",
+        "resolution_action": "Rolled back the slow dependency and added latency alerts for the checkout path.",
+        "affected_metrics": ("avg_api_latency_ms", "checkout_failure_rate", "conversion_rate", "net_revenue"),
+        "recovery_days": 2,
+    },
+    "marketing_campaign_surge": {
+        "root_cause_category": "demand generation",
+        "business_impact_summary": "Visitors increased quickly, conversions improved slightly, and support volume rose.",
+        "resolution_action": "Kept the campaign active while adding support coverage and checkout monitoring.",
+        "affected_metrics": ("website_visitors", "conversion_rate", "support_ticket_count", "net_revenue"),
+        "recovery_days": 1,
+    },
+    "holiday_demand_surge": {
+        "root_cause_category": "seasonal demand",
+        "business_impact_summary": "Demand exceeded normal seasonal levels, increasing orders, backlog, and support load.",
+        "resolution_action": "Opened holiday fulfillment lanes and moved high-demand SKUs closer to customers.",
+        "affected_metrics": ("website_visitors", "orders", "warehouse_backlog", "support_ticket_count"),
+        "recovery_days": 4,
+    },
+    "regional_weather_disruption": {
+        "root_cause_category": "weather",
+        "business_impact_summary": "A regional weather event slowed deliveries and increased logistics complaints.",
+        "resolution_action": "Paused promises in the affected region and rerouted shipments through nearby hubs.",
+        "affected_metrics": ("shipping_delay_rate", "delivery_complaints", "warehouse_backlog"),
+        "recovery_days": 3,
+    },
+    "fraud_spike": {
+        "root_cause_category": "fraud controls",
+        "business_impact_summary": "Fraud reviews and refund requests increased, reducing completed revenue.",
+        "resolution_action": "Tightened fraud rules, manually reviewed held orders, and refunded confirmed fraud cases.",
+        "affected_metrics": ("refund_rate", "checkout_failure_rate", "support_ticket_count", "net_revenue"),
+        "recovery_days": 3,
+    },
+}
+
+
+def generate_business_incidents(start_date: str, end_date: str) -> tuple[BusinessIncident, ...]:
+    """Create deterministic business incidents spaced far enough apart for investigation grouping."""
+    starts = pd.date_range(pd.Timestamp(start_date) + pd.Timedelta(days=12), pd.Timestamp(end_date) - pd.Timedelta(days=2), freq="5D")
+    incident_types = tuple(INCIDENT_TYPE_DEFINITIONS)
+    records: list[BusinessIncident] = []
+    for index, start in enumerate(starts):
+        incident_type = incident_types[index % len(incident_types)]
+        definition = INCIDENT_TYPE_DEFINITIONS[incident_type]
+        duration_days = 1 + (index % 2)
+        severity = 0.75 + 0.15 * (index % 5)
+        region = REGIONS[index % len(REGIONS)]
+        records.append(
+            BusinessIncident(
+                start=start.normalize(),
+                end=(start + pd.Timedelta(days=duration_days)).normalize(),
+                incident_type=incident_type,
+                severity=round(severity, 2),
+                affected_region=region,
+                root_cause_category=str(definition["root_cause_category"]),
+                business_impact_summary=str(definition["business_impact_summary"]),
+                resolution_action=str(definition["resolution_action"]),
+                resolution_success=(index % 11 != 0),
+                recovery_days=int(definition["recovery_days"]) + (index % 2),
+                affected_metrics=tuple(definition["affected_metrics"]),
+            )
+        )
+    return tuple(records)
 
 
 PHASE_6_INCIDENTS = IncidentCatalog(
@@ -247,17 +366,52 @@ def shipping_severity(values: pd.DatetimeIndex, incidents: IncidentCatalog) -> n
     return effect
 
 
+def business_effect_by_type(values: pd.DatetimeIndex, incidents: IncidentCatalog, incident_type: str) -> np.ndarray:
+    effect = np.zeros(len(values), dtype=float)
+    normalized_values = values.normalize() if hasattr(values, "normalize") else values
+    for incident in incidents.business_incidents:
+        if incident.incident_type != incident_type:
+            continue
+        effect += np.where(in_window(normalized_values, incident.start, incident.end), incident.severity, 0.0)
+    return effect
+
+
+def business_effect(values: pd.DatetimeIndex, incidents: IncidentCatalog, incident_types: Iterable[str]) -> np.ndarray:
+    effect = np.zeros(len(values), dtype=float)
+    for incident_type in incident_types:
+        effect += business_effect_by_type(values, incidents, incident_type)
+    return effect
+
+
+def business_incident_type_for_days(dates: pd.DatetimeIndex, incidents: IncidentCatalog) -> np.ndarray:
+    incident_type = np.full(len(dates), "normal", dtype=object)
+    for incident in incidents.business_incidents:
+        mask = in_window(dates, incident.start, incident.end)
+        incident_type[mask] = incident.incident_type
+    return incident_type
+
+
+def first_active_business_incident(date: pd.Timestamp, incidents: IncidentCatalog) -> BusinessIncident | None:
+    for incident in incidents.business_incidents:
+        if incident.start <= date.normalize() <= incident.end:
+            return incident
+    return None
+
+
 def incident_type_for_days(
     dates: pd.DatetimeIndex,
+    incidents: IncidentCatalog,
     deployment_effect: np.ndarray | None = None,
     inventory_effect: np.ndarray | None = None,
     shipping_effect: np.ndarray | None = None,
 ) -> np.ndarray:
     incident_type = np.full(len(dates), "normal", dtype=object)
+    business_types = business_incident_type_for_days(dates, incidents)
+    incident_type[business_types != "normal"] = business_types[business_types != "normal"]
     if shipping_effect is not None:
-        incident_type[shipping_effect > 0] = "shipping_disruption"
+        incident_type[(shipping_effect > 0) & (incident_type == "normal")] = "shipping_disruption"
     if inventory_effect is not None:
-        incident_type[inventory_effect > 0] = "inventory_shortage"
+        incident_type[(inventory_effect > 0) & (incident_type == "normal")] = "inventory_shortage"
     if deployment_effect is not None:
         incident_type[deployment_effect > 0] = "failed_deployment"
     return incident_type
@@ -292,24 +446,37 @@ def generate_sales_metrics(
 ) -> pd.DataFrame:
     features = date_features(dates)
     deployment_effect = deployment_severity(dates, incidents, normalize=True)
-    inventory_effect = inventory_severity(dates, incidents)
-    shipping_effect = shipping_severity(dates, incidents)
+    inventory_effect = inventory_severity(dates, incidents) + business_effect(
+        dates, incidents, ("inventory_shortage", "supplier_delay")
+    )
+    shipping_effect = shipping_severity(dates, incidents) + business_effect(
+        dates, incidents, ("warehouse_staffing_shortage", "carrier_outage", "regional_weather_disruption")
+    )
+    api_effect = business_effect(dates, incidents, ("api_degradation",))
+    refund_effect = business_effect(dates, incidents, ("refund_spike", "fraud_spike"))
+    demand_surge_effect = business_effect(dates, incidents, ("marketing_campaign_surge", "holiday_demand_surge"))
+    fraud_effect = business_effect(dates, incidents, ("fraud_spike",))
     operational_incident_effect = deployment_effect + inventory_effect + 0.35 * shipping_effect
 
     expected_visitors = 11_200 * features["trend"] * features["weekly_seasonality"] * features["monthly_seasonality"]
     expected_visitors *= np.where(features["is_weekend"], 1.18, 1.0)
     expected_visitors *= np.where(features["month"].isin([11, 12]), 1.16, 1.0)
+    expected_visitors *= 1.0 + 0.23 * demand_surge_effect
     expected_visitors *= np.clip(1.0 - 0.025 * operational_incident_effect, 0.88, None)
     website_visitors = rng.poisson(expected_visitors).astype(int)
 
     conversion_rate = rng.normal(0.043, 0.003, len(dates))
-    conversion_rate -= 0.012 * deployment_effect
+    conversion_rate += 0.004 * business_effect(dates, incidents, ("marketing_campaign_surge",))
+    conversion_rate -= 0.012 * (deployment_effect + api_effect)
     conversion_rate -= 0.006 * inventory_effect
     conversion_rate -= 0.004 * shipping_effect
+    conversion_rate -= 0.003 * fraud_effect
     conversion_rate = np.clip(conversion_rate, 0.015, 0.07)
 
     checkout_failure_rate = rng.normal(0.018, 0.003, len(dates))
     checkout_failure_rate += 0.085 * deployment_effect
+    checkout_failure_rate += 0.050 * api_effect
+    checkout_failure_rate += 0.026 * fraud_effect
     checkout_failure_rate = np.clip(checkout_failure_rate, 0.003, 0.24)
 
     active_customers = rng.poisson(website_visitors * rng.normal(0.62, 0.025, len(dates))).astype(int)
@@ -331,18 +498,21 @@ def generate_sales_metrics(
     refund_rate += 0.014 * deployment_effect
     refund_rate += 0.010 * shipping_effect
     refund_rate += 0.006 * inventory_effect
+    refund_rate += 0.030 * refund_effect
     refund_rate = np.clip(refund_rate, 0.01, 0.12)
 
     gross_revenue = orders * average_order_value
     lost_sales_penalty = lost_sales_units * average_order_value * rng.normal(0.42, 0.035, len(dates))
     stockout_penalty = inventory_effect * average_order_value * rng.normal(38.0, 4.0, len(dates))
     incident_penalty = gross_revenue * np.clip(0.018 * operational_incident_effect, 0, 0.12)
+    incident_penalty += gross_revenue * np.clip(0.018 * refund_effect + 0.012 * fraud_effect, 0, 0.10)
     net_revenue = gross_revenue * (1.0 - refund_rate) - lost_sales_penalty - stockout_penalty - incident_penalty
     net_revenue += rng.normal(0, 950, len(dates))
     net_revenue = np.clip(net_revenue, 0, None)
 
     incident_type = incident_type_for_days(
         dates,
+        incidents,
         deployment_effect=deployment_effect,
         inventory_effect=inventory_effect,
         shipping_effect=shipping_effect,
@@ -381,29 +551,35 @@ def generate_api_latency(
     hour = hours.hour.to_numpy()
     business_hours = (hour >= 9) & (hour <= 22)
     deployment_effect = deployment_severity(hours, incidents)
-    deployment_hours = deployment_effect > 0
+    api_effect = business_effect(hours, incidents, ("api_degradation",))
+    platform_effect = deployment_effect + api_effect
+    deployment_hours = platform_effect > 0
 
     base_latency = rng.normal(185, 18, len(hours)) + np.where(business_hours, 32, 0)
     base_latency += 18 * np.sin(2 * np.pi * hour / 24)
     p95_latency = base_latency + rng.normal(95, 16, len(hours))
     p99_latency = p95_latency + rng.normal(130, 30, len(hours))
 
-    p95_latency += rng.normal(520, 90, len(hours)) * deployment_effect
-    p99_latency += rng.normal(1_150, 180, len(hours)) * deployment_effect
+    p95_latency += rng.normal(520, 90, len(hours)) * platform_effect
+    p99_latency += rng.normal(1_150, 180, len(hours)) * platform_effect
     error_rate = rng.beta(1.4, 180, len(hours))
-    error_rate += rng.uniform(0.025, 0.065, len(hours)) * deployment_effect
+    error_rate += rng.uniform(0.025, 0.065, len(hours)) * platform_effect
 
     return pd.DataFrame(
         {
             "timestamp": hours,
             "service": "checkout-api",
             "request_count": rng.poisson(np.where(business_hours, 8_000, 2_500)).astype(int),
-            "avg_latency_ms": np.round(np.clip(base_latency + 360 * deployment_effect, 80, None), 1),
+            "avg_latency_ms": np.round(np.clip(base_latency + 360 * platform_effect, 80, None), 1),
             "p95_latency_ms": np.round(np.clip(p95_latency, 120, None), 1),
             "p99_latency_ms": np.round(np.clip(p99_latency, 160, None), 1),
             "error_rate": np.round(np.clip(error_rate, 0, 0.25), 4),
             "incident_flag": deployment_hours,
-            "incident_type": np.where(deployment_hours, "failed_deployment", "normal"),
+            "incident_type": np.where(
+                deployment_effect > 0,
+                "failed_deployment",
+                np.where(api_effect > 0, "api_degradation", "normal"),
+            ),
         }
     )
 
@@ -416,11 +592,14 @@ def generate_checkout_failures(
     hour = hours.hour.to_numpy()
     business_hours = (hour >= 8) & (hour <= 23)
     deployment_effect = deployment_severity(hours, incidents)
-    deployment_hours = deployment_effect > 0
+    api_effect = business_effect(hours, incidents, ("api_degradation",))
+    fraud_effect = business_effect(hours, incidents, ("fraud_spike",))
+    platform_effect = deployment_effect + api_effect + 0.55 * fraud_effect
+    deployment_hours = platform_effect > 0
 
     checkout_attempts = rng.poisson(np.where(business_hours, 1_850, 620)).astype(int)
     failure_rate = rng.normal(0.018, 0.004, len(hours))
-    failure_rate += rng.uniform(0.075, 0.13, len(hours)) * deployment_effect
+    failure_rate += rng.uniform(0.075, 0.13, len(hours)) * platform_effect
     failure_rate = np.clip(failure_rate, 0.002, 0.24)
     failed_checkouts = rng.binomial(checkout_attempts, failure_rate)
 
@@ -436,7 +615,11 @@ def generate_checkout_failures(
             "payment_gateway_errors": payment_gateway_errors,
             "api_timeout_errors": api_timeout_errors,
             "incident_flag": deployment_hours,
-            "incident_type": np.where(deployment_hours, "failed_deployment", "normal"),
+            "incident_type": np.where(
+                deployment_effect > 0,
+                "failed_deployment",
+                np.where(api_effect > 0, "api_degradation", np.where(fraud_effect > 0, "fraud_spike", "normal")),
+            ),
         }
     )
 
@@ -450,9 +633,23 @@ def generate_support_tickets(
     shipping_delays: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     deployment_effect = deployment_severity(dates, incidents, normalize=True)
-    inventory_effect = inventory_severity(dates, incidents)
-    shipping_effect = shipping_severity(dates, incidents)
-    incident_days = (deployment_effect > 0) | (shipping_effect > 0) | (inventory_effect > 0)
+    inventory_effect = inventory_severity(dates, incidents) + business_effect(
+        dates, incidents, ("inventory_shortage", "supplier_delay")
+    )
+    shipping_effect = shipping_severity(dates, incidents) + business_effect(
+        dates, incidents, ("warehouse_staffing_shortage", "carrier_outage", "regional_weather_disruption")
+    )
+    api_effect = business_effect(dates, incidents, ("api_degradation",))
+    demand_surge_effect = business_effect(dates, incidents, ("marketing_campaign_surge", "holiday_demand_surge"))
+    refund_effect = business_effect(dates, incidents, ("refund_spike", "fraud_spike"))
+    incident_days = (
+        (deployment_effect > 0)
+        | (shipping_effect > 0)
+        | (inventory_effect > 0)
+        | (api_effect > 0)
+        | (demand_surge_effect > 0)
+        | (refund_effect > 0)
+    )
 
     active_customers = np.full(len(dates), 7_200.0)
     if sales_metrics is not None and {"date", "active_customers"} <= set(sales_metrics.columns):
@@ -505,11 +702,25 @@ def generate_support_tickets(
     checkout_pressure = np.clip((checkout_failure_rate - 0.018) / 0.01, 0.0, 18.0)
     shipping_pressure = np.clip((shipping_delay_rate - 0.055) / 0.01, 0.0, 22.0)
 
-    shipping_complaint_tickets = rng.poisson(18 + 2.9 * customer_pressure + 5.3 * shipping_pressure + 42 * shipping_effect).astype(int)
-    checkout_issue_tickets = rng.poisson(12 + 2.1 * customer_pressure + 4.8 * checkout_pressure + 34 * deployment_effect).astype(int)
-    billing_issue_tickets = rng.poisson(15 + 1.5 * customer_pressure + 11 * deployment_effect + 7 * shipping_effect + 5 * inventory_effect).astype(int)
-    account_access_tickets = rng.poisson(20 + 2.2 * customer_pressure + 36 * deployment_effect).astype(int)
-    general_support_tickets = rng.poisson(54 + 5.4 * customer_pressure + 28 * deployment_effect + 10 * shipping_effect + 8 * inventory_effect).astype(int)
+    shipping_complaint_tickets = rng.poisson(
+        18 + 2.9 * customer_pressure + 5.3 * shipping_pressure + 42 * shipping_effect
+    ).astype(int)
+    checkout_issue_tickets = rng.poisson(
+        12 + 2.1 * customer_pressure + 4.8 * checkout_pressure + 34 * (deployment_effect + api_effect)
+    ).astype(int)
+    billing_issue_tickets = rng.poisson(
+        15 + 1.5 * customer_pressure + 11 * deployment_effect + 7 * shipping_effect + 5 * inventory_effect + 32 * refund_effect
+    ).astype(int)
+    account_access_tickets = rng.poisson(20 + 2.2 * customer_pressure + 36 * deployment_effect + 9 * demand_surge_effect).astype(int)
+    general_support_tickets = rng.poisson(
+        54
+        + 5.4 * customer_pressure
+        + 28 * (deployment_effect + api_effect)
+        + 10 * shipping_effect
+        + 8 * inventory_effect
+        + 18 * demand_surge_effect
+        + 16 * refund_effect
+    ).astype(int)
     total = (
         shipping_complaint_tickets
         + checkout_issue_tickets
@@ -519,11 +730,15 @@ def generate_support_tickets(
     )
     refund_requests = np.maximum(
         0,
-        np.round(0.52 * billing_issue_tickets + rng.normal(8 + 6 * shipping_effect + 4 * deployment_effect, 2.5, len(dates))),
+        np.round(
+            0.52 * billing_issue_tickets
+            + rng.normal(8 + 6 * shipping_effect + 4 * deployment_effect + 22 * refund_effect, 2.5, len(dates))
+        ),
     ).astype(int)
 
     incident_type = incident_type_for_days(
         dates,
+        incidents,
         deployment_effect=deployment_effect,
         inventory_effect=inventory_effect,
         shipping_effect=shipping_effect,
@@ -567,7 +782,8 @@ def generate_inventory_levels(
                 for incident in incidents.inventory_shortages
                 if incident.sku == sku and incident.start <= date <= incident.end
             ]
-            shortage_severity = sum(incident.severity for incident in active_shortages)
+            business_shortage = business_effect(pd.DatetimeIndex([date]), incidents, ("inventory_shortage", "supplier_delay"))[0]
+            shortage_severity = sum(incident.severity for incident in active_shortages) + business_shortage
             is_shortage_day = shortage_severity > 0
             demand = max(0, int(rng.normal(daily_demand, 8)))
             received_units = 0
@@ -594,7 +810,15 @@ def generate_inventory_levels(
                     "stockout_units": int(stockout_units),
                     "reorder_point": 220,
                     "incident_flag": is_shortage_day,
-                    "incident_type": "inventory_shortage" if is_shortage_day else "normal",
+                    "incident_type": (
+                        first_active_business_incident(date, incidents).incident_type
+                        if first_active_business_incident(date, incidents)
+                        and first_active_business_incident(date, incidents).incident_type
+                        in {"inventory_shortage", "supplier_delay"}
+                        else "inventory_shortage"
+                        if is_shortage_day
+                        else "normal"
+                    ),
                 }
             )
 
@@ -618,7 +842,17 @@ def generate_shipping_delays(
                     and region in incident.affected_regions
                     and carrier in incident.affected_carriers
                 ]
-                disruption_severity = sum(incident.severity for incident in active_disruptions)
+                regional_business_disruptions = [
+                    incident
+                    for incident in incidents.business_incidents
+                    if incident.incident_type
+                    in {"warehouse_staffing_shortage", "carrier_outage", "regional_weather_disruption", "holiday_demand_surge"}
+                    and incident.start <= date <= incident.end
+                    and incident.affected_region == region
+                ]
+                disruption_severity = sum(incident.severity for incident in active_disruptions) + sum(
+                    incident.severity for incident in regional_business_disruptions
+                )
                 affected = disruption_severity > 0
                 shipments = int(rng.poisson(420 if region != "West" else 360))
                 weekday_pressure = 0.025 if date.dayofweek in (0, 1) else 0.0
@@ -660,7 +894,13 @@ def generate_shipping_delays(
                         "avg_delay_hours": round(max(avg_delay_hours, 0.5), 1),
                         **region_flags,
                         "incident_flag": affected,
-                        "incident_type": "shipping_disruption" if affected else "normal",
+                        "incident_type": (
+                            regional_business_disruptions[0].incident_type
+                            if regional_business_disruptions
+                            else "shipping_disruption"
+                            if affected
+                            else "normal"
+                        ),
                     }
                 )
 
@@ -737,16 +977,49 @@ def generate_deployment_events(incidents: IncidentCatalog) -> pd.DataFrame:
             ]
         )
 
+    for incident in incidents.business_incidents:
+        if incident.incident_type != "api_degradation":
+            continue
+        records.extend(
+            [
+                {
+                    "timestamp": incident.start + pd.Timedelta(hours=9),
+                    "service": "checkout-api",
+                    "version": f"{incident.start:%Y.%m.%d}.api",
+                    "environment": "production",
+                    "status": "degraded",
+                    "change_type": "dependency_slowdown",
+                    "incident_flag": True,
+                    "incident_type": "api_degradation",
+                },
+                {
+                    "timestamp": incident.end + pd.Timedelta(hours=18),
+                    "service": "checkout-api",
+                    "version": f"{incident.start:%Y.%m.%d}.api.fix",
+                    "environment": "production",
+                    "status": "mitigated",
+                    "change_type": "dependency_rollback",
+                    "incident_flag": True,
+                    "incident_type": "api_degradation",
+                },
+            ]
+        )
+
     return pd.DataFrame(records).sort_values("timestamp").reset_index(drop=True)
 
 
 def generate_all_datasets(
-    start_date: str = "2025-01-01",
+    start_date: str = "2024-01-01",
     end_date: str = "2026-12-31",
     seed: int = 42,
 ) -> Dict[str, pd.DataFrame]:
     rng = np.random.default_rng(seed)
-    incidents = PHASE_6_INCIDENTS
+    incidents = IncidentCatalog(
+        deployments=PHASE_6_INCIDENTS.deployments,
+        inventory_shortages=PHASE_6_INCIDENTS.inventory_shortages,
+        shipping_disruptions=PHASE_6_INCIDENTS.shipping_disruptions,
+        business_incidents=generate_business_incidents(start_date, end_date),
+    )
     days = daily_dates(start_date, end_date)
     hours = hourly_dates(start_date, end_date)
 
@@ -779,7 +1052,7 @@ def write_datasets(datasets: Dict[str, pd.DataFrame], output_dir: Path) -> None:
 def parse_args(args: Iterable[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate synthetic Northstar Commerce operational datasets.")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducible output.")
-    parser.add_argument("--start-date", default="2025-01-01", help="Inclusive start date in YYYY-MM-DD format.")
+    parser.add_argument("--start-date", default="2024-01-01", help="Inclusive start date in YYYY-MM-DD format.")
     parser.add_argument("--end-date", default="2026-12-31", help="Inclusive end date in YYYY-MM-DD format.")
     parser.add_argument("--output-dir", type=Path, default=Path("data/synthetic"), help="Directory for generated CSV files.")
     return parser.parse_args(args)

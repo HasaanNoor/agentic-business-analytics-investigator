@@ -66,6 +66,9 @@ KPI_COLUMNS = [
     "deployment_event_flag",
     "inventory_shortage_flag",
     "shipping_disruption_flag",
+    "business_incident_flag",
+    "dominant_incident_type",
+    "incident_signal",
 ]
 
 
@@ -205,8 +208,10 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
             "is_weekend",
             "orders",
             "lost_sales_units",
+            "incident_type",
         ]
     ].copy()
+    base = base.rename(columns={"incident_type": "dominant_incident_type"})
 
     support_daily = support[
         [
@@ -256,6 +261,9 @@ def build_daily_kpi_summary(datasets: dict[str, pd.DataFrame]) -> pd.DataFrame:
     summary["deployment_event_flag"] = summary["deployment_event_flag"].fillna(0).astype(int)
     summary["inventory_shortage_flag"] = summary["inventory_shortage_flag"].fillna(0).astype(int)
     summary["shipping_disruption_flag"] = summary["shipping_disruption_flag"].fillna(0).astype(int)
+    summary["dominant_incident_type"] = summary["dominant_incident_type"].fillna("normal").astype(str)
+    summary["business_incident_flag"] = (summary["dominant_incident_type"] != "normal").astype(int)
+    summary["incident_signal"] = summary["business_incident_flag"].astype(int)
     for column in (
         "east_region_disruption",
         "west_region_disruption",

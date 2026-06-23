@@ -103,6 +103,9 @@ def retrieve_similar_incidents(
             {
                 "similarity_score": round(float(scores[int(index)]), 4),
                 "incident_summary": str(knowledge_base["text_chunks"][int(index)]),
+                "root_cause": metadata.get("root_cause"),
+                "resolution": metadata.get("resolution"),
+                "outcome": metadata.get("outcome"),
                 "recommendations_used_previously": metadata.get("recommendations", []),
                 "metadata": metadata,
             }
@@ -164,6 +167,8 @@ def write_retrieval_examples(
                     f"- **{metadata.get('incident_id')} - {metadata.get('incident_type')}**",
                     f"  Similarity score: `{item['similarity_score']}`",
                     f"  Root cause: {metadata.get('root_cause')}",
+                    f"  Resolution: {metadata.get('resolution')}",
+                    f"  Outcome: {metadata.get('outcome')}",
                     "  Retrieved recommendations:",
                 ]
             )
