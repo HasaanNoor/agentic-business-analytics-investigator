@@ -47,6 +47,8 @@ Group nearby anomaly rows into incidents and create first-pass incident reports.
   - Refund spike, visitor surge, backlog spike, carrier outage, supplier delay, weather disruption, fraud spike, and API degradation should be labeled clearly.
 - Write a JSON report with an `incidents` list.
 - Write a Markdown summary for humans.
+- Anomalies occurring within a three-day window may be grouped into the same business incident when they are determined to be part of the same underlying event.
+- Grouping should remain deterministic and produce consistent incident identifiers across repeated runs.
 
 ## Acceptance criteria
 

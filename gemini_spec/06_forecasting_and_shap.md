@@ -46,6 +46,8 @@ Train forecasting models for important KPIs, generate short-term forecasts, and 
   - XGBoost
 - Save metrics such as RMSE and R2.
 - Save the selected model for each KPI.
+- Forecasting models should use historical lag features, rolling averages, and other historical information that is available at prediction time.
+- The models should not depend on unknown future values of explanatory variables.
 
 ### Forecast generation
 
@@ -69,6 +71,7 @@ Train forecasting models for important KPIs, generate short-term forecasts, and 
   - `mean_abs_attribution`
   - `rank`
   - `explanation_method`
+- If SHAP cannot explain a selected model, use a deterministic fallback based on the model's native feature importance or coefficients to generate the explanation report.
 
 ## Acceptance criteria
 

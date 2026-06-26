@@ -55,6 +55,9 @@ Build a local searchable knowledge base of past incidents and retrieve similar h
   - Skip the same incident id when comparing an incident to history.
   - Return similarity score, summary, root cause, resolution, outcome, recommendations, and metadata.
 - Tests may use a fake embedding model so they do not depend on downloads.
+- The knowledge base is first built from enriched investigation reports.
+- If multi-agent investigation reports already exist, they may also be included as additional knowledge records.
+- Similarity searches should use cosine similarity and return the three most similar historical incidents.
 
 ## Acceptance criteria
 

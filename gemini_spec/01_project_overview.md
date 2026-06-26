@@ -51,20 +51,20 @@ The current implementation includes:
 ## Acceptance criteria
 
 - A new developer can understand the project from the README.
-The pipeline order is clear:
+- The pipeline order is clear:
 
 1. Generate synthetic data.
 2. Validate data.
 3. Build daily KPI summary.
 4. Detect anomalies.
-5. Group anomalies into incidents.
+5. Group anomalies into enriched business incidents.
 6. Train forecasting models.
 7. Generate forecasts.
-8. Explain forecasts.
-9. Write actionable reports.
-10. Run the multi-agent investigation workflow.
-11. Build a searchable knowledge base from historical incidents.
-12. Retrieve similar historical incidents to improve recommendations.
+8. Explain forecasts using SHAP.
+9. Build the searchable RAG knowledge base from enriched incident reports.
+10. Retrieve similar historical incidents.
+11. Run the multi-agent investigation workflow using current incident evidence and retrieved historical incidents.
+12. Write actionable reports using forecasts, SHAP explanations, multi-agent findings, and retrieved incident context.
 13. Serve generated outputs through a read-only FastAPI API.
 - Tests cover each major phase.
 

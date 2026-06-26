@@ -52,6 +52,16 @@ The catalog defines:
 
 The generator should not create incidents at fixed intervals. Instead, incident frequency and timing should be determined by the catalog while producing approximately 210 enriched incidents across the full three-year dataset.
 
+Incident effects should propagate through related business metrics in a realistic and deterministic manner.
+
+For example:
+
+- Deployment incidents should increase API latency and checkout failures before affecting revenue and support tickets.
+- Inventory shortages should reduce completed sales and increase lost sales.
+- Logistics disruptions should increase shipping delays and delivery complaints.
+
+These relationships should preserve realistic business cause-and-effect throughout the pipeline.
+
 ## Required behavior
 
 - Generate repeatable data for a given seed.

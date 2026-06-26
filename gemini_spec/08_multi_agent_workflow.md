@@ -61,6 +61,17 @@ Review each incident with several deterministic specialist modules and combine t
   - Confidence level.
   - Historical incident context when supplied.
 - Multi-agent output should keep enriched fields from the investigation engine.
+- The multi-agent workflow consumes retrieved historical incidents from the RAG layer.
+- It does not build or update the RAG knowledge base.
+
+- Each agent receives:
+  - current incident
+  - KPI evidence
+  - forecast context
+  - SHAP explanation
+  - retrieved historical incidents
+
+- The coordinator combines these findings into the final investigation report.
 
 ## Acceptance criteria
 

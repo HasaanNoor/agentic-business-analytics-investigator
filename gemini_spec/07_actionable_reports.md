@@ -12,6 +12,22 @@ Create readable reports that summarize incidents, forecasts, feature drivers, mo
 - `outputs/reports/shap_feature_importance.csv`
 - `outputs/reports/model_metrics.csv`
 
+Actionable reports should be generated after:
+
+- forecasting
+- SHAP explanations
+- RAG retrieval
+- multi-agent investigation
+
+The reports summarize:
+
+- enriched incidents
+- forecasts
+- SHAP explanations
+- retrieved historical incidents
+- multi-agent findings
+- recommended actions
+
 ## Outputs
 
 - `outputs/reports/executive_operations_report.md`

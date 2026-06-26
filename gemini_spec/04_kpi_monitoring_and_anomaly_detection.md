@@ -69,6 +69,8 @@ From `data/synthetic/`:
   - `business_incident_flag`
   - `dominant_incident_type`
   - `incident_signal`
+- Use a 14-day rolling window when calculating baseline statistics for anomaly detection.
+- An anomaly should be identified using deterministic z-score thresholds that are applied consistently across all KPI calculations.
 
 ### Anomaly detection
 

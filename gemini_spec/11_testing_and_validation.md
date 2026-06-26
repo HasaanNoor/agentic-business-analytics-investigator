@@ -48,6 +48,8 @@ Create tests that prove the project works end to end and that each module behave
   - Multi-agent findings include evidence and recommendations.
   - RAG retrieval returns ranked results.
   - API endpoints return JSON and friendly errors.
+- Tests should use deterministic fake embedding models or mocked embedding calls when network access is unavailable.
+- The production pipeline should continue using sentence-transformers.
 
 ## Acceptance criteria
 
