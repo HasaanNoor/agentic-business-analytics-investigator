@@ -17,6 +17,7 @@ The project is built in stages. Most stages are deterministic, which means they 
 ├── src/
 │   ├── agents/                     # Report and investigation agents
 │   ├── analytics/                  # KPI summary builder
+│   ├── api/                        # FastAPI read-only service
 │   ├── anomaly_detection/          # Anomaly detection rules
 │   ├── explainability/             # SHAP forecast explanations
 │   ├── forecasting/                # Forecast model training and prediction
@@ -442,6 +443,44 @@ RAG records now store incident type, severity, region, root cause, affected metr
 
 Actionable reports now include severity, likely business impact, historical comparisons, and previous successful resolutions. This makes recommendations more specific. For example, instead of only saying to review logistics, a report can say that a similar carrier outage recovered after rerouting shipments to backup carriers in three days.
 
+## Phase 12: FastAPI Backend
+
+**What was added:** Phase 12 adds a read-only FastAPI service for the generated project outputs.
+
+**Why it was added:** Users can now inspect KPIs, incident reports, forecasts, SHAP feature drivers, the executive report, and historical incident search results from a browser or a deployed service without rerunning the full pipeline.
+
+Start the API:
+
+```bash
+python3 -m uvicorn src.api.main:app --reload
+```
+
+The local API will usually be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Available endpoints:
+
+- `GET /health` returns project status and shows which output files are available.
+- `GET /kpis` returns recent rows from `outputs/reports/kpi_summary_daily.csv`.
+- `GET /incidents` returns enriched incident reports from `outputs/reports/multi_agent_investigation_reports.json`.
+- `GET /incidents/{incident_id}` returns one incident by id.
+- `GET /forecasts` returns `outputs/reports/forecast_summary.csv`.
+- `GET /explanations` returns top SHAP feature drivers from `outputs/reports/shap_feature_importance.csv`.
+- `GET /reports/actionable` returns `outputs/reports/executive_operations_report.md` as markdown content in JSON.
+- `GET /rag/search?query=checkout%20failures` searches similar historical incidents using the existing local RAG knowledge base.
+
+The API does not write data, does not use a database, and does not rerun the pipeline during requests. If an output file is missing, the endpoint returns a friendly JSON error explaining which file needs to be generated.
+
+Phase 12 checks:
+
+```bash
+python3 -m pytest
+python3 -m py_compile src/api/main.py
+```
+
 ## Run The Full Local Pipeline
 
 ```bash
@@ -458,6 +497,7 @@ python3 src/rag/build_knowledge_base.py
 python3 src/agents/multi_agent_investigation.py
 python3 src/rag/build_knowledge_base.py
 python3 src/rag/retrieve_incidents.py
+python3 -m uvicorn src.api.main:app --reload
 python3 -m pytest
 ```
 
@@ -484,7 +524,6 @@ python3 -m py_compile src/rag/retrieve_incidents.py
 ## Roadmap
 
 - Add a dashboard for exploring KPIs, anomalies, incidents, forecasts, and reports.
-- Add API endpoints for generated outputs.
 - Add human review states for incident reports and recommendations.
 - Add LLM reasoning where it can improve explanation quality without replacing tested analytics.
 
@@ -497,6 +536,7 @@ python3 -m py_compile src/rag/retrieve_incidents.py
 - SHAP
 - Matplotlib
 - pytest
+- FastAPI and Uvicorn
 - OpenAI API for optional narrative reporting
 - sentence-transformers for local historical incident search
 
