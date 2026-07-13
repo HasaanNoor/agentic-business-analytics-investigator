@@ -103,6 +103,11 @@ def summarize_incidents(payload: dict[str, object], max_incidents: int = 5) -> l
                 ],
                 "supporting_evidence": incident.get("supporting_evidence", []),
                 "recommended_next_steps": incident.get("recommended_next_steps", []),
+                "execution_mode": incident.get("execution_mode"),
+                "model_name": incident.get("model_name"),
+                "fallback_used": incident.get("fallback_used"),
+                "fallback_reason": incident.get("fallback_reason"),
+                "provenance": incident.get("provenance", {}),
             }
         )
     return summaries
@@ -207,6 +212,8 @@ def build_evidence_bundle(
             "outputs/reports/model_metrics.csv",
         ],
         "incident_method": investigation_payload.get("method"),
+        "execution_mode": investigation_payload.get("execution_mode"),
+        "fallback_used": investigation_payload.get("fallback_used"),
         "incident_count": investigation_payload.get("incident_count"),
         "top_incidents": summarize_incidents(investigation_payload),
         "forecast_outlook": summarize_forecasts(forecasts),
@@ -299,6 +306,8 @@ def generate_fallback_report(evidence: dict[str, object]) -> str:
     limitations = list(evidence.get("model_limitations", []) or [])
     recommendations = _format_recommendations(incidents)
 
+    mode = str(evidence.get("execution_mode") or "deterministic")
+    fallback_note = "deterministic fallback was used" if evidence.get("fallback_used") else "deterministic fallback was available"
     lines = [
         "# Executive Operations Report",
         "",
@@ -306,7 +315,8 @@ def generate_fallback_report(evidence: dict[str, object]) -> str:
         "",
         f"The deterministic pipeline found {evidence.get('incident_count', 0)} grouped incident(s). "
         f"This report summarizes the top {len(incidents)} incident(s), the forecast outlook, model drivers, "
-        "historical incident comparisons, and recommended actions from structured pipeline outputs only.",
+        f"historical incident comparisons, and recommended actions from structured pipeline outputs only. "
+        f"Investigation mode: {mode}; {fallback_note}.",
         "",
         "## Key Incidents",
         "",
@@ -321,6 +331,8 @@ def generate_fallback_report(evidence: dict[str, object]) -> str:
                 f"- Severity: {incident.get('incident_severity')}",
                 f"- Affected region: {incident.get('affected_region')}",
                 f"- Likely cause: {incident['likely_cause']}",
+                f"- Investigation mode: {incident.get('execution_mode') or mode}",
+                f"- Fallback used: {incident.get('fallback_used')}",
                 f"- Business impact: {incident.get('business_impact_summary')}",
                 f"- Previous successful resolution: {incident.get('resolution_action')} "
                 f"(success {incident.get('resolution_success')}, recovery {incident.get('recovery_days')} day(s))",
@@ -397,7 +409,13 @@ def run_executive_report(
         model_metrics,
     )
 
-    if os.environ.get("OPENAI_API_KEY"):
+    already_validated_llm = investigation_payload.get("execution_mode") == "llm" or any(
+        str(incident.get("execution_mode")) == "llm" for incident in investigation_payload.get("incidents", []) or []
+    )
+    if already_validated_llm:
+        LOGGER.info("Using validated multi-agent LLM coordinator output without a second report-generation LLM call.")
+        report = generate_fallback_report(evidence)
+    elif os.environ.get("OPENAI_API_KEY"):
         prompt = build_prompt(evidence)
         try:
             report = generate_llm_report(prompt, model=model).strip() + "\n"

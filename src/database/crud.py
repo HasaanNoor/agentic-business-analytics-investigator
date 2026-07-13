@@ -69,6 +69,7 @@ def upsert_incident(session: Session, incident: dict[str, Any]) -> tuple[models.
     date_range = incident.get("date_range") if isinstance(incident.get("date_range"), dict) else {}
     start_date = _coerce_date(incident.get("incident_start_date") or date_range.get("start"))
     end_date = _coerce_date(incident.get("incident_end_date") or date_range.get("end"))
+    provenance = incident.get("provenance") if isinstance(incident.get("provenance"), dict) else {}
     return _upsert(
         session,
         models.Incident,
@@ -91,6 +92,13 @@ def upsert_incident(session: Session, incident: dict[str, Any]) -> tuple[models.
             "supporting_evidence": incident.get("supporting_evidence"),
             "retrieved_incidents": incident.get("retrieved_incidents"),
             "agent_findings": incident.get("agent_findings"),
+            "execution_mode": incident.get("execution_mode") or provenance.get("execution_mode"),
+            "model_name": incident.get("model_name") or provenance.get("model_name"),
+            "fallback_used": incident.get("fallback_used") if "fallback_used" in incident else provenance.get("fallback_used"),
+            "fallback_reason": incident.get("fallback_reason") or provenance.get("fallback_reason"),
+            "provenance": provenance or None,
+            "prompt_version": incident.get("prompt_version") or provenance.get("prompt_version"),
+            "schema_version": incident.get("schema_version") or provenance.get("schema_version"),
             "raw_report": incident,
         },
     )
@@ -220,6 +228,13 @@ def _incident_to_record(row: models.Incident) -> dict[str, Any]:
         "supporting_evidence": row.supporting_evidence or [],
         "retrieved_incidents": row.retrieved_incidents or [],
         "agent_findings": row.agent_findings or [],
+        "execution_mode": row.execution_mode,
+        "model_name": row.model_name,
+        "fallback_used": row.fallback_used,
+        "fallback_reason": row.fallback_reason,
+        "provenance": row.provenance or {},
+        "prompt_version": row.prompt_version,
+        "schema_version": row.schema_version,
     }
 
 

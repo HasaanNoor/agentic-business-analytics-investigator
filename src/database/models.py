@@ -71,6 +71,13 @@ class Incident(TimestampMixin, Base):
     supporting_evidence: Mapped[list[Any] | None] = mapped_column(JSON)
     retrieved_incidents: Mapped[list[Any] | None] = mapped_column(JSON)
     agent_findings: Mapped[list[Any] | None] = mapped_column(JSON)
+    execution_mode: Mapped[str | None] = mapped_column(String(50), index=True)
+    model_name: Mapped[str | None] = mapped_column(String(120))
+    fallback_used: Mapped[bool | None] = mapped_column(Boolean, index=True)
+    fallback_reason: Mapped[str | None] = mapped_column(Text)
+    provenance: Mapped[dict[str, Any] | None] = mapped_column(JSON)
+    prompt_version: Mapped[str | None] = mapped_column(String(120))
+    schema_version: Mapped[str | None] = mapped_column(String(120))
     raw_report: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False, default=dict)
 
 

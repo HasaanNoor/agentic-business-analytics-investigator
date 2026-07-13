@@ -727,6 +727,108 @@ python3 -m py_compile src/rag/build_knowledge_base.py
 python3 -m py_compile src/rag/retrieve_incidents.py
 ```
 
+## Phase 15: Optional LLM Multi-Agent Investigations
+
+Phase 15 adds an optional LLM path for the Revenue, Support, Logistics, Platform, and Coordinator agents.
+
+The deterministic agents are still the default. They still work without an API key, network access, Docker, or model availability.
+
+How the modes work:
+
+- `AGENT_MODE=deterministic` always uses the existing Python agents.
+- `AGENT_MODE=auto` uses the LLM only when `LLM_ENABLED=true` and the OpenAI configuration is valid. If the LLM is unavailable, times out, returns invalid JSON, or makes unsupported claims, the workflow uses the deterministic agents.
+- `AGENT_MODE=llm` requires valid LLM configuration. It can still fall back only when `LLM_FALLBACK_ENABLED=true`.
+
+Each specialist agent receives only the incident evidence relevant to its business area plus common incident context. The model must return validated JSON. If the result is invalid or the API is unavailable, the project uses the existing deterministic agent.
+
+Evidence sent to the LLM is compact:
+
+- incident id, dates, severity, region, current hypothesis, and business impact
+- incident-window KPI summaries
+- relevant forecast rows
+- top SHAP drivers
+- top retrieved historical incidents
+- deployment events only for the Platform Agent
+
+The project does not send full multi-year datasets to the model.
+
+Structured output validation checks:
+
+- required Pydantic fields
+- confidence between `0` and `1`
+- metric names are present in supplied evidence
+- historical incident IDs are present in retrieved evidence
+- recommendations do not refer to invented metrics, incidents, dates, or systems
+- duplicate recommendations are normalized
+
+Every report includes provenance:
+
+- execution mode
+- model name when an LLM was used
+- fallback status and reason
+- evidence sources
+- retrieved historical incident IDs
+- prompt version
+- schema version
+- generated timestamp
+
+Configure optional LLM mode:
+
+```bash
+export LLM_ENABLED=true
+export AGENT_MODE=auto
+export LLM_FALLBACK_ENABLED=true
+export OPENAI_MODEL=gpt-4o-mini
+export OPENAI_API_KEY=your_key_here
+```
+
+Run without an API key:
+
+```bash
+AGENT_MODE=deterministic python3 src/agents/multi_agent_investigation.py
+LLM_ENABLED=true AGENT_MODE=auto LLM_FALLBACK_ENABLED=true python3 src/agents/multi_agent_investigation.py
+```
+
+The second command falls back to deterministic mode when no key is configured.
+
+Docker remains deterministic by default. Optional LLM variables are passed through from `.env`, but `compose.yaml` does not contain a real key.
+
+Check LLM status through the read-only API:
+
+```bash
+curl http://localhost:8000/llm/status
+```
+
+The status response never returns the API key.
+
+Run tests with mocked clients:
+
+```bash
+python3 -m pytest
+```
+
+Run the deterministic evaluation:
+
+```bash
+python3 scripts/evaluate_agent_outputs.py
+```
+
+This writes:
+
+```text
+outputs/reports/agent_evaluation.csv
+outputs/reports/agent_evaluation.md
+```
+
+The evaluation compares deterministic reports with mocked LLM reports for schema validity, citation accuracy, historical references, unsupported claims, recommendation specificity, fallback rate, and completeness. It does not claim the LLM is better because its response is longer.
+
+Limitations:
+
+- Tests never call the real OpenAI API.
+- Manual provider verification requires a local test key.
+- The API is still read-only and does not trigger expensive LLM investigations.
+- There is no authentication, scheduler, Redis, Celery, pgvector, frontend, or cloud deployment in this phase.
+
 ## Roadmap
 
 - Add a dashboard for exploring KPIs, anomalies, incidents, forecasts, and reports.

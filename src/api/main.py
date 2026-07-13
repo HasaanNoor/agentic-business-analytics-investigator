@@ -16,6 +16,8 @@ from sqlalchemy.orm import sessionmaker
 from src.database import crud
 from src.database.config import get_database_url, is_database_configured
 from src.database.session import SessionLocal, create_database_engine
+from src.llm.config import load_agent_mode, load_fallback_enabled, load_llm_config
+from src.llm.errors import LLMConfigurationError
 from src.rag.retrieve_incidents import IncidentRetrievalError, load_embedding_model, retrieve_similar_incidents
 
 
@@ -153,6 +155,31 @@ def _query_to_incident(query: str) -> dict[str, Any]:
     }
 
 
+def _public_llm_status() -> dict[str, Any]:
+    try:
+        config = load_llm_config()
+        config_error = None
+    except LLMConfigurationError as exc:
+        config = None
+        config_error = str(exc)
+    try:
+        agent_mode = load_agent_mode()
+    except LLMConfigurationError:
+        agent_mode = "invalid"
+    try:
+        fallback_enabled = load_fallback_enabled()
+    except LLMConfigurationError:
+        fallback_enabled = True
+    return {
+        "enabled": bool(config.enabled) if config else False,
+        "configured": bool(config.configured) if config else False,
+        "selected_model": config.model if config and config.model else None,
+        "agent_mode": agent_mode,
+        "fallback_enabled": fallback_enabled,
+        "configuration_error": config_error,
+    }
+
+
 @app.get("/health")
 def health() -> dict[str, Any]:
     output_paths = {
@@ -174,11 +201,17 @@ def health() -> dict[str, Any]:
         "read_only": True,
         "api": {"status": "ok"},
         "database": database,
+        "llm": _public_llm_status(),
         "file_fallback": {"available": file_fallback_available, "missing_outputs": missing},
         "ready": ready,
         "files": files,
         "missing_outputs": missing,
     }
+
+
+@app.get("/llm/status")
+def get_llm_status() -> dict[str, Any]:
+    return _public_llm_status()
 
 
 @app.get("/kpis")
