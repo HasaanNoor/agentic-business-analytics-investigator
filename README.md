@@ -472,13 +472,80 @@ Available endpoints:
 - `GET /reports/actionable` returns `outputs/reports/executive_operations_report.md` as markdown content in JSON.
 - `GET /rag/search?query=checkout%20failures` searches similar historical incidents using the existing local RAG knowledge base.
 
-The API does not write data, does not use a database, and does not rerun the pipeline during requests. If an output file is missing, the endpoint returns a friendly JSON error explaining which file needs to be generated.
+The API does not write analytical outputs and does not rerun the pipeline during requests. In Phase 13 it can read from PostgreSQL first, then fall back to generated files when database access is not configured or unavailable.
 
 Phase 12 checks:
 
 ```bash
 python3 -m pytest
 python3 -m py_compile src/api/main.py
+```
+
+## Phase 13: PostgreSQL Persistence
+
+**What was added:** The API can now read KPIs, incidents, forecasts, SHAP explanations, and the actionable report from PostgreSQL. Existing CSV, JSON, markdown, figure, model, and RAG pickle files are still produced so results remain easy to inspect, test, export, and recover.
+
+**Why files are still preserved:** A company would not replace every file workflow at once. PostgreSQL is now an additional persistence and serving layer. The pipeline still writes the same files, and a synchronization script imports the structured outputs into database tables.
+
+Data stored in PostgreSQL:
+
+- Daily KPI rows from `outputs/reports/kpi_summary_daily.csv`
+- Anomaly events from `outputs/reports/anomaly_events.csv`
+- Multi-agent incident reports from `outputs/reports/multi_agent_investigation_reports.json`
+- Forecasts from `outputs/reports/forecast_summary.csv`
+- Model metrics from `outputs/reports/model_metrics.csv`
+- SHAP feature importance from `outputs/reports/shap_feature_importance.csv`
+- The actionable markdown report from `outputs/reports/executive_operations_report.md`
+- Safe searchable RAG metadata from `outputs/rag/incident_knowledge_base.pkl`
+- Synchronization run metadata
+
+Configure the database with an environment variable:
+
+```bash
+export DATABASE_URL="postgresql+psycopg2://DB_USER:DB_PASSWORD@DB_HOST:5432/DB_NAME"
+```
+
+Use `.env.example` as a placeholder template. Do not commit real database URLs or passwords.
+
+Initialize local tables from SQLAlchemy metadata for development:
+
+```bash
+python3 src/database/init_db.py
+```
+
+Alembic is the migration path for real environments:
+
+```bash
+alembic revision --autogenerate -m "describe change"
+alembic upgrade head
+alembic current
+```
+
+Synchronize generated outputs into the database:
+
+```bash
+python3 src/database/sync_outputs.py
+```
+
+The sync is idempotent. It uses stable keys such as date, incident id, KPI/model names, and RAG chunk indexes so running it twice updates existing rows instead of creating duplicates. Required generated files produce a clear error if missing. Optional files, such as the RAG pickle or markdown report, produce warnings and the sync continues.
+
+FastAPI source selection:
+
+- If `DATABASE_URL` is configured and the database is reachable, the API reads from PostgreSQL first.
+- If the database is not configured or unavailable, the API uses the existing generated files.
+- If neither source is available, endpoints return a friendly JSON error.
+- `GET /rag/search` still uses the local embedding retrieval code and the RAG pickle. PostgreSQL stores RAG metadata only; vector search is not moved into PostgreSQL in this phase.
+
+Phase 13 checks:
+
+```bash
+python3 -m py_compile src/database/config.py
+python3 -m py_compile src/database/session.py
+python3 -m py_compile src/database/models.py
+python3 -m py_compile src/database/crud.py
+python3 -m py_compile src/database/sync_outputs.py
+python3 -m py_compile src/database/init_db.py
+python3 -m pytest
 ```
 
 ## Run The Full Local Pipeline
@@ -537,6 +604,7 @@ python3 -m py_compile src/rag/retrieve_incidents.py
 - Matplotlib
 - pytest
 - FastAPI and Uvicorn
+- SQLAlchemy, PostgreSQL, psycopg2, and Alembic
 - OpenAI API for optional narrative reporting
 - sentence-transformers for local historical incident search
 

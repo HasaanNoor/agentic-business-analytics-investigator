@@ -19,3 +19,6 @@ outputs/.matplotlib/
 venv/
 
 *.sqlite3
+
+analytics_dev.db
+

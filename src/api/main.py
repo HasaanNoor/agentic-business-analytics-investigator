@@ -9,7 +9,13 @@ from typing import Any
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import sessionmaker
 
+from src.database import crud
+from src.database.config import get_database_url, is_database_configured
+from src.database.session import SessionLocal, create_database_engine
 from src.rag.retrieve_incidents import IncidentRetrievalError, load_embedding_model, retrieve_similar_incidents
 
 
@@ -39,6 +45,44 @@ def _missing_file_error(path: Path) -> HTTPException:
         status_code=404,
         detail=f"Required output file is missing: {path}. Run the local pipeline first, then retry this endpoint.",
     )
+
+
+def _database_status() -> dict[str, Any]:
+    configured = is_database_configured()
+    if not configured:
+        return {"configured": False, "available": False, "error": None}
+    try:
+        with _runtime_session_factory()() as session:
+            session.execute(text("SELECT 1"))
+        return {"configured": True, "available": True, "error": None}
+    except SQLAlchemyError as exc:
+        return {"configured": True, "available": False, "error": str(exc)}
+
+
+def _load_from_database(loader):
+    if not is_database_configured():
+        return None
+    try:
+        with _runtime_session_factory()() as session:
+            session.execute(text("SELECT 1"))
+            return loader(session)
+    except SQLAlchemyError:
+        return None
+
+
+def _file_fallback(load_file):
+    try:
+        return load_file()
+    except HTTPException as exc:
+        if exc.status_code == 404 and is_database_configured():
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "Neither PostgreSQL nor file fallback data is available for this endpoint. "
+                    f"{exc.detail}"
+                ),
+            ) from exc
+        raise
 
 
 def _load_csv_records(path: Path, limit: int | None = None, tail: bool = False) -> list[dict[str, Any]]:
@@ -121,10 +165,17 @@ def health() -> dict[str, Any]:
     }
     files = {name: {"path": str(path), "exists": path.exists()} for name, path in output_paths.items()}
     missing = [name for name, info in files.items() if not info["exists"]]
+    database = _database_status()
+    file_fallback_available = not missing
+    ready = database["available"] or file_fallback_available
     return {
-        "status": "ready" if not missing else "degraded",
+        "status": "ready" if ready else "degraded",
         "project": "Agentic Business Analytics Investigator",
         "read_only": True,
+        "api": {"status": "ok"},
+        "database": database,
+        "file_fallback": {"available": file_fallback_available, "missing_outputs": missing},
+        "ready": ready,
         "files": files,
         "missing_outputs": missing,
     }
@@ -132,39 +183,61 @@ def health() -> dict[str, Any]:
 
 @app.get("/kpis")
 def get_kpis(limit: int = Query(RECENT_KPI_ROWS, ge=1, le=500)) -> dict[str, Any]:
-    rows = _load_csv_records(KPI_SUMMARY_PATH, limit=limit, tail=True)
+    rows = _load_from_database(lambda session: crud.list_kpis(session, limit=limit))
+    if rows is None:
+        rows = _file_fallback(lambda: _load_csv_records(KPI_SUMMARY_PATH, limit=limit, tail=True))
     return {"count": len(rows), "rows": rows}
 
 
 @app.get("/incidents")
 def get_incidents() -> dict[str, Any]:
-    incidents = _incident_list()
+    incidents = _load_from_database(crud.list_incidents)
+    if incidents is None:
+        incidents = _file_fallback(_incident_list)
     return {"count": len(incidents), "incidents": incidents}
 
 
 @app.get("/incidents/{incident_id}")
 def get_incident(incident_id: str) -> dict[str, Any]:
-    for incident in _incident_list():
-        if str(incident.get("incident_id")) == incident_id:
-            return {"incident": incident}
+    if is_database_configured():
+        try:
+            with _runtime_session_factory()() as session:
+                session.execute(text("SELECT 1"))
+                incident = crud.get_incident(session, incident_id)
+                if incident is not None:
+                    return {"incident": incident}
+                raise HTTPException(status_code=404, detail=f"Incident not found: {incident_id}")
+        except SQLAlchemyError:
+            pass
+    incidents = _file_fallback(_incident_list)
+    for incident_record in incidents:
+        if str(incident_record.get("incident_id")) == incident_id:
+            return {"incident": incident_record}
     raise HTTPException(status_code=404, detail=f"Incident not found: {incident_id}")
 
 
 @app.get("/forecasts")
 def get_forecasts() -> dict[str, Any]:
-    rows = _load_csv_records(FORECAST_SUMMARY_PATH)
+    rows = _load_from_database(crud.list_forecasts)
+    if rows is None:
+        rows = _file_fallback(lambda: _load_csv_records(FORECAST_SUMMARY_PATH))
     return {"count": len(rows), "rows": rows}
 
 
 @app.get("/explanations")
 def get_explanations(limit: int = Query(TOP_EXPLANATION_ROWS, ge=1, le=500)) -> dict[str, Any]:
-    rows = _load_csv_records(SHAP_FEATURE_IMPORTANCE_PATH, limit=limit)
+    rows = _load_from_database(lambda session: crud.list_shap_explanations(session, limit=limit))
+    if rows is None:
+        rows = _file_fallback(lambda: _load_csv_records(SHAP_FEATURE_IMPORTANCE_PATH, limit=limit))
     return {"count": len(rows), "rows": rows}
 
 
 @app.get("/reports/actionable")
 def get_actionable_report() -> dict[str, Any]:
-    return {"format": "markdown", "content": _load_markdown(ACTIONABLE_REPORT_PATH)}
+    report = _load_from_database(crud.get_actionable_report)
+    if report is not None:
+        return report
+    return {"format": "markdown", "content": _file_fallback(lambda: _load_markdown(ACTIONABLE_REPORT_PATH))}
 
 
 @app.get("/rag/search")
@@ -181,3 +254,16 @@ def search_rag(query: str = Query(..., min_length=1), top_k: int = Query(3, ge=1
     except IncidentRetrievalError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     return {"query": query, "count": len(results), "results": results}
+
+
+def _runtime_session_factory():
+    configured_url = get_database_url()
+    try:
+        bind = SessionLocal.kw.get("bind")
+        current_url = str(bind.url) if bind is not None else None
+    except AttributeError:
+        current_url = None
+    if is_database_configured() and current_url != configured_url:
+        engine = create_database_engine(configured_url)
+        return sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False, future=True)
+    return SessionLocal
