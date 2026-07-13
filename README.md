@@ -548,6 +548,139 @@ python3 -m py_compile src/database/init_db.py
 python3 -m pytest
 ```
 
+## Phase 14: Docker And Local PostgreSQL
+
+Docker starts FastAPI and PostgreSQL in a repeatable local environment, so another developer does not need to install PostgreSQL manually.
+
+The Docker setup starts two containers:
+
+- `db`: PostgreSQL 16 with a persistent named volume.
+- `api`: the FastAPI app running with Uvicorn on port 8000.
+
+The Compose file uses local-only defaults for the database name, user, and password. They are safe placeholders for development, not production secrets. You can override them in `.env`.
+
+PostgreSQL is published on host port `5432` by default so local tools such as `psql`, DBeaver, or TablePlus can inspect the database. Override it if the port is already used:
+
+```bash
+POSTGRES_PORT=5433 docker compose up
+```
+
+FastAPI is published on host port `8000` by default. Override it with `API_PORT`.
+
+Start the stack:
+
+```bash
+docker compose build
+docker compose up
+docker compose up --build
+```
+
+Start it in the background:
+
+```bash
+docker compose up -d --build
+```
+
+Check services and logs:
+
+```bash
+docker compose ps
+docker compose logs -f api
+docker compose logs -f db
+```
+
+On API container startup, `docker/entrypoint.sh` does this:
+
+1. Waits until PostgreSQL is reachable through `DATABASE_URL`.
+2. Runs `alembic upgrade head`.
+3. Runs `python3 src/database/sync_outputs.py` when `SYNC_OUTPUTS_ON_STARTUP=true`.
+4. Starts Uvicorn with `python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000`.
+
+This migration-at-startup flow is acceptable for this local single-container API stack. A production deployment with multiple API replicas should run migrations as a separate release or initialization task, so multiple containers do not try to migrate the database at the same time.
+
+Generated files are still part of the application contract. Startup synchronization reads the existing CSV, JSON, Markdown, and RAG pickle outputs and upserts them into PostgreSQL. Running synchronization more than once updates existing rows instead of creating duplicates.
+
+Run synchronization manually:
+
+```bash
+docker compose exec api python3 src/database/sync_outputs.py
+docker compose exec api python3 src/database/sync_outputs.py
+```
+
+Check Alembic state:
+
+```bash
+docker compose exec api alembic current
+```
+
+Call the API:
+
+```bash
+curl http://localhost:8000/health
+curl "http://localhost:8000/kpis?limit=5"
+curl http://localhost:8000/incidents
+curl http://localhost:8000/forecasts
+curl "http://localhost:8000/explanations?limit=5"
+curl http://localhost:8000/reports/actionable
+curl "http://localhost:8000/rag/search?query=shipping%20delay&top_k=2"
+```
+
+Stop the stack without deleting database data:
+
+```bash
+docker compose down
+```
+
+Start it again later:
+
+```bash
+docker compose up -d
+```
+
+PostgreSQL data is stored in the Compose named volume `postgres_data`. Docker usually creates it with a project prefix, such as `agentic_business_analytics_investigator_postgres_data`. The data remains after `docker compose down`.
+
+Delete containers and the local PostgreSQL volume:
+
+```bash
+docker compose down -v
+```
+
+Warning: `docker compose down -v` deletes the local PostgreSQL volume and its stored database data.
+
+Rebuild after dependency changes:
+
+```bash
+docker compose build
+docker compose up --build
+```
+
+Run the Docker verification helper:
+
+```bash
+scripts/verify_docker_stack.sh
+```
+
+Set `KEEP_STACK=true` if you want the helper to leave containers running:
+
+```bash
+KEEP_STACK=true scripts/verify_docker_stack.sh
+```
+
+Running without Docker still works:
+
+```bash
+python3 -m uvicorn src.api.main:app --reload
+python3 -m pytest
+```
+
+Local development limitations:
+
+- There is no frontend container yet.
+- There is no scheduler, queue, Redis, Celery, pgvector, authentication, or cloud deployment.
+- The API container does not use Uvicorn reload mode.
+- File fallback remains available when PostgreSQL is not configured or is unavailable.
+- Ordinary tests do not require Docker and continue to use SQLite.
+
 ## Run The Full Local Pipeline
 
 ```bash

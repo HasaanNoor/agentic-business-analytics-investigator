@@ -1,6 +1,9 @@
 .env
+.env.*
+!.env.example
 
 __pycache__/
+*.py[cod]
 
 *.pyc
 
@@ -17,8 +20,12 @@ outputs/.matplotlib/
 .venv/
 
 venv/
+env/
 
+*.db
+*.sqlite
 *.sqlite3
 
 analytics_dev.db
 
+.docker/
