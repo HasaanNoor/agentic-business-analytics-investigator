@@ -581,6 +581,12 @@ Start it in the background:
 docker compose up -d --build
 ```
 
+The API image downloads the RAG embedding model during `docker build` and stores it under
+`/app/.cache/huggingface` inside the image. The runtime RAG endpoint still loads the model
+with `local_files_only=True`, so requests do not download Hugging Face model files. A fresh
+`docker compose up --build` needs network access during the image build, then the running API
+container can serve `/rag/search` from the bundled cache.
+
 Check services and logs:
 
 ```bash
