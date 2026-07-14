@@ -1,0 +1,128 @@
+name: Docker CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    name: Docker checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DOCKER_BUILDKIT: "1"
+      COMPOSE_DOCKER_CLI_BUILD: "1"
+      LLM_ENABLED: "false"
+      AGENT_MODE: deterministic
+      LLM_FALLBACK_ENABLED: "true"
+      SYNC_OUTPUTS_ON_STARTUP: "true"
+      POSTGRES_DB: analytics_ci
+      POSTGRES_USER: analytics_ci_user
+      POSTGRES_PASSWORD: analytics_ci_password
+      POSTGRES_PORT: "127.0.0.1:5432"
+      DATABASE_URL: postgresql+psycopg2://analytics_ci_user:analytics_ci_password@db:5432/analytics_ci
+      API_PORT: "8000"
+      FRONTEND_PORT: "3000"
+      VITE_API_BASE_URL: /api
+      OPENAI_API_KEY: ""
+      OPENAI_MODEL: ""
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Validate Compose configuration
+        run: docker compose config
+
+      - name: Build backend image with cache
+        run: |
+          mkdir -p /tmp/.buildx-cache
+          docker buildx build \
+            --cache-from type=local,src=/tmp/.buildx-cache \
+            --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max \
+            --load \
+            --tag agentic-business-analytics-investigator-api:ci \
+            .
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Build frontend image with cache
+        run: |
+          mkdir -p /tmp/.buildx-cache
+          docker buildx build \
+            --cache-from type=local,src=/tmp/.buildx-cache \
+            --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max \
+            --load \
+            --tag agentic-business-analytics-investigator-frontend:ci \
+            ./frontend
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Build Compose images
+        run: docker compose build
+
+      - name: Start Docker stack
+        run: docker compose up -d
+
+      - name: Show Docker stack status
+        run: docker compose ps
+
+      - name: Verify Docker endpoints and migrations
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error http://localhost:8000/health >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 60 ]; then
+              docker compose logs api
+              exit 1
+            fi
+            sleep 2
+          done
+
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error http://localhost:3000/ >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 60 ]; then
+              docker compose logs frontend
+              exit 1
+            fi
+            sleep 2
+          done
+
+          curl --fail http://localhost:8000/health
+          curl --fail http://localhost:3000/api/health
+          curl --fail "http://localhost:3000/api/kpis?limit=5"
+          curl --fail http://localhost:3000/
+          docker compose exec -T api alembic current
+
+      - name: Run Docker verification script
+        env:
+          KEEP_STACK: "true"
+          VERIFY_DOCKER_BUILD: "false"
+        run: sh scripts/verify_docker_stack.sh
+
+      - name: Show Docker logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Shut down Docker stack
+        if: always()
+        run: docker compose down -v

@@ -4,6 +4,7 @@ set -e
 COMPOSE=${COMPOSE:-"docker compose"}
 BASE_URL=${BASE_URL:-"http://localhost:8000"}
 KEEP_STACK=${KEEP_STACK:-false}
+VERIFY_DOCKER_BUILD=${VERIFY_DOCKER_BUILD:-true}
 
 cleanup() {
   if [ "$KEEP_STACK" != "true" ]; then
@@ -13,7 +14,11 @@ cleanup() {
 
 trap cleanup EXIT
 
-$COMPOSE up -d --build
+if [ "$VERIFY_DOCKER_BUILD" = "true" ]; then
+  $COMPOSE up -d --build
+else
+  $COMPOSE up -d
+fi
 
 echo "Waiting for API readiness..."
 attempt=0

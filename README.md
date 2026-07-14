@@ -1,5 +1,9 @@
 # Agentic Business Analytics Investigator
 
+[![Backend CI](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/frontend-ci.yml)
+[![Docker CI](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/docker-ci.yml/badge.svg)](https://github.com/HasaanNoor/agentic-business-analytics-investigator/actions/workflows/docker-ci.yml)
+
 This project investigates problems in a simulated ecommerce business called **Northstar Commerce**.
 
 It creates business data, checks that the data is usable, tracks important metrics, finds unusual changes, groups those changes into incidents, forecasts a few key metrics, explains the forecasts, and writes reports.
@@ -759,6 +763,12 @@ Run the Docker verification helper:
 scripts/verify_docker_stack.sh
 ```
 
+By default, the helper starts the stack with `docker compose up -d --build`. If you have already built the images and only want to verify the running stack, use:
+
+```bash
+VERIFY_DOCKER_BUILD=false scripts/verify_docker_stack.sh
+```
+
 Set `KEEP_STACK=true` if you want the helper to leave containers running:
 
 ```bash
@@ -801,6 +811,74 @@ python3 -m pytest
 ```
 
 The first RAG build creates historical context from the first-pass investigation report. The multi-agent step then uses that context. The second RAG build refreshes the knowledge base with both first-pass and multi-agent incident records.
+
+## Continuous Integration
+
+Every push to `main` and every pull request runs automated checks in GitHub Actions. The workflows are split so a failure points to the right area quickly:
+
+- **Backend CI** installs Python dependencies, compiles key backend modules, and runs `pytest`.
+- **Frontend CI** installs the locked npm dependencies with `npm ci`, runs lint, runs Vitest, runs a production build, and performs a non-blocking high-severity npm audit.
+- **Docker CI** validates the Compose file, builds the Docker images, starts PostgreSQL, FastAPI, and the nginx frontend, checks API and frontend routes, verifies the Alembic migration state, runs `scripts/verify_docker_stack.sh`, and always shuts the stack down with `docker compose down -v`.
+
+CI uses disposable local settings:
+
+```text
+LLM_ENABLED=false
+AGENT_MODE=deterministic
+LLM_FALLBACK_ENABLED=true
+SYNC_OUTPUTS_ON_STARTUP=true
+POSTGRES_DB=analytics_ci
+POSTGRES_USER=analytics_ci_user
+POSTGRES_PASSWORD=analytics_ci_password
+```
+
+LLM mode is disabled in CI because tests and pull-request checks must be deterministic and must not require OpenAI credentials or external LLM calls. Optional LLM behavior is covered with mocked tests and deterministic fallback behavior.
+
+Reproduce the backend CI locally:
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+python3 -m py_compile src/api/main.py
+python3 -m py_compile src/database/models.py
+python3 -m py_compile src/llm/client.py
+python3 -m pytest
+```
+
+Reproduce the frontend CI locally:
+
+```bash
+cd frontend
+npm ci
+npm run lint
+npm run test -- --run
+npm run build
+```
+
+Reproduce the Docker CI locally:
+
+```bash
+docker compose config
+docker compose build
+docker compose up -d
+docker compose ps
+curl --fail http://localhost:8000/health
+curl --fail http://localhost:3000/api/health
+curl --fail "http://localhost:3000/api/kpis?limit=5"
+curl --fail http://localhost:3000/
+docker compose exec -T api alembic current
+sh scripts/verify_docker_stack.sh
+docker compose down -v
+```
+
+If a workflow fails, open the failed run in the GitHub Actions tab, choose the failed job, and inspect the first failed step. Backend failures usually show pytest output, frontend failures usually show ESLint, Vitest, TypeScript, or Vite output, and Docker failures usually show Compose status or container logs.
+
+Recommended GitHub branch protection:
+
+- Require pull requests before merging.
+- Require the **Backend CI**, **Frontend CI**, and **Docker CI** checks.
+- Prevent merging when required checks fail.
+- Keep these checks required for `main`.
 
 ## Phase 9 Checks
 
