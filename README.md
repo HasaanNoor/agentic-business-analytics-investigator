@@ -518,6 +518,99 @@ Alembic is the migration path for real environments:
 ```bash
 alembic revision --autogenerate -m "describe change"
 alembic upgrade head
+```
+
+## Phase 16: React Dashboard
+
+Phase 16 adds a React and TypeScript dashboard in `frontend/`.
+
+The dashboard is a presentation layer over the existing FastAPI service. It does not recalculate KPIs, forecasts, SHAP values, incident findings, RAG results, or LLM outputs in the browser. It requests existing API data and focuses on navigation, filtering, loading states, error states, charts, tables, and readable incident details.
+
+Frontend choices:
+
+- React with TypeScript
+- Vite
+- Tailwind CSS as the single styling approach
+- React Router for routes
+- Recharts for charts
+- Native `fetch` through a typed API client
+- React Markdown for safe markdown rendering without raw HTML enabled
+- Vitest and React Testing Library for frontend unit tests
+
+Dashboard routes:
+
+- `/` overview with readiness, database status, fallback status, LLM mode, recent KPIs, incidents, and forecast summary
+- `/kpis` KPI explorer with selector, date filters, summaries, line chart, and incident markers
+- `/incidents` searchable and filterable incident table
+- `/incidents/:incidentId` incident detail with observations, inferences, recommendations, limitations, historical incidents, agent findings, and provenance
+- `/forecasts` seven-day forecast chart and table
+- `/explanations` SHAP feature importance chart and table
+- `/rag` explicit historical incident search
+- `/reports` actionable markdown report
+- `/system` health and LLM status
+
+Local frontend development:
+
+```bash
+cd frontend
+npm install
+npm run dev
+npm run build
+npm run test
+npm run lint
+```
+
+When running Vite locally, the dashboard defaults to:
+
+```text
+http://localhost:5173
+```
+
+It calls FastAPI through `VITE_API_BASE_URL`, which defaults to:
+
+```text
+http://localhost:8000
+```
+
+Docker startup:
+
+```bash
+docker compose up -d --build
+docker compose ps
+docker compose logs -f frontend
+docker compose down
+```
+
+The Docker dashboard URL is:
+
+```text
+http://localhost:3000
+```
+
+In Docker, nginx serves the built Vite app and proxies dashboard API calls from `/api` to the FastAPI container. The browser therefore talks to the frontend origin, while nginx handles container-to-container API routing.
+
+Environment variables:
+
+- `FRONTEND_PORT` controls the host port for the nginx dashboard, default `3000`
+- `VITE_API_BASE_URL` controls the browser API base URL at build time, default `/api` in Docker
+- `CORS_ALLOWED_ORIGINS` configures allowed FastAPI browser origins, default `http://localhost:5173,http://localhost:3000`
+- Existing database and LLM variables continue to control FastAPI and PostgreSQL
+
+Useful API checks:
+
+```bash
+curl http://localhost:8000/health
+curl http://localhost:8000/llm/status
+curl "http://localhost:8000/kpis?limit=5"
+curl http://localhost:3000/api/health
+```
+
+Known limitations:
+
+- No authentication is included yet.
+- No scheduling, cloud deployment, Redis, Celery, Kafka, or pgvector is included.
+- The dashboard depends on FastAPI response compatibility and does not call OpenAI directly.
+- Forecast pages show returned model fields only; model metrics appear only when the API includes them.
 alembic current
 ```
 

@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import json
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
@@ -39,6 +41,20 @@ app = FastAPI(
     title="Agentic Business Analytics Investigator API",
     version="0.1.0",
     description="Read-only API for generated analytics, incident, forecast, explanation, and report outputs.",
+)
+
+
+def _parse_cors_allowed_origins() -> list[str]:
+    raw_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:5173")
+    return [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_parse_cors_allowed_origins(),
+    allow_credentials=False,
+    allow_methods=["GET", "OPTIONS"],
+    allow_headers=["*"],
 )
 
 

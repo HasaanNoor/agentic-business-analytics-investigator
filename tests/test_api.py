@@ -192,3 +192,33 @@ def test_rag_search_requires_knowledge_base_file(monkeypatch, tmp_path):
 
     assert response.status_code == 404
     assert "incident_knowledge_base.pkl" in response.json()["detail"]
+
+
+def test_cors_allows_configured_frontend_origin():
+    client = TestClient(api.app)
+
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "http://localhost:5173",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:5173"
+
+
+def test_cors_rejects_unconfigured_origin():
+    client = TestClient(api.app)
+
+    response = client.options(
+        "/health",
+        headers={
+            "Origin": "http://example.com",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers

@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #172033;
+  background: #f5f7fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+.markdown-report h1,
+.markdown-report h2,
+.markdown-report h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #172033;
+}
+
+.markdown-report p,
+.markdown-report li {
+  color: #5d667a;
+  line-height: 1.65;
+}
+
+.markdown-report ul,
+.markdown-report ol {
+  margin-left: 1.25rem;
+  list-style-position: outside;
+}
+
+.markdown-report table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-report th,
+.markdown-report td {
+  border: 1px solid #d9dee8;
+  padding: 0.5rem;
+  text-align: left;
+}
