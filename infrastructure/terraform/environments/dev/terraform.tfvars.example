@@ -1,0 +1,39 @@
+aws_region   = "us-east-1"
+project_code = "abai"
+environment  = "dev"
+
+vpc_cidr                 = "10.20.0.0/16"
+availability_zones       = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs      = ["10.20.0.0/24", "10.20.1.0/24"]
+private_app_subnet_cidrs = ["10.20.10.0/24", "10.20.11.0/24"]
+private_db_subnet_cidrs  = ["10.20.20.0/24", "10.20.21.0/24"]
+
+enable_nat_gateway = true
+
+database_name                  = "analytics_dev"
+database_username              = "abai_admin"
+database_instance_class        = "db.t4g.micro"
+database_allocated_storage     = 20
+database_backup_retention_days = 3
+
+api_cpu                  = 512
+api_memory               = 1024
+frontend_cpu             = 256
+frontend_memory          = 512
+desired_api_task_count   = 1
+desired_frontend_task_count = 1
+
+api_container_port      = 8000
+frontend_container_port = 80
+
+log_retention_days             = 14
+enable_ecs_container_insights  = false
+
+# Keep ECS service creation disabled until Phase 18C builds and pushes real images.
+create_ecs_services = false
+api_image_uri       = ""
+frontend_image_uri  = ""
+
+additional_tags = {
+  Owner = "development"
+}

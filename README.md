@@ -1061,6 +1061,14 @@ Limitations:
 - The API is still read-only and does not trigger expensive LLM investigations.
 - There is no authentication, scheduler, Redis, Celery, pgvector, frontend, or cloud deployment in this phase.
 
+## Phase 18B: AWS Terraform Foundation
+
+Phase 18B adds reviewable Terraform definitions for the first AWS development environment. The configuration defines the VPC, subnet tiers, security groups, ECR repositories, private RDS PostgreSQL database, Secrets Manager database URL secret, CloudWatch log groups, IAM roles, Application Load Balancer, ECS cluster, and conditional ECS task/service definitions for the existing backend and frontend containers.
+
+ECS services are disabled by default because Phase 18B does not build or push real container images. Future deployment work will provide commit-tagged ECR image URIs, run migrations as explicit one-off tasks, and then enable the services.
+
+See [infrastructure/terraform/README.md](infrastructure/terraform/README.md) for the architecture, validation workflow, cost notes, and current limitations. No AWS resources are created by this repository change.
+
 ## Roadmap
 
 - Add a dashboard for exploring KPIs, anomalies, incidents, forecasts, and reports.

@@ -1,0 +1,13 @@
+# Remote state is intentionally not active in Phase 18B.
+# Copy this file to backend.tf only after the S3 state bucket and lock table
+# already exist, then replace the placeholders with real non-secret values.
+#
+# terraform {
+#   backend "s3" {
+#     bucket         = "REPLACE_WITH_STATE_BUCKET"
+#     key            = "abai/dev/terraform.tfstate"
+#     region         = "us-east-1"
+#     dynamodb_table = "REPLACE_WITH_LOCK_TABLE"
+#     encrypt        = true
+#   }
+# }
