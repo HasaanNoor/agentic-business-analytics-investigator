@@ -32,4 +32,4 @@ USER app
 EXPOSE 8000
 
 ENTRYPOINT ["./docker/entrypoint.sh"]
-CMD ["python3", "-m", "uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["api"]

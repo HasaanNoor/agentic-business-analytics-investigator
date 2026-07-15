@@ -21,6 +21,7 @@ jobs:
       LLM_ENABLED: "false"
       AGENT_MODE: deterministic
       LLM_FALLBACK_ENABLED: "true"
+      RUN_MIGRATIONS_ON_STARTUP: "true"
       SYNC_OUTPUTS_ON_STARTUP: "true"
       POSTGRES_DB: analytics_ci
       POSTGRES_USER: analytics_ci_user
@@ -108,10 +109,16 @@ jobs:
           done
 
           curl --fail http://localhost:8000/health
+          curl --fail http://localhost:8000/health/live
+          curl --fail http://localhost:8000/health/ready
           curl --fail http://localhost:3000/api/health
+          curl --fail http://localhost:3000/api/health/live
+          curl --fail http://localhost:3000/api/health/ready
           curl --fail "http://localhost:3000/api/kpis?limit=5"
           curl --fail http://localhost:3000/
           docker compose exec -T api alembic current
+          docker compose run --rm api migrate
+          docker compose run --rm api sync
 
       - name: Run Docker verification script
         env:

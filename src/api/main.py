@@ -11,6 +11,7 @@ from typing import Any
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
@@ -75,6 +76,50 @@ def _database_status() -> dict[str, Any]:
         return {"configured": True, "available": True, "error": None}
     except SQLAlchemyError as exc:
         return {"configured": True, "available": False, "error": str(exc)}
+
+
+def _output_paths() -> dict[str, Path]:
+    return {
+        "kpis": KPI_SUMMARY_PATH,
+        "incidents": INCIDENT_REPORTS_PATH,
+        "forecasts": FORECAST_SUMMARY_PATH,
+        "explanations": SHAP_FEATURE_IMPORTANCE_PATH,
+        "actionable_report": ACTIONABLE_REPORT_PATH,
+        "rag_knowledge_base": KNOWLEDGE_BASE_PATH,
+    }
+
+
+def _file_fallback_status() -> dict[str, Any]:
+    files = {name: {"path": str(path), "exists": path.exists()} for name, path in _output_paths().items()}
+    missing = [name for name, info in files.items() if not info["exists"]]
+    return {"available": not missing, "missing_outputs": missing, "files": files}
+
+
+def _readiness_payload() -> dict[str, Any]:
+    database = _database_status()
+    file_fallback = _file_fallback_status()
+    if database["available"]:
+        status = "ready"
+        serving_source = "database"
+        ready = True
+    elif file_fallback["available"]:
+        status = "degraded"
+        serving_source = "file_fallback"
+        ready = True
+    else:
+        status = "unavailable"
+        serving_source = None
+        ready = False
+    return {
+        "status": status,
+        "ready": ready,
+        "serving_source": serving_source,
+        "database": database,
+        "file_fallback": {
+            "available": file_fallback["available"],
+            "missing_outputs": file_fallback["missing_outputs"],
+        },
+    }
 
 
 def _load_from_database(loader):
@@ -198,31 +243,32 @@ def _public_llm_status() -> dict[str, Any]:
 
 @app.get("/health")
 def health() -> dict[str, Any]:
-    output_paths = {
-        "kpis": KPI_SUMMARY_PATH,
-        "incidents": INCIDENT_REPORTS_PATH,
-        "forecasts": FORECAST_SUMMARY_PATH,
-        "explanations": SHAP_FEATURE_IMPORTANCE_PATH,
-        "actionable_report": ACTIONABLE_REPORT_PATH,
-        "rag_knowledge_base": KNOWLEDGE_BASE_PATH,
-    }
-    files = {name: {"path": str(path), "exists": path.exists()} for name, path in output_paths.items()}
-    missing = [name for name, info in files.items() if not info["exists"]]
-    database = _database_status()
-    file_fallback_available = not missing
-    ready = database["available"] or file_fallback_available
+    readiness = _readiness_payload()
+    file_status = _file_fallback_status()
     return {
-        "status": "ready" if ready else "degraded",
+        "status": "ready" if readiness["ready"] else "degraded",
         "project": "Agentic Business Analytics Investigator",
         "read_only": True,
         "api": {"status": "ok"},
-        "database": database,
+        "database": readiness["database"],
         "llm": _public_llm_status(),
-        "file_fallback": {"available": file_fallback_available, "missing_outputs": missing},
-        "ready": ready,
-        "files": files,
-        "missing_outputs": missing,
+        "file_fallback": readiness["file_fallback"],
+        "ready": readiness["ready"],
+        "files": file_status["files"],
+        "missing_outputs": file_status["missing_outputs"],
     }
+
+
+@app.get("/health/live")
+def health_live() -> dict[str, str]:
+    return {"status": "alive"}
+
+
+@app.get("/health/ready")
+def health_ready() -> JSONResponse:
+    payload = _readiness_payload()
+    status_code = 200 if payload["ready"] else 503
+    return JSONResponse(status_code=status_code, content=payload)
 
 
 @app.get("/llm/status")

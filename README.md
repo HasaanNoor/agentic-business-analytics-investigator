@@ -695,9 +695,9 @@ docker compose logs -f db
 On API container startup, `docker/entrypoint.sh` does this:
 
 1. Waits until PostgreSQL is reachable through `DATABASE_URL`.
-2. Runs `alembic upgrade head`.
+2. Runs `alembic upgrade head` when `RUN_MIGRATIONS_ON_STARTUP=true`.
 3. Runs `python3 src/database/sync_outputs.py` when `SYNC_OUTPUTS_ON_STARTUP=true`.
-4. Starts Uvicorn with `python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000`.
+4. Starts Uvicorn with `python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port ${API_PORT:-8000}`.
 
 This migration-at-startup flow is acceptable for this local single-container API stack. A production deployment with multiple API replicas should run migrations as a separate release or initialization task, so multiple containers do not try to migrate the database at the same time.
 
@@ -706,8 +706,7 @@ Generated files are still part of the application contract. Startup synchronizat
 Run synchronization manually:
 
 ```bash
-docker compose exec api python3 src/database/sync_outputs.py
-docker compose exec api python3 src/database/sync_outputs.py
+docker compose run --rm api sync
 ```
 
 Check Alembic state:
@@ -716,10 +715,18 @@ Check Alembic state:
 docker compose exec api alembic current
 ```
 
+Run migrations explicitly:
+
+```bash
+docker compose run --rm api migrate
+```
+
 Call the API:
 
 ```bash
 curl http://localhost:8000/health
+curl http://localhost:8000/health/live
+curl http://localhost:8000/health/ready
 curl "http://localhost:8000/kpis?limit=5"
 curl http://localhost:8000/incidents
 curl http://localhost:8000/forecasts
@@ -784,11 +791,57 @@ python3 -m pytest
 
 Local development limitations:
 
-- There is no frontend container yet.
 - There is no scheduler, queue, Redis, Celery, pgvector, authentication, or cloud deployment.
 - The API container does not use Uvicorn reload mode.
 - File fallback remains available when PostgreSQL is not configured or is unavailable.
 - Ordinary tests do not require Docker and continue to use SQLite.
+
+## Phase 18: Production Deployment Foundation
+
+Phase 18 separates backend container responsibilities into explicit modes while preserving the local `docker compose up -d --build` workflow.
+
+The backend image supports these process modes:
+
+```bash
+docker compose up -d --build
+docker compose run --rm api migrate
+docker compose run --rm api sync
+```
+
+Normal Compose startup runs `api` mode. Local Compose explicitly sets `RUN_MIGRATIONS_ON_STARTUP=true` and `SYNC_OUTPUTS_ON_STARTUP=true`, so the development stack still waits for PostgreSQL, applies Alembic migrations, imports generated outputs, starts FastAPI, starts the nginx frontend, and keeps `/api` proxying to the backend.
+
+Production API replicas should not run migrations or output synchronization automatically. Use:
+
+```text
+APP_ENV=production
+RUN_MIGRATIONS_ON_STARTUP=false
+SYNC_OUTPUTS_ON_STARTUP=false
+```
+
+With `APP_ENV=production`, API startup validation rejects migrations-on-startup, synchronization-on-startup, missing `DATABASE_URL`, SQLite, and the default local database name, username, or password. Migration and synchronization tasks remain runnable as separate one-off tasks in production:
+
+```bash
+docker compose run --rm api migrate
+docker compose run --rm api sync
+```
+
+This keeps database schema changes under release control and avoids multiple API replicas trying to modify the same database during rolling updates, autoscaling, crash recovery, or replacement deployments. Synchronization is separate for the same reason: importing generated outputs is an initialization or data-loading task, not a side effect of serving HTTP traffic.
+
+Health endpoints:
+
+- `GET /health` keeps the existing response contract for the dashboard and general status checks.
+- `GET /health/live` returns `{"status":"alive"}` quickly without querying the database.
+- `GET /health/ready` checks whether the API can serve useful responses.
+
+Readiness returns HTTP 200 when PostgreSQL is available. If PostgreSQL is configured but unavailable and the generated output files are usable, readiness returns HTTP 200 with `status: "degraded"` and `serving_source: "file_fallback"`. If neither PostgreSQL nor file fallback can serve requests, readiness returns HTTP 503.
+
+`API_PORT` controls the Uvicorn listen port for API-only container runs. In local Compose, `API_PORT` remains the host port published for the API while the backend container listens on 8000 so the nginx `/api` proxy remains stable.
+
+Current limitations:
+
+- AWS infrastructure is intentionally deferred to the next Phase 18 subphase.
+- No Terraform, ECR, ECS, RDS provisioning, Application Load Balancer, GitHub Actions deployment job, or production monitoring is included yet.
+- There is still no authentication, authorization, scheduler, queue, Redis, Celery, Kafka, Kubernetes, or pgvector.
 
 ## Run The Full Local Pipeline
 
@@ -816,9 +869,9 @@ The first RAG build creates historical context from the first-pass investigation
 
 Every push to `main` and every pull request runs automated checks in GitHub Actions. The workflows are split so a failure points to the right area quickly:
 
-- **Backend CI** installs Python dependencies, compiles key backend modules, and runs `pytest`.
+- **Backend CI** installs Python dependencies, compiles key backend modules including startup validation, and runs `pytest`.
 - **Frontend CI** installs the locked npm dependencies with `npm ci`, runs lint, runs Vitest, runs a production build, and performs a non-blocking high-severity npm audit.
-- **Docker CI** validates the Compose file, builds the Docker images, starts PostgreSQL, FastAPI, and the nginx frontend, checks API and frontend routes, verifies the Alembic migration state, runs `scripts/verify_docker_stack.sh`, and always shuts the stack down with `docker compose down -v`.
+- **Docker CI** validates the Compose file, builds the Docker images, starts PostgreSQL, FastAPI, and the nginx frontend, checks API and frontend routes including liveness and readiness, verifies the Alembic migration state, verifies explicit `migrate` and `sync` modes, runs `scripts/verify_docker_stack.sh`, and always shuts the stack down with `docker compose down -v`.
 
 CI uses disposable local settings:
 
@@ -826,6 +879,7 @@ CI uses disposable local settings:
 LLM_ENABLED=false
 AGENT_MODE=deterministic
 LLM_FALLBACK_ENABLED=true
+RUN_MIGRATIONS_ON_STARTUP=true
 SYNC_OUTPUTS_ON_STARTUP=true
 POSTGRES_DB=analytics_ci
 POSTGRES_USER=analytics_ci_user
@@ -840,6 +894,7 @@ Reproduce the backend CI locally:
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 python3 -m py_compile src/api/main.py
+python3 -m py_compile src/api/startup_config.py
 python3 -m py_compile src/database/models.py
 python3 -m py_compile src/llm/client.py
 python3 -m pytest
@@ -863,10 +918,16 @@ docker compose build
 docker compose up -d
 docker compose ps
 curl --fail http://localhost:8000/health
+curl --fail http://localhost:8000/health/live
+curl --fail http://localhost:8000/health/ready
 curl --fail http://localhost:3000/api/health
+curl --fail http://localhost:3000/api/health/live
+curl --fail http://localhost:3000/api/health/ready
 curl --fail "http://localhost:3000/api/kpis?limit=5"
 curl --fail http://localhost:3000/
 docker compose exec -T api alembic current
+docker compose run --rm api migrate
+docker compose run --rm api sync
 sh scripts/verify_docker_stack.sh
 docker compose down -v
 ```

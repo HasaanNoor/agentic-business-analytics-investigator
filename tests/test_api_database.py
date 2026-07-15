@@ -116,6 +116,49 @@ def test_health_reports_database_available(monkeypatch, tmp_path):
     assert payload["ready"] is True
 
 
+def test_health_ready_reports_database_available(monkeypatch, tmp_path):
+    configure_paths(monkeypatch, tmp_path)
+    Session = make_session_factory()
+    monkeypatch.setenv("DATABASE_URL", "sqlite:///:memory:")
+    monkeypatch.setattr(api, "SessionLocal", Session)
+
+    response = TestClient(api.app).get("/health/ready")
+    payload = response.json()
+
+    assert response.status_code == 200
+    assert payload["status"] == "ready"
+    assert payload["serving_source"] == "database"
+    assert payload["database"]["available"] is True
+
+
+def test_health_ready_reports_file_fallback_when_database_unavailable(monkeypatch, tmp_path):
+    paths = configure_paths(monkeypatch, tmp_path)
+    write_outputs(paths)
+    monkeypatch.setenv("DATABASE_URL", "postgresql+psycopg2://placeholder:placeholder@127.0.0.1:1/placeholder")
+
+    response = TestClient(api.app).get("/health/ready")
+    payload = response.json()
+
+    assert response.status_code == 200
+    assert payload["status"] == "degraded"
+    assert payload["serving_source"] == "file_fallback"
+    assert payload["database"]["available"] is False
+    assert payload["file_fallback"]["available"] is True
+
+
+def test_health_ready_returns_503_when_no_serving_source(monkeypatch, tmp_path):
+    configure_paths(monkeypatch, tmp_path)
+    monkeypatch.setenv("DATABASE_URL", "postgresql+psycopg2://placeholder:placeholder@127.0.0.1:1/placeholder")
+
+    response = TestClient(api.app).get("/health/ready")
+    payload = response.json()
+
+    assert response.status_code == 503
+    assert payload["status"] == "unavailable"
+    assert payload["ready"] is False
+    assert payload["serving_source"] is None
+
+
 def test_health_reports_database_unavailable_and_missing_files(monkeypatch, tmp_path):
     configure_paths(monkeypatch, tmp_path)
     monkeypatch.setenv("DATABASE_URL", "postgresql+psycopg2://placeholder:placeholder@127.0.0.1:1/placeholder")

@@ -85,6 +85,19 @@ def test_health_reports_ready_when_outputs_exist(monkeypatch, tmp_path):
     assert payload["missing_outputs"] == []
 
 
+def test_health_live_returns_alive_without_database_access(monkeypatch):
+    def fail_database_status():
+        raise AssertionError("liveness must not check the database")
+
+    monkeypatch.setattr(api, "_database_status", fail_database_status)
+    client = TestClient(api.app)
+
+    response = client.get("/health/live")
+
+    assert response.status_code == 200
+    assert response.json() == {"status": "alive"}
+
+
 def test_health_reports_degraded_when_outputs_are_missing(monkeypatch, tmp_path):
     configure_paths(monkeypatch, tmp_path)
     client = TestClient(api.app)

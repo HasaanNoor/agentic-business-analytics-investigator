@@ -19,6 +19,7 @@ jobs:
       LLM_ENABLED: "false"
       AGENT_MODE: deterministic
       LLM_FALLBACK_ENABLED: "true"
+      RUN_MIGRATIONS_ON_STARTUP: "false"
       SYNC_OUTPUTS_ON_STARTUP: "true"
     steps:
       - name: Check out repository
@@ -39,6 +40,7 @@ jobs:
       - name: Compile key backend modules
         run: |
           python3 -m py_compile src/api/main.py
+          python3 -m py_compile src/api/startup_config.py
           python3 -m py_compile src/database/models.py
           python3 -m py_compile src/llm/client.py
 
