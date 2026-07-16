@@ -1,0 +1,60 @@
+{
+  "count": 3,
+  "query": "checkout failures after deployment",
+  "results": [
+    {
+      "metadata": {
+        "incident_id": "INC-116",
+        "incident_type": "Latency Spike Incident",
+        "outcome": "Pre-generated deterministic comparison.",
+        "recommendations": [
+          "Reduced API latency by rolling back the slow dependency and scaling checkout workers.",
+          "Compare the current incident with similar historical incidents before finalizing recommendations.",
+          "Monitor affected metrics until recovery is confirmed."
+        ],
+        "region": "All regions",
+        "resolution": "Historical resolution details are available in the source incident record.",
+        "root_cause": "Likely platform reliability incident",
+        "severity": "high",
+        "summary": null
+      },
+      "similarity_score": 0.9611
+    },
+    {
+      "metadata": {
+        "incident_id": "INC-194",
+        "incident_type": "Latency Spike Incident",
+        "outcome": "Pre-generated deterministic comparison.",
+        "recommendations": [
+          "Reduced API latency by rolling back the slow dependency and scaling checkout workers.",
+          "Compare the current incident with similar historical incidents before finalizing recommendations.",
+          "Monitor affected metrics until recovery is confirmed."
+        ],
+        "region": "All regions",
+        "resolution": "Historical resolution details are available in the source incident record.",
+        "root_cause": "Likely platform reliability incident",
+        "severity": "high",
+        "summary": null
+      },
+      "similarity_score": 0.9607
+    },
+    {
+      "metadata": {
+        "incident_id": "INC-105",
+        "incident_type": "Latency Spike Incident",
+        "outcome": "Pre-generated deterministic comparison.",
+        "recommendations": [
+          "Reduced API latency by rolling back the slow dependency and scaling checkout workers.",
+          "Compare the current incident with similar historical incidents before finalizing recommendations.",
+          "Monitor affected metrics until recovery is confirmed."
+        ],
+        "region": "All regions",
+        "resolution": "Historical resolution details are available in the source incident record.",
+        "root_cause": "Likely platform reliability incident",
+        "severity": "high",
+        "summary": null
+      },
+      "similarity_score": 0.959
+    }
+  ]
+}

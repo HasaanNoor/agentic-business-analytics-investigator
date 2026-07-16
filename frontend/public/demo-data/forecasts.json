@@ -1,0 +1,152 @@
+{
+  "count": 21,
+  "rows": [
+    {
+      "date": "2027-01-01",
+      "forecast_day": 1,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 120837.405024
+    },
+    {
+      "date": "2027-01-02",
+      "forecast_day": 2,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 122506.952233
+    },
+    {
+      "date": "2027-01-03",
+      "forecast_day": 3,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 123039.389127
+    },
+    {
+      "date": "2027-01-04",
+      "forecast_day": 4,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 121819.090954
+    },
+    {
+      "date": "2027-01-05",
+      "forecast_day": 5,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 121644.898677
+    },
+    {
+      "date": "2027-01-06",
+      "forecast_day": 6,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 120981.898075
+    },
+    {
+      "date": "2027-01-07",
+      "forecast_day": 7,
+      "kpi": "net_revenue",
+      "model_name": "linear_regression",
+      "prediction": 120013.005658
+    },
+    {
+      "date": "2027-01-01",
+      "forecast_day": 1,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.069278
+    },
+    {
+      "date": "2027-01-02",
+      "forecast_day": 2,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.068797
+    },
+    {
+      "date": "2027-01-03",
+      "forecast_day": 3,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.069234
+    },
+    {
+      "date": "2027-01-04",
+      "forecast_day": 4,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.069446
+    },
+    {
+      "date": "2027-01-05",
+      "forecast_day": 5,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.069446
+    },
+    {
+      "date": "2027-01-06",
+      "forecast_day": 6,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.068797
+    },
+    {
+      "date": "2027-01-07",
+      "forecast_day": 7,
+      "kpi": "shipping_delay_rate",
+      "model_name": "xgboost",
+      "prediction": 0.068797
+    },
+    {
+      "date": "2027-01-01",
+      "forecast_day": 1,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 168.54924
+    },
+    {
+      "date": "2027-01-02",
+      "forecast_day": 2,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 178.478104
+    },
+    {
+      "date": "2027-01-03",
+      "forecast_day": 3,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 176.364731
+    },
+    {
+      "date": "2027-01-04",
+      "forecast_day": 4,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 170.874039
+    },
+    {
+      "date": "2027-01-05",
+      "forecast_day": 5,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 168.769073
+    },
+    {
+      "date": "2027-01-06",
+      "forecast_day": 6,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 177.889908
+    },
+    {
+      "date": "2027-01-07",
+      "forecast_day": 7,
+      "kpi": "support_ticket_count",
+      "model_name": "xgboost",
+      "prediction": 170.871185
+    }
+  ]
+}

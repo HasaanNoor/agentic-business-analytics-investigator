@@ -1,0 +1,53 @@
+{
+  "api": {
+    "status": "static-demo"
+  },
+  "database": {
+    "available": false,
+    "configured": false,
+    "error": "Static demo mode does not connect to PostgreSQL."
+  },
+  "file_fallback": {
+    "available": true,
+    "missing_outputs": []
+  },
+  "files": {
+    "actionable_report": {
+      "exists": true,
+      "path": "demo-data/actionable_report.json"
+    },
+    "explanations": {
+      "exists": true,
+      "path": "demo-data/explanations.json"
+    },
+    "forecasts": {
+      "exists": true,
+      "path": "demo-data/forecasts.json"
+    },
+    "incidents": {
+      "exists": true,
+      "path": "demo-data/incidents.json"
+    },
+    "kpis": {
+      "exists": true,
+      "path": "demo-data/kpis.json"
+    },
+    "rag_search": {
+      "exists": true,
+      "path": "demo-data/rag_search.json"
+    }
+  },
+  "llm": {
+    "agent_mode": "deterministic",
+    "configuration_error": null,
+    "configured": false,
+    "enabled": false,
+    "fallback_enabled": true,
+    "selected_model": null
+  },
+  "missing_outputs": [],
+  "project": "Agentic Business Analytics Investigator",
+  "read_only": true,
+  "ready": true,
+  "status": "ready"
+}

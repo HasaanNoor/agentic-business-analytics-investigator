@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
-import { getIncident } from '../api/client';
 import { AgentFindingPanel } from '../components/AgentFindingPanel';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { StatusBadge } from '../components/StatusBadge';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 import type { Incident } from '../types/api';
 import { formatLabel, formatNumber, getExecutionMode, getFallbackUsed, getIncidentEnd, getIncidentRegion, getIncidentSeverity, getIncidentStart, getIncidentTitle } from '../utils/format';
@@ -31,7 +31,7 @@ function agentByName(incident: Incident, name: string) {
 
 export function IncidentDetailPage() {
   const { incidentId = '' } = useParams();
-  const { data, error, loading, retry } = useAsyncData(() => getIncident(incidentId), [incidentId]);
+  const { data, error, loading, retry } = useAsyncData(() => dataProvider.getIncident(incidentId), [incidentId]);
 
   if (loading) return <LoadingState />;
   if (error) return <ErrorState message={error} onRetry={retry} />;

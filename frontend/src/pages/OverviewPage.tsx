@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { getForecasts, getHealth, getIncidents, getKpis } from '../api/client';
 import { KpiLineChart } from '../components/KpiLineChart';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { StatusBadge } from '../components/StatusBadge';
 import { SummaryCard } from '../components/SummaryCard';
+import { isStaticDataMode } from '../config/dataMode';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 import type { ForecastsResponse, HealthResponse, IncidentsResponse, KpisResponse } from '../types/api';
 import { formatKpiValue, formatLabel, getIncidentSeverity, getIncidentTitle, kpiLabels, primaryKpis, severityRank } from '../utils/format';
@@ -18,7 +19,7 @@ interface OverviewData {
 
 export function OverviewPage() {
   const { data, error, loading, retry } = useAsyncData<OverviewData>(async () => {
-    const [health, kpis, incidents, forecasts] = await Promise.all([getHealth(), getKpis(45), getIncidents(), getForecasts()]);
+    const [health, kpis, incidents, forecasts] = await Promise.all([dataProvider.getHealth(), dataProvider.getKpis(45), dataProvider.getIncidents(), dataProvider.getForecasts()]);
     return { health, kpis, incidents, forecasts };
   });
 
@@ -35,7 +36,14 @@ export function OverviewPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Overview" description="Current operating status, latest KPI values, recent high-severity incidents, and forecast coverage from the FastAPI analytics service." />
+      <PageHeader
+        title="Overview"
+        description={
+          isStaticDataMode
+            ? 'Current operating status, latest KPI values, recent high-severity incidents, and forecast coverage from pre-generated static demo fixtures.'
+            : 'Current operating status, latest KPI values, recent high-severity incidents, and forecast coverage from the FastAPI analytics service.'
+        }
+      />
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <SummaryCard title="System readiness" value={<StatusBadge value={data.health.status} />} detail={data.health.ready ? 'API reports ready for use.' : 'API reports degraded output availability.'} />
         <SummaryCard title="Database availability" value={<StatusBadge value={data.health.database.available} />} detail={data.health.database.configured ? 'PostgreSQL is configured.' : 'Database is not configured.'} />

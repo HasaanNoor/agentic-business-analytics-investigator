@@ -1,0 +1,18 @@
+{
+  "dataset_name": "Northstar Commerce deterministic demo dataset",
+  "date_range": {
+    "end": "2026-12-31",
+    "start": "2026-07-05"
+  },
+  "demonstration_label": "Portfolio Demo \u00b7 Pre-generated sample dataset",
+  "execution_mode": "deterministic",
+  "generated_at": "2026-07-16T19:55:48Z",
+  "schema_version": "1.0.0",
+  "source_descriptions": [
+    "KPI rows exported from outputs/reports/kpi_summary_daily.csv.",
+    "Incidents exported from outputs/reports/multi_agent_investigation_reports.json.",
+    "Forecasts exported from outputs/reports/forecast_summary.csv.",
+    "Explainability rows exported from outputs/reports/shap_feature_importance.csv.",
+    "Actionable report exported from outputs/reports/executive_operations_report.md."
+  ]
+}

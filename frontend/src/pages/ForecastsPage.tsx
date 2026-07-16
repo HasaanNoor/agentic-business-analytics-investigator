@@ -1,14 +1,15 @@
 import { useMemo, useState } from 'react';
-import { getForecasts } from '../api/client';
 import { ForecastChart } from '../components/ForecastChart';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { StatusBadge } from '../components/StatusBadge';
+import { isStaticDataMode } from '../config/dataMode';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 import { formatKpiValue, getForecastValue, kpiLabels } from '../utils/format';
 
 export function ForecastsPage() {
-  const { data, error, loading, retry } = useAsyncData(getForecasts);
+  const { data, error, loading, retry } = useAsyncData(dataProvider.getForecasts);
   const kpis = useMemo(() => Array.from(new Set((data?.rows || []).map((row) => row.kpi))), [data]);
   const [selectedKpi, setSelectedKpi] = useState('');
   const activeKpi = selectedKpi || kpis[0] || '';
@@ -20,7 +21,14 @@ export function ForecastsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Forecasts" description="Seven-day planning forecasts returned by FastAPI. These are model estimates, not guarantees." />
+      <PageHeader
+        title="Forecasts"
+        description={
+          isStaticDataMode
+            ? 'Seven-day planning forecasts loaded from static demo fixtures. These are model estimates from a pre-generated run, not guarantees.'
+            : 'Seven-day planning forecasts returned by FastAPI. These are model estimates, not guarantees.'
+        }
+      />
       <label className="block max-w-sm text-sm font-medium text-ink">
         KPI
         <select className="mt-1 w-full rounded border border-line px-3 py-2" value={activeKpi} onChange={(event) => setSelectedKpi(event.target.value)}>

@@ -2,39 +2,45 @@ import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../App';
-import { getForecasts, getHealth, getIncident, getIncidents, getKpis, getLlmStatus, searchRag } from '../api/client';
+import { dataProvider } from '../data/provider';
 import { renderWithMemoryRouter } from '../test/render';
 import { forecasts, health, incident, incidents, kpis, llmStatus } from '../test/testData';
 
-vi.mock('../api/client', async () => {
-  const actual = await vi.importActual<typeof import('../api/client')>('../api/client');
+vi.mock('../data/provider', () => {
   return {
-    ...actual,
-    getHealth: vi.fn(),
-    getLlmStatus: vi.fn(),
-    getKpis: vi.fn(),
-    getIncidents: vi.fn(),
-    getIncident: vi.fn(),
-    getForecasts: vi.fn(),
-    getExplanations: vi.fn().mockResolvedValue({ count: 1, rows: [{ kpi: 'net_revenue', feature: 'website_visitors', mean_abs_attribution: 10, rank: 1, model_name: 'linear_regression', explanation_method: 'SHAP LinearExplainer' }] }),
-    getActionableReport: vi.fn().mockResolvedValue({ format: 'markdown', content: '# Report\n\nReview checkout.' }),
-    searchRag: vi.fn(),
+    dataProvider: {
+      getHealth: vi.fn(),
+      getLlmStatus: vi.fn(),
+      getKpis: vi.fn(),
+      getIncidents: vi.fn(),
+      getIncident: vi.fn(),
+      getForecasts: vi.fn(),
+      getExplanations: vi.fn().mockResolvedValue({ count: 1, rows: [{ kpi: 'net_revenue', feature: 'website_visitors', mean_abs_attribution: 10, rank: 1, model_name: 'linear_regression', explanation_method: 'SHAP LinearExplainer' }] }),
+      getActionableReport: vi.fn().mockResolvedValue({ format: 'markdown', content: '# Report\n\nReview checkout.' }),
+      searchRag: vi.fn(),
+    },
   };
 });
 
 describe('dashboard pages', () => {
   beforeEach(() => {
-    vi.mocked(getHealth).mockResolvedValue(health);
-    vi.mocked(getLlmStatus).mockResolvedValue(llmStatus);
-    vi.mocked(getKpis).mockResolvedValue(kpis);
-    vi.mocked(getIncidents).mockResolvedValue(incidents);
-    vi.mocked(getIncident).mockResolvedValue({ incident });
-    vi.mocked(getForecasts).mockResolvedValue(forecasts);
-    vi.mocked(searchRag).mockResolvedValue({
+    vi.mocked(dataProvider.getHealth).mockResolvedValue(health);
+    vi.mocked(dataProvider.getLlmStatus).mockResolvedValue(llmStatus);
+    vi.mocked(dataProvider.getKpis).mockResolvedValue(kpis);
+    vi.mocked(dataProvider.getIncidents).mockResolvedValue(incidents);
+    vi.mocked(dataProvider.getIncident).mockResolvedValue({ incident });
+    vi.mocked(dataProvider.getForecasts).mockResolvedValue(forecasts);
+    vi.mocked(dataProvider.searchRag).mockResolvedValue({
       query: 'checkout',
       count: 1,
       results: [{ similarity_score: 0.9, metadata: { incident_id: 'INC-099', root_cause: 'Deployment issue', resolution: 'Rollback', outcome: 'Recovered', recommendations: ['Rollback checkout change'], severity: 'high', region: 'All regions' } }],
     });
+  });
+
+  it('does not show the static demo notice in API mode', async () => {
+    renderWithMemoryRouter(<App />, '/');
+    expect(screen.queryByLabelText(/static portfolio demo notice/i)).not.toBeInTheDocument();
+    expect(await screen.findByText('System readiness')).toBeInTheDocument();
   });
 
   it('shows loading and then renders overview data', async () => {
@@ -45,7 +51,7 @@ describe('dashboard pages', () => {
   });
 
   it('shows page error states with retry', async () => {
-    vi.mocked(getKpis).mockRejectedValueOnce(new Error('The analytics API is currently unavailable. Confirm that the Docker stack or local FastAPI server is running.'));
+    vi.mocked(dataProvider.getKpis).mockRejectedValueOnce(new Error('The analytics API is currently unavailable. Confirm that the Docker stack or local FastAPI server is running.'));
     renderWithMemoryRouter(<App />, '/kpis');
     expect(await screen.findByRole('alert')).toHaveTextContent('analytics API is currently unavailable');
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
@@ -70,7 +76,7 @@ describe('dashboard pages', () => {
     renderWithMemoryRouter(<App />, '/rag');
     await user.type(screen.getByLabelText(/search query/i), 'checkout');
     await user.click(screen.getByRole('button', { name: /search/i }));
-    await waitFor(() => expect(searchRag).toHaveBeenCalledWith('checkout', 3));
+    await waitFor(() => expect(dataProvider.searchRag).toHaveBeenCalledWith('checkout', 3));
     expect(await screen.findByText('INC-099')).toBeInTheDocument();
   });
 

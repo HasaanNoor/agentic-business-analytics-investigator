@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
-import { getIncidents, getKpis } from '../api/client';
 import { KpiLineChart } from '../components/KpiLineChart';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { SummaryCard } from '../components/SummaryCard';
+import { isStaticDataMode } from '../config/dataMode';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 import type { IncidentsResponse, KpisResponse } from '../types/api';
 import { formatKpiValue, getIncidentEnd, getIncidentStart, kpiLabels, primaryKpis, summarizeValues, toChartRows } from '../utils/format';
@@ -13,7 +14,7 @@ export function KpisPage() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const { data, error, loading, retry } = useAsyncData<{ kpis: KpisResponse; incidents: IncidentsResponse }>(async () => {
-    const [kpis, incidents] = await Promise.all([getKpis(500), getIncidents()]);
+    const [kpis, incidents] = await Promise.all([dataProvider.getKpis(500), dataProvider.getIncidents()]);
     return { kpis, incidents };
   });
 
@@ -36,7 +37,14 @@ export function KpisPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="KPIs" description="Explore backend-provided KPI history with date filters and incident context. Summary values here are display summaries over returned API rows." />
+      <PageHeader
+        title="KPIs"
+        description={
+          isStaticDataMode
+            ? 'Explore pre-generated KPI history with date filters and incident context. Summary values are display summaries over static demo rows.'
+            : 'Explore backend-provided KPI history with date filters and incident context. Summary values here are display summaries over returned API rows.'
+        }
+      />
       <section className="grid gap-4 rounded border border-line bg-panel p-4 shadow-soft md:grid-cols-3">
         <label className="text-sm font-medium text-ink">
           KPI

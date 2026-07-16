@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { isStaticDataMode } from '../config/dataMode';
 
 const navItems = [
   { to: '/', label: 'Overview' },
@@ -12,6 +13,9 @@ const navItems = [
 ];
 
 export function AppShell() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="min-h-screen bg-canvas text-ink">
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-line bg-panel p-5 lg:block">
@@ -46,9 +50,9 @@ export function AppShell() {
             aria-label="Primary navigation"
             className="w-full rounded border border-line bg-white px-3 py-2 text-sm"
             onChange={(event) => {
-              window.location.href = event.target.value;
+              navigate(event.target.value);
             }}
-            defaultValue={window.location.pathname}
+            value={location.pathname}
           >
             {navItems.map((item) => (
               <option key={item.to} value={item.to}>
@@ -58,6 +62,14 @@ export function AppShell() {
           </select>
         </header>
         <main className="mx-auto max-w-7xl px-4 py-6 md:px-6 lg:px-8">
+          {isStaticDataMode ? (
+            <section className="mb-6 rounded border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950" aria-label="Static portfolio demo notice">
+              <p className="font-semibold">Portfolio Demo · Pre-generated sample dataset</p>
+              <p className="mt-1">
+                This interface is running without a live backend. Results are versioned static fixtures; the full application supports FastAPI and PostgreSQL locally.
+              </p>
+            </section>
+          ) : null}
           <Outlet />
         </main>
       </div>

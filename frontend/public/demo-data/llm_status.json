@@ -1,0 +1,8 @@
+{
+  "agent_mode": "deterministic",
+  "configuration_error": null,
+  "configured": false,
+  "enabled": false,
+  "fallback_enabled": true,
+  "selected_model": null
+}

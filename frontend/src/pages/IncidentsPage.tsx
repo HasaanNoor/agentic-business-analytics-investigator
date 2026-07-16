@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getIncidents } from '../api/client';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { StatusBadge } from '../components/StatusBadge';
+import { isStaticDataMode } from '../config/dataMode';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 import { formatLabel, getExecutionMode, getFallbackUsed, getIncidentEnd, getIncidentRegion, getIncidentSeverity, getIncidentStart, getIncidentTitle, severityRank } from '../utils/format';
 
@@ -15,7 +16,7 @@ export function IncidentsPage() {
   const [region, setRegion] = useState('all');
   const [mode, setMode] = useState('all');
   const [sort, setSort] = useState<SortMode>('date-desc');
-  const { data, error, loading, retry } = useAsyncData(getIncidents);
+  const { data, error, loading, retry } = useAsyncData(dataProvider.getIncidents);
 
   const regions = useMemo(() => Array.from(new Set((data?.incidents || []).map(getIncidentRegion))).sort(), [data]);
   const modes = useMemo(() => Array.from(new Set((data?.incidents || []).map(getExecutionMode))).sort(), [data]);
@@ -50,7 +51,14 @@ export function IncidentsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Incidents" description="Search, filter, sort, and open incident details from the FastAPI incident endpoint." />
+      <PageHeader
+        title="Incidents"
+        description={
+          isStaticDataMode
+            ? 'Search, filter, sort, and open incident details from the pre-generated static demo incident set.'
+            : 'Search, filter, sort, and open incident details from the FastAPI incident endpoint.'
+        }
+      />
       <section className="grid gap-4 rounded border border-line bg-panel p-4 shadow-soft md:grid-cols-5">
         <label className="text-sm font-medium text-ink md:col-span-2">
           Search incident id or type

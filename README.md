@@ -35,6 +35,68 @@ The project is built in stages. Most stages are deterministic, which means they 
 
 Some folders are placeholders for future dashboard, API, or orchestration work.
 
+## Phase 18C: Static Portfolio Demo
+
+Phase 18C adds a zero-cost public demo mode for GitHub Pages. It uses the same React dashboard, TypeScript domain types, charts, pages, formatters, and loading/error states as the full application, but swaps the frontend data provider at the composition boundary.
+
+Data mode is selected at frontend build time:
+
+```bash
+VITE_DATA_MODE=api      # default local and Docker behavior
+VITE_DATA_MODE=static   # GitHub Pages portfolio demo
+```
+
+The static site does not run FastAPI, does not connect to PostgreSQL, and does not perform live investigations or live RAG retrieval. It displays versioned pre-generated outputs from `frontend/public/demo-data/` and shows a visible "Portfolio Demo · Pre-generated sample dataset" notice. Historical search in static mode is a labeled replay of a stored deterministic result.
+
+Run the full API-backed application locally:
+
+```bash
+docker compose up --build
+```
+
+Run the static demo locally:
+
+```bash
+cd frontend
+npm ci
+VITE_DATA_MODE=static npm run dev
+```
+
+Build the static GitHub Pages artifact locally:
+
+```bash
+cd frontend
+VITE_DATA_MODE=static VITE_BASE_PATH=/agentic-business-analytics-investigator/ npm run build
+```
+
+Refresh demo fixtures from existing deterministic outputs:
+
+```bash
+python3 scripts/export_demo_data.py
+```
+
+The exporter reads generated local reports from `outputs/reports/`, writes API-shaped JSON fixtures to `frontend/public/demo-data/`, does not require AWS or OpenAI, and does not modify production data. If required local outputs are missing, run the deterministic pipeline first.
+
+The public demo URL will appear in the repository's GitHub Pages deployment after `.github/workflows/pages.yml` runs on `main`. The AWS Terraform architecture remains a validated reference design only; GitHub Pages does not host the backend and no AWS resources are required for the portfolio demo.
+
+```mermaid
+flowchart LR
+  subgraph Full application
+    B1[Browser] --> N[nginx]
+    N --> R1[React dashboard]
+    N --> A[FastAPI]
+    A --> P[(PostgreSQL)]
+  end
+
+  subgraph Portfolio demo
+    B2[Browser] --> G[GitHub Pages]
+    G --> R2[Static React build]
+    R2 --> J[Static JSON fixtures]
+  end
+
+  R1 -. shared presentation layer and TypeScript contracts .- R2
+```
+
 ## How The Pipeline Works
 
 ```text

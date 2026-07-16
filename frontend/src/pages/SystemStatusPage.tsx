@@ -1,12 +1,13 @@
-import { getHealth, getLlmStatus } from '../api/client';
 import { PageHeader } from '../components/PageHeader';
 import { EmptyState, ErrorState, LoadingState } from '../components/StateViews';
 import { StatusBadge } from '../components/StatusBadge';
+import { isStaticDataMode } from '../config/dataMode';
+import { dataProvider } from '../data/provider';
 import { useAsyncData } from '../hooks/useAsyncData';
 
 export function SystemStatusPage() {
   const { data, error, loading, retry } = useAsyncData(async () => {
-    const [health, llm] = await Promise.all([getHealth(), getLlmStatus()]);
+    const [health, llm] = await Promise.all([dataProvider.getHealth(), dataProvider.getLlmStatus()]);
     return { health, llm };
   });
 
@@ -16,7 +17,14 @@ export function SystemStatusPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="System Status" description="Operational status from health and LLM status endpoints. Credential values are never displayed." />
+      <PageHeader
+        title="System Status"
+        description={
+          isStaticDataMode
+            ? 'Static demo status from versioned fixtures. No FastAPI, PostgreSQL, or live LLM service is contacted.'
+            : 'Operational status from health and LLM status endpoints. Credential values are never displayed.'
+        }
+      />
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {[
           ['API status', data.health.api.status],

@@ -1,0 +1,525 @@
+{
+  "count": 65,
+  "rows": [
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "website_visitors",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 17947.948562,
+      "model_name": "linear_regression",
+      "rank": 1
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "conversion_rate",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 6627.621806,
+      "model_name": "linear_regression",
+      "rank": 2
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "average_order_value",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 3724.499093,
+      "model_name": "linear_regression",
+      "rank": 3
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "lost_sales_units",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 2025.967181,
+      "model_name": "linear_regression",
+      "rank": 4
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "rolling_avg_14d",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 1508.013762,
+      "model_name": "linear_regression",
+      "rank": 5
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "support_ticket_count",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 1497.671897,
+      "model_name": "linear_regression",
+      "rank": 6
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "rolling_avg_7d",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 964.766105,
+      "model_name": "linear_regression",
+      "rank": 7
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "shipping_delay_rate",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 795.776863,
+      "model_name": "linear_regression",
+      "rank": 8
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "refund_rate",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 623.708503,
+      "model_name": "linear_regression",
+      "rank": 9
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "quarter",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 491.148959,
+      "model_name": "linear_regression",
+      "rank": 10
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "previous_day_value",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 456.506534,
+      "model_name": "linear_regression",
+      "rank": 11
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "month",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 304.076408,
+      "model_name": "linear_regression",
+      "rank": 12
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "lag_7d",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 285.335946,
+      "model_name": "linear_regression",
+      "rank": 13
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "active_customers",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 263.048126,
+      "model_name": "linear_regression",
+      "rank": 14
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "checkout_failure_rate",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 260.99984,
+      "model_name": "linear_regression",
+      "rank": 15
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "avg_api_latency_ms",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 253.850239,
+      "model_name": "linear_regression",
+      "rank": 16
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "day_of_week",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 243.222154,
+      "model_name": "linear_regression",
+      "rank": 17
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "rolling_avg_3d",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 206.646302,
+      "model_name": "linear_regression",
+      "rank": 18
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "stockout_units",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 196.749991,
+      "model_name": "linear_regression",
+      "rank": 19
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "is_weekend",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 186.140602,
+      "model_name": "linear_regression",
+      "rank": 20
+    },
+    {
+      "explanation_method": "SHAP LinearExplainer",
+      "feature": "lag_14d",
+      "kpi": "net_revenue",
+      "mean_abs_attribution": 3.908089,
+      "model_name": "linear_regression",
+      "rank": 21
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "warehouse_backlog",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.020432,
+      "model_name": "xgboost",
+      "rank": 1
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_complaint_tickets",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.004497,
+      "model_name": "xgboost",
+      "rank": 2
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "west_region_disruption",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000475,
+      "model_name": "xgboost",
+      "rank": 3
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_3d",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.00044,
+      "model_name": "xgboost",
+      "rank": 4
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_7d",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000256,
+      "model_name": "xgboost",
+      "rank": 5
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "previous_day_value",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000251,
+      "model_name": "xgboost",
+      "rank": 6
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "carrier_capacity_utilization",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000234,
+      "model_name": "xgboost",
+      "rank": 7
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "support_ticket_count",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000205,
+      "model_name": "xgboost",
+      "rank": 8
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "lag_14d",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000185,
+      "model_name": "xgboost",
+      "rank": 9
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_14d",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000149,
+      "model_name": "xgboost",
+      "rank": 10
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "south_region_disruption",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000112,
+      "model_name": "xgboost",
+      "rank": 11
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "stockout_units",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0.000108,
+      "model_name": "xgboost",
+      "rank": 12
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "lag_7d",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 9.9e-05,
+      "model_name": "xgboost",
+      "rank": 13
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "east_region_disruption",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 9e-05,
+      "model_name": "xgboost",
+      "rank": 14
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "central_region_disruption",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 7.4e-05,
+      "model_name": "xgboost",
+      "rank": 15
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "delivery_complaints",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0,
+      "model_name": "xgboost",
+      "rank": 16
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_disruption_flag",
+      "kpi": "shipping_delay_rate",
+      "mean_abs_attribution": 0,
+      "model_name": "xgboost",
+      "rank": 17
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_delay_rate",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 28.729822,
+      "model_name": "xgboost",
+      "rank": 1
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "checkout_failure_rate",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 18.884031,
+      "model_name": "xgboost",
+      "rank": 2
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_complaint_tickets_rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 5.280278,
+      "model_name": "xgboost",
+      "rank": 3
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "lag_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 4.93025,
+      "model_name": "xgboost",
+      "rank": 4
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "active_customers",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 3.512183,
+      "model_name": "xgboost",
+      "rank": 5
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 2.883628,
+      "model_name": "xgboost",
+      "rank": 6
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 2.052794,
+      "model_name": "xgboost",
+      "rank": 7
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "website_visitors",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 1.891412,
+      "model_name": "xgboost",
+      "rank": 8
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "billing_issue_tickets_previous_day",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 1.775785,
+      "model_name": "xgboost",
+      "rank": 9
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "previous_day_value",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 1.507357,
+      "model_name": "xgboost",
+      "rank": 10
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "lag_14d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 1.228413,
+      "model_name": "xgboost",
+      "rank": 11
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_complaint_tickets_rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 1.032495,
+      "model_name": "xgboost",
+      "rank": 12
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "account_access_tickets_rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.907697,
+      "model_name": "xgboost",
+      "rank": 13
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "avg_api_latency_ms",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.714065,
+      "model_name": "xgboost",
+      "rank": 14
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "shipping_complaint_tickets_previous_day",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.574309,
+      "model_name": "xgboost",
+      "rank": 15
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "checkout_issue_tickets_previous_day",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.566929,
+      "model_name": "xgboost",
+      "rank": 16
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "general_support_tickets_previous_day",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.506123,
+      "model_name": "xgboost",
+      "rank": 17
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "billing_issue_tickets_rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.447426,
+      "model_name": "xgboost",
+      "rank": 18
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "billing_issue_tickets_rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.432706,
+      "model_name": "xgboost",
+      "rank": 19
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "checkout_issue_tickets_rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.425035,
+      "model_name": "xgboost",
+      "rank": 20
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "rolling_avg_14d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.304628,
+      "model_name": "xgboost",
+      "rank": 21
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "general_support_tickets_rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.27396,
+      "model_name": "xgboost",
+      "rank": 22
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "checkout_issue_tickets_rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.262356,
+      "model_name": "xgboost",
+      "rank": 23
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "account_access_tickets_rolling_avg_3d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.254253,
+      "model_name": "xgboost",
+      "rank": 24
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "general_support_tickets_rolling_avg_7d",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.142407,
+      "model_name": "xgboost",
+      "rank": 25
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "account_access_tickets_previous_day",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0.138028,
+      "model_name": "xgboost",
+      "rank": 26
+    },
+    {
+      "explanation_method": "SHAP TreeExplainer",
+      "feature": "deployment_event_flag",
+      "kpi": "support_ticket_count",
+      "mean_abs_attribution": 0,
+      "model_name": "xgboost",
+      "rank": 27
+    }
+  ]
+}
