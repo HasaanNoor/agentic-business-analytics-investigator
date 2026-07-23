@@ -48,24 +48,29 @@ describe('static mode UI behavior', () => {
   it('shows a visible static demo notice', async () => {
     renderWithMemoryRouter(<App />, '/');
     expect(screen.getByLabelText(/static portfolio demo notice/i)).toHaveTextContent('Pre-generated sample dataset');
-    expect(await screen.findByText('Deployment')).toBeInTheDocument();
+    expect(await screen.findByText('System readiness')).toBeInTheDocument();
   });
 
-  it('shows portfolio-oriented overview status cards instead of infrastructure status', async () => {
+  it('shows compact portfolio-oriented overview status cards instead of unavailable infrastructure status', async () => {
     renderWithMemoryRouter(<App />, '/');
 
-    expect(await screen.findByText('Deployment')).toBeInTheDocument();
-    expect(screen.getByText('GitHub Pages Demo')).toBeInTheDocument();
-    expect(screen.getByText('Data Source')).toBeInTheDocument();
-    expect(screen.getByText('Pre-generated Dataset')).toBeInTheDocument();
-    expect(screen.getByText('Backend')).toBeInTheDocument();
-    expect(screen.getByText('Local FastAPI Supported')).toBeInTheDocument();
-    expect(screen.getByText('Investigation Mode')).toBeInTheDocument();
-    expect(screen.getByText('Deterministic Replay')).toBeInTheDocument();
+    expect(await screen.findByText('System readiness')).toBeInTheDocument();
+    expect(screen.getByText('ready')).toBeInTheDocument();
+    expect(screen.getByText('Portfolio demo ready for use.')).toBeInTheDocument();
+    expect(screen.getByText('Deployment mode')).toBeInTheDocument();
+    expect(screen.getByText('GitHub Pages')).toBeInTheDocument();
+    expect(screen.getByText('Running from a versioned static demonstration dataset.')).toBeInTheDocument();
+    expect(screen.getByText('Backend support')).toBeInTheDocument();
+    expect(screen.getByText('supported')).toBeInTheDocument();
+    expect(screen.getByText('The full backend is available through the local Docker deployment.')).toBeInTheDocument();
+    expect(screen.getByText('Investigation mode')).toBeInTheDocument();
+    expect(screen.getByText('deterministic')).toBeInTheDocument();
+    expect(screen.getByText('Displaying stored investigation results.')).toBeInTheDocument();
 
     expect(screen.queryByText('Database availability')).not.toBeInTheDocument();
     expect(screen.queryByText('Database is not configured.')).not.toBeInTheDocument();
     expect(screen.queryByText('File fallback')).not.toBeInTheDocument();
+    expect(screen.queryByText('GitHub Pages Demo')).not.toBeInTheDocument();
   });
 
   it('does not introduce FastAPI requests while rendering static mode', async () => {
@@ -73,7 +78,7 @@ describe('static mode UI behavior', () => {
 
     renderWithMemoryRouter(<App />, '/');
 
-    expect(await screen.findByText('Deployment')).toBeInTheDocument();
+    expect(await screen.findByText('System readiness')).toBeInTheDocument();
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 

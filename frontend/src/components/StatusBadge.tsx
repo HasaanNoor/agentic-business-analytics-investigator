@@ -6,7 +6,7 @@ interface StatusBadgeProps {
 function inferTone(value?: string | boolean | null): StatusBadgeProps['tone'] {
   if (typeof value === 'boolean') return value ? 'success' : 'warning';
   const normalized = String(value || '').toLowerCase();
-  if (['ready', 'ok', 'available', 'configured', 'enabled', 'success', 'false'].includes(normalized)) return 'success';
+  if (['ready', 'ok', 'available', 'configured', 'enabled', 'success', 'supported', 'false'].includes(normalized)) return 'success';
   if (['critical', 'high', 'degraded', 'unavailable', 'error', 'true'].includes(normalized)) return 'danger';
   if (['medium', 'fallback', 'deterministic', 'low'].includes(normalized)) return 'warning';
   return 'neutral';

@@ -21,24 +21,24 @@ function getOverviewStatusCards(health: HealthResponse) {
   if (isStaticDataMode) {
     return [
       {
-        title: 'Deployment',
-        value: 'GitHub Pages Demo',
-        detail: 'Running as a static portfolio deployment.',
+        title: 'System readiness',
+        value: <StatusBadge value="ready" />,
+        detail: 'Portfolio demo ready for use.',
       },
       {
-        title: 'Data Source',
-        value: 'Pre-generated Dataset',
-        detail: 'Displaying versioned demonstration analytics data.',
+        title: 'Deployment mode',
+        value: <StatusBadge value="GitHub Pages" />,
+        detail: 'Running from a versioned static demonstration dataset.',
       },
       {
-        title: 'Backend',
-        value: 'Local FastAPI Supported',
+        title: 'Backend support',
+        value: <StatusBadge value="supported" />,
         detail: 'The full backend is available through the local Docker deployment.',
       },
       {
-        title: 'Investigation Mode',
-        value: 'Deterministic Replay',
-        detail: 'Displaying stored investigation results without live execution.',
+        title: 'Investigation mode',
+        value: <StatusBadge value="deterministic" />,
+        detail: 'Displaying stored investigation results.',
       },
     ];
   }
