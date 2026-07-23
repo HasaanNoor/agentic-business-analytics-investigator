@@ -50,6 +50,19 @@ describe('dashboard pages', () => {
     expect(screen.getByText('Recent high-severity incidents')).toBeInTheDocument();
   });
 
+  it('keeps the API-mode live infrastructure overview cards', async () => {
+    renderWithMemoryRouter(<App />, '/');
+
+    expect(await screen.findByText('System readiness')).toBeInTheDocument();
+    expect(screen.getByText('API reports ready for use.')).toBeInTheDocument();
+    expect(screen.getByText('Database availability')).toBeInTheDocument();
+    expect(screen.getByText('PostgreSQL is configured.')).toBeInTheDocument();
+    expect(screen.getByText('File fallback')).toBeInTheDocument();
+    expect(screen.getByText('0 missing output file(s).')).toBeInTheDocument();
+    expect(screen.getByText('LLM mode')).toBeInTheDocument();
+    expect(screen.getByText('Deterministic mode available.')).toBeInTheDocument();
+  });
+
   it('shows page error states with retry', async () => {
     vi.mocked(dataProvider.getKpis).mockRejectedValueOnce(new Error('The analytics API is currently unavailable. Confirm that the Docker stack or local FastAPI server is running.'));
     renderWithMemoryRouter(<App />, '/kpis');

@@ -17,6 +17,56 @@ interface OverviewData {
   forecasts: ForecastsResponse;
 }
 
+function getOverviewStatusCards(health: HealthResponse) {
+  if (isStaticDataMode) {
+    return [
+      {
+        title: 'Deployment',
+        value: 'GitHub Pages Demo',
+        detail: 'Running as a static portfolio deployment.',
+      },
+      {
+        title: 'Data Source',
+        value: 'Pre-generated Dataset',
+        detail: 'Displaying versioned demonstration analytics data.',
+      },
+      {
+        title: 'Backend',
+        value: 'Local FastAPI Supported',
+        detail: 'The full backend is available through the local Docker deployment.',
+      },
+      {
+        title: 'Investigation Mode',
+        value: 'Deterministic Replay',
+        detail: 'Displaying stored investigation results without live execution.',
+      },
+    ];
+  }
+
+  return [
+    {
+      title: 'System readiness',
+      value: <StatusBadge value={health.status} />,
+      detail: health.ready ? 'API reports ready for use.' : 'API reports degraded output availability.',
+    },
+    {
+      title: 'Database availability',
+      value: <StatusBadge value={health.database.available} />,
+      detail: health.database.configured ? 'PostgreSQL is configured.' : 'Database is not configured.',
+    },
+    {
+      title: 'File fallback',
+      value: <StatusBadge value={health.file_fallback.available} />,
+      detail: `${health.file_fallback.missing_outputs.length} missing output file(s).`,
+    },
+    {
+      title: 'LLM mode',
+      value: <StatusBadge value={health.llm.agent_mode} />,
+      detail: health.llm.enabled ? health.llm.selected_model || 'Model not selected' : 'Deterministic mode available.',
+    },
+  ];
+}
+
 export function OverviewPage() {
   const { data, error, loading, retry } = useAsyncData<OverviewData>(async () => {
     const [health, kpis, incidents, forecasts] = await Promise.all([dataProvider.getHealth(), dataProvider.getKpis(45), dataProvider.getIncidents(), dataProvider.getForecasts()]);
@@ -33,6 +83,7 @@ export function OverviewPage() {
     .slice(-5)
     .reverse();
   const forecastKpis = Array.from(new Set(data.forecasts.rows.map((row) => row.kpi))).slice(0, 3);
+  const statusCards = getOverviewStatusCards(data.health);
 
   return (
     <div className="space-y-6">
@@ -45,10 +96,9 @@ export function OverviewPage() {
         }
       />
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <SummaryCard title="System readiness" value={<StatusBadge value={data.health.status} />} detail={data.health.ready ? 'API reports ready for use.' : 'API reports degraded output availability.'} />
-        <SummaryCard title="Database availability" value={<StatusBadge value={data.health.database.available} />} detail={data.health.database.configured ? 'PostgreSQL is configured.' : 'Database is not configured.'} />
-        <SummaryCard title="File fallback" value={<StatusBadge value={data.health.file_fallback.available} />} detail={`${data.health.file_fallback.missing_outputs.length} missing output file(s).`} />
-        <SummaryCard title="LLM mode" value={<StatusBadge value={data.health.llm.agent_mode} />} detail={data.health.llm.enabled ? data.health.llm.selected_model || 'Model not selected' : 'Deterministic mode available.'} />
+        {statusCards.map((card) => (
+          <SummaryCard key={card.title} title={card.title} value={card.value} detail={card.detail} />
+        ))}
       </section>
 
       {latest ? (

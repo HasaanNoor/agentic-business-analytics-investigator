@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../App';
 import { dataProvider } from '../data/provider';
 import { renderWithMemoryRouter } from '../test/render';
@@ -41,10 +41,40 @@ describe('static mode UI behavior', () => {
     });
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('shows a visible static demo notice', async () => {
     renderWithMemoryRouter(<App />, '/');
     expect(screen.getByLabelText(/static portfolio demo notice/i)).toHaveTextContent('Pre-generated sample dataset');
-    expect(await screen.findByText('System readiness')).toBeInTheDocument();
+    expect(await screen.findByText('Deployment')).toBeInTheDocument();
+  });
+
+  it('shows portfolio-oriented overview status cards instead of infrastructure status', async () => {
+    renderWithMemoryRouter(<App />, '/');
+
+    expect(await screen.findByText('Deployment')).toBeInTheDocument();
+    expect(screen.getByText('GitHub Pages Demo')).toBeInTheDocument();
+    expect(screen.getByText('Data Source')).toBeInTheDocument();
+    expect(screen.getByText('Pre-generated Dataset')).toBeInTheDocument();
+    expect(screen.getByText('Backend')).toBeInTheDocument();
+    expect(screen.getByText('Local FastAPI Supported')).toBeInTheDocument();
+    expect(screen.getByText('Investigation Mode')).toBeInTheDocument();
+    expect(screen.getByText('Deterministic Replay')).toBeInTheDocument();
+
+    expect(screen.queryByText('Database availability')).not.toBeInTheDocument();
+    expect(screen.queryByText('Database is not configured.')).not.toBeInTheDocument();
+    expect(screen.queryByText('File fallback')).not.toBeInTheDocument();
+  });
+
+  it('does not introduce FastAPI requests while rendering static mode', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+
+    renderWithMemoryRouter(<App />, '/');
+
+    expect(await screen.findByText('Deployment')).toBeInTheDocument();
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it('uses a truthful replay action for historical search', async () => {
