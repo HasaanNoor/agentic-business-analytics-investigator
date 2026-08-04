@@ -10,6 +10,10 @@ It creates business data, checks that the data is usable, tracks important metri
 
 The project is built in stages. Most stages are deterministic, which means they use fixed Python rules and reproducible data instead of asking an LLM to reason about the business. This makes the system easier to test before adding more advanced AI behavior.
 
+## Architecture Decisions
+
+Concise Architecture Decision Records document the main tradeoffs behind the current implementation. See [docs/architecture/README.md](docs/architecture/README.md).
+
 ## Repository Structure
 
 ```text
